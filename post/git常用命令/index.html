@@ -4,18 +4,20 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>Hello World | migle.me</title>
+    <title>git常用命令 | migle.me</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
     
     <meta name="author" content="migle">
     
-    <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation to learn how to use.">
+    <meta name="description" content="git常用命令
+配置
+git config -l  #列举所有配置git config --get user.name #查看单个参数git config --global user.name &amp;quot;migle&amp;quot;git config --global user.email &amp;quot">
     
     
     
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:site" content="iammigle" />
-    <meta name="twitter:title" content="Hello World | migle.me" />
+    <meta name="twitter:title" content="git常用命令 | migle.me" />
       
     
     
@@ -75,15 +77,15 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2014/05/12/hello-world/" title="Hello World" itemprop="url">Hello World</a>
+      <a href="/post/git常用命令/" title="git常用命令" itemprop="url">git常用命令</a>
   </h1>
   <p class="article-author">By
     
       <a href="https://plus.google.com/100499485361267920799?rel=author" title="migle" target="_blank" itemprop="author">migle</a>
     </p>
   <p class="article-time">
-    <time datetime="2014-05-12T02:25:50.000Z" itemprop="datePublished">5月 12 2014</time>
-    更新日期:<time datetime="2014-05-12T02:25:50.000Z" itemprop="dateModified">5月 12 2014</time>
+    <time datetime="2014-05-12T06:55:07.000Z" itemprop="datePublished">5月 12 2014</time>
+    更新日期:<time datetime="2014-05-12T06:56:26.000Z" itemprop="dateModified">5月 12 2014</time>
     
   </p>
 </header>
@@ -92,14 +94,49 @@
 		
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
-		
+		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#git常用命令"><span class="toc-number">1.</span> <span class="toc-text">git常用命令</span></a></li><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#配置"><span class="toc-number">1.1.</span> <span class="toc-text">配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#远程"><span class="toc-number">1.2.</span> <span class="toc-text">远程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#分支"><span class="toc-number">1.3.</span> <span class="toc-text">分支</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#diff"><span class="toc-number">1.4.</span> <span class="toc-text">diff</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#合并"><span class="toc-number">1.5.</span> <span class="toc-text">合并</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#回退"><span class="toc-number">1.6.</span> <span class="toc-text">回退</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#其它"><span class="toc-number">1.7.</span> <span class="toc-text">其它</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#日志"><span class="toc-number">1.8.</span> <span class="toc-text">日志</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#基本概念"><span class="toc-number">1.9.</span> <span class="toc-text">基本概念</span></a></li></ol>
 		</div>
 		
-		<p>Welcome to <a href="http://hexo.io" target="_blank">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs" target="_blank">documentation</a> to learn how to use.</p>
+		<h1 id="git常用命令">git常用命令</h1>
+<h2 id="配置">配置</h2>
+<p><code>git config -l</code>  #列举所有配置<br><code>git config --get user.name</code> #查看单个参数<br><code>git config --global user.name &quot;migle&quot;</code><br><code>git config --global user.email &quot;longforfreedom+github@gmail.com&quot;</code><br><code>git config --global core.quotepath false</code> #要不中文文件名都是数据编码,ore.quotepath设为false的话，就不会对0×80以上的字符进行quote。中文显示正常 。   </p>
+<p><strong>别名</strong><br><code>git config --global alias.co checkout</code><br><code>git config --global alias.ci commit</code><br><code>git config --global alias.st status</code><br><code>git config --global alias.br branch</code>    </p>
+<h2 id="远程">远程</h2>
+<p><em>可以是本机的其它目录，或git、ssh、https等协议</em><br>检出仓库：<code>git clone git://github.com/jquery/jquery.git</code><br>查看远程仓库：<code>git remote -v</code><br>查看远程服务器仓库状态:<code>git remote show origin</code><br>添加远程仓库：<code>git remote add [name] [url]</code><br>删除远程仓库：<code>git remote rm [name]</code><br>修改远程仓库地址：<code>git remote set-url --push[name][newUrl]</code><br>git remote set-url origin  <a href="https://longforfreedom@github.com/longforfreedom/m-note.git" target="_blank">https://longforfreedom@github.com/longforfreedom/m-note.git</a><br>拉取远程仓库：<code>git pull [remoteName] [localBranchName]</code><br>推送远程仓库：<code>git push [remoteName] [localBranchName]</code>  </p>
+<blockquote>
+<blockquote>
+<p><code>git pull  url</code>   #它从远程分支(remote branch)抓取修改的内容，然后把它合并进当前的分支，不同的仓库也能合并，确实不错</p>
+</blockquote>
+</blockquote>
+<p><code>git remote add origin https://github.com/longforfreedom/m-note.git</code>         # 添加远程仓库地址，相当于一个别名<br>执行git fetch origin 的时候只抓取不合并，会有一个origin/master分支生成然后，再merge      </p>
+<p><code>git remote set-url origin https://github.com/miadaner/miadaner.git</code> # 设置远程仓库地址(用于修改远程仓库地址)      </p>
+<p><code>git push origin master</code>           #将本地主分支推到远程主分支<br><code>git push -u origin master</code>        #将本地主分支推到远程(如无远程主分支则创建，用于初始化远程仓库)  </p>
+<h2 id="分支">分支</h2>
+<p><code>git branch</code>   #列出当前本地所有分支<br><code>git branch -a</code> #列出当前本地及远程所有分支<br><code>git branch --no-merged</code> #查看没有合并的分支<br><code>git branch branhname</code>  #创建本地分支，直接使用<code>git push</code>时不会推送到远程<br><code>git checkout -b 分支名</code> #创建新分支并立即切换到新分支<br><code>git merge 分支名</code>  #合并到当前分支 ，如有冲突的话，会报错，需要手工处理完成后commit,再push远程<br><code>git push origin 分支名</code>   #推送本地分支到远程仓库<br><code>git push origin --delete 分支名</code> #删除远程分支<br><code>git branch -d branhname</code>  #删除本地分支，如果是没有合并的分支，用-D删除<br>“.git/HEAD”这个文件里保存的是我们当前在哪个分支上工作的信息。  </p>
+<h2 id="diff">diff</h2>
+<h2 id="合并">合并</h2>
+<h2 id="回退">回退</h2>
+<h2 id="其它">其它</h2>
+<p>在Ubuntu13.10中bash可以自动补全git命令，但在CentOS6.4中发现不行，发现/etc/bash_completion.d/git 但是没有加载<br>试着执行一下 <code>source /etc/bash_completion.d/git</code> 然后发现可以自动补全Git命令，所以可以把这一加在自己的<em>.bashrc</em>文件中或直接在<em>/etc/bashrc</em>中添加以下  </p>
+<pre><code>    <span class="keyword">for</span> file <span class="keyword">in</span> /etc/bash_completion.d/* ; <span class="keyword">do</span>
+            <span class="built_in">source</span> <span class="string">"<span class="variable">$file</span>"</span> 
+    <span class="keyword">done</span>
+</code></pre><h2 id="日志">日志</h2>
+<h2 id="基本概念">基本概念</h2>
   
 	</div>
 		<footer class="article-footer clearfix">
 
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/git/">git</a>
+  </div>
+
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/工具/">工具</a>
+</div>
 
 
 
@@ -134,18 +171,18 @@
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2014/05/12/markdown笔记/" title="Markdown笔记">
+ <a href="/post/hadoop环境搭建笔记/" title="hadoop环境搭建笔记">
   <strong>PREVIOUS:</strong><br/>
   <span>
-  Markdown笔记</span>
+  hadoop环境搭建笔记</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/2014/01/07/db2笔记/"  title="DB2笔记">
+<a href="/post/cdh5伪分布式环境搭建/"  title="CDH5伪分布式环境搭建">
  <strong>NEXT:</strong><br/> 
- <span>DB2笔记
+ <span>CDH5伪分布式环境搭建
 </span>
 </a>
 </div>
@@ -162,7 +199,7 @@
 
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
-  
+  <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#git常用命令"><span class="toc-number">1.</span> <span class="toc-text">git常用命令</span></a></li><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#配置"><span class="toc-number">1.1.</span> <span class="toc-text">配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#远程"><span class="toc-number">1.2.</span> <span class="toc-text">远程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#分支"><span class="toc-number">1.3.</span> <span class="toc-text">分支</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#diff"><span class="toc-number">1.4.</span> <span class="toc-text">diff</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#合并"><span class="toc-number">1.5.</span> <span class="toc-text">合并</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#回退"><span class="toc-number">1.6.</span> <span class="toc-text">回退</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#其它"><span class="toc-number">1.7.</span> <span class="toc-text">其它</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#日志"><span class="toc-number">1.8.</span> <span class="toc-text">日志</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#基本概念"><span class="toc-number">1.9.</span> <span class="toc-text">基本概念</span></a></li></ol>
   </div>
 
 <div id="asidepart">

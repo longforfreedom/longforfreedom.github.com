@@ -4,20 +4,30 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>git常用命令 | migle.me</title>
+    <title>hadoop环境搭建笔记 | migle.me</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
     
     <meta name="author" content="migle">
     
-    <meta name="description" content="git常用命令
-配置
-git config -l  #列举所有配置git config --get user.name #查看单个参数git config --global user.name &amp;quot;migle&amp;quot;git config --global user.email &amp;quot">
+    <meta name="description" content="环境
+硬件环境：
+  共有如下四台机器,网络互通
+
+135.191.27.175  
+135.191.27.176  
+135.191.27.161 
+135.191.27.156   
+
+175为NameNode，其余三台机器为DataNode  
+
+
+为行文方便,涉及到相关机器IP的时候只写最后">
     
     
     
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:site" content="iammigle" />
-    <meta name="twitter:title" content="git常用命令 | migle.me" />
+    <meta name="twitter:title" content="hadoop环境搭建笔记 | migle.me" />
       
     
     
@@ -77,15 +87,15 @@ git config -l  #列举所有配置git config --get user.name #查看单个参数
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2014/05/12/git常用命令/" title="git常用命令" itemprop="url">git常用命令</a>
+      <a href="/post/hadoop环境搭建笔记/" title="hadoop环境搭建笔记" itemprop="url">hadoop环境搭建笔记</a>
   </h1>
   <p class="article-author">By
     
       <a href="https://plus.google.com/100499485361267920799?rel=author" title="migle" target="_blank" itemprop="author">migle</a>
     </p>
   <p class="article-time">
-    <time datetime="2014-05-12T06:55:07.000Z" itemprop="datePublished">5月 12 2014</time>
-    更新日期:<time datetime="2014-05-12T06:56:26.000Z" itemprop="dateModified">5月 12 2014</time>
+    <time datetime="2014-05-12T06:57:34.000Z" itemprop="datePublished">5月 12 2014</time>
+    更新日期:<time datetime="2014-05-12T07:06:34.000Z" itemprop="dateModified">5月 12 2014</time>
     
   </p>
 </header>
@@ -94,48 +104,103 @@ git config -l  #列举所有配置git config --get user.name #查看单个参数
 		
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
-		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#git常用命令"><span class="toc-number">1.</span> <span class="toc-text">git常用命令</span></a></li><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#配置"><span class="toc-number">1.1.</span> <span class="toc-text">配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#远程"><span class="toc-number">1.2.</span> <span class="toc-text">远程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#分支"><span class="toc-number">1.3.</span> <span class="toc-text">分支</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#diff"><span class="toc-number">1.4.</span> <span class="toc-text">diff</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#合并"><span class="toc-number">1.5.</span> <span class="toc-text">合并</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#回退"><span class="toc-number">1.6.</span> <span class="toc-text">回退</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#其它"><span class="toc-number">1.7.</span> <span class="toc-text">其它</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#日志"><span class="toc-number">1.8.</span> <span class="toc-text">日志</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#基本概念"><span class="toc-number">1.9.</span> <span class="toc-text">基本概念</span></a></li></ol>
+		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#环境"><span class="toc-number">1.</span> <span class="toc-text">环境</span></a></li><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#硬件环境："><span class="toc-number">1.1.</span> <span class="toc-text">硬件环境：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#软件环境："><span class="toc-number">1.2.</span> <span class="toc-text">软件环境：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#启动"><span class="toc-number">1.3.</span> <span class="toc-text">启动</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#测试"><span class="toc-number">1.4.</span> <span class="toc-text">测试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#其它"><span class="toc-number">1.5.</span> <span class="toc-text">其它</span></a></li></ol>
 		</div>
 		
-		<h1 id="git常用命令">git常用命令</h1>
-<h2 id="配置">配置</h2>
-<p><code>git config -l</code>  #列举所有配置<br><code>git config --get user.name</code> #查看单个参数<br><code>git config --global user.name &quot;migle&quot;</code><br><code>git config --global user.email &quot;longforfreedom+github@gmail.com&quot;</code><br><code>git config --global core.quotepath false</code> #要不中文文件名都是数据编码,ore.quotepath设为false的话，就不会对0×80以上的字符进行quote。中文显示正常 。   </p>
-<p><strong>别名</strong><br><code>git config --global alias.co checkout</code><br><code>git config --global alias.ci commit</code><br><code>git config --global alias.st status</code><br><code>git config --global alias.br branch</code>    </p>
-<h2 id="远程">远程</h2>
-<p><em>可以是本机的其它目录，或git、ssh、https等协议</em><br>检出仓库：<code>git clone git://github.com/jquery/jquery.git</code><br>查看远程仓库：<code>git remote -v</code><br>查看远程服务器仓库状态:<code>git remote show origin</code><br>添加远程仓库：<code>git remote add [name] [url]</code><br>删除远程仓库：<code>git remote rm [name]</code><br>修改远程仓库地址：<code>git remote set-url --push[name][newUrl]</code><br>git remote set-url origin  <a href="https://longforfreedom@github.com/longforfreedom/m-note.git" target="_blank">https://longforfreedom@github.com/longforfreedom/m-note.git</a><br>拉取远程仓库：<code>git pull [remoteName] [localBranchName]</code><br>推送远程仓库：<code>git push [remoteName] [localBranchName]</code>  </p>
+		<h1 id="环境">环境</h1>
+<h2 id="硬件环境：">硬件环境：</h2>
+<p>  共有如下四台机器,网络互通</p>
+<ol>
+<li>135.191.27.175  </li>
+<li>135.191.27.176  </li>
+<li>135.191.27.161 </li>
+<li>135.191.27.156   </li>
+</ol>
+<p>175为NameNode，其余三台机器为DataNode  </p>
 <blockquote>
 <blockquote>
-<p><code>git pull  url</code>   #它从远程分支(remote branch)抓取修改的内容，然后把它合并进当前的分支，不同的仓库也能合并，确实不错</p>
+<p><em>为行文方便,涉及到相关机器IP的时候只写最后一个IP段</em> </p>
 </blockquote>
 </blockquote>
-<p><code>git remote add origin https://github.com/longforfreedom/m-note.git</code>         # 添加远程仓库地址，相当于一个别名<br>执行git fetch origin 的时候只抓取不合并，会有一个origin/master分支生成然后，再merge      </p>
-<p><code>git remote set-url origin https://github.com/miadaner/miadaner.git</code> # 设置远程仓库地址(用于修改远程仓库地址)      </p>
-<p><code>git push origin master</code>           #将本地主分支推到远程主分支<br><code>git push -u origin master</code>        #将本地主分支推到远程(如无远程主分支则创建，用于初始化远程仓库)  </p>
-<h2 id="分支">分支</h2>
-<p><code>git branch</code>   #列出当前本地所有分支<br><code>git branch -a</code> #列出当前本地及远程所有分支<br><code>git branch --no-merged</code> #查看没有合并的分支<br><code>git branch branhname</code>  #创建本地分支，直接使用<code>git push</code>时不会推送到远程<br><code>git checkout -b 分支名</code> #创建新分支并立即切换到新分支<br><code>git merge 分支名</code>  #合并到当前分支 ，如有冲突的话，会报错，需要手工处理完成后commit,再push远程<br><code>git push origin 分支名</code>   #推送本地分支到远程仓库<br><code>git push origin --delete 分支名</code> #删除远程分支<br><code>git branch -d branhname</code>  #删除本地分支，如果是没有合并的分支，用-D删除<br>“.git/HEAD”这个文件里保存的是我们当前在哪个分支上工作的信息。  </p>
-<h2 id="diff">diff</h2>
-<h2 id="合并">合并</h2>
-<h2 id="回退">回退</h2>
+<h2 id="软件环境：">软件环境：</h2>
+<ol>
+<li>操作系统: Linux</li>
+<li>必备软件: ssh/ Oracle JDK1.6</li>
+</ol>
+<blockquote>
+<blockquote>
+<p>SSH一般发行版都自带了，JDK大多数系统带的都是Open JDK  </p>
+</blockquote>
+</blockquote>
+<ol>
+<li><p>用户创建各机器上分别执行<br> 创建HADOOP用户组<code>groupadd hadoop</code><br> 创建用户：<code>adduser hadoop -g hadoop --password ha_12QW</code></p>
+</li>
+<li><p>SSH免密码登陆配置<br> 用新hadoop账号登录<br> 生成密钥： ssh-keygen -t rsa<br> 在175上合并：<br> scp hadoop@135.191.27.156:/home/hadoop/.ssh/id_rsa.pub ./a.pub<br> scp hadoop@135.191.27.161:/home/hadoop/.ssh/id_rsa.pub ./b.pub<br> scp hadoop@135.191.27.176:/home/hadoop/.ssh/id_rsa.pub ./c.pub<br> cat id_rsa.pub &gt;&gt; authorized_keys<br> cat ./a.pub &gt;&gt; authorized_keys<br> cat ./b.pub &gt;&gt; authorized_keys<br> cat ./c.pub &gt;&gt; authorized_keys</p>
+</li>
+</ol>
+<p>复制到其它机器上</p>
+<p>scp authorized_keys  135.191.27.176:/home/hadoop/.ssh/<br>scp authorized_keys  135.191.27.161:/home/hadoop/.ssh/<br>scp authorized_keys  135.191.27.156:/home/hadoop/.ssh/ </p>
+<p><strong>有可能这需要修改一相以下两个文件的权限：</strong><br>chmod 700 /home/hadoop/.ssh/<br>chmod 600 /home/hadoop/.ssh/authorized_keys</p>
+<p>测试：<br>    各个机器都交互测试一下<br>    ssh 135.191.27.156  不要密码直接登陆，证明配置成功</p>
+<ol>
+<li><p>host配置<br> 用ROOT在一台机器上设置好，然后scp到其它机器 </p>
+</li>
+<li><p>Hadoop配置<br> 所有机器上：<br> mkdir /opt/hadoop<br> chown -R hadoop:hadoop /opt/hadoop/<br> mkdir /vgopbak/hadoop<br> chown -R hadoop:hadoop /vgopbak/hadoop </p>
+</li>
+</ol>
+<p>用hadoop用户做以下操作：<br>mkdir /vgopbak/hadoop/namedir </p>
+<p>其它机器：<br>mkdir /vgopbak/hadoop/datadir   </p>
+<p> <strong>175和176共的/vgopbak上当是共享存储，所以在176上创建为/vgopbak/hadoop2/，否则目录权限会有问题</strong> </p>
+<p>在175上配置好，复制到其它机器<br><strong>conf/core-site.xml</strong></p>
+<configuration><br><property><br>        <name>fs.defaultFS</name><br>        <value>hdfs://135.191.27.175:9999</value><br></property><br></configuration>
+
+
+<p><strong>conf/hdfs-site.xml</strong></p>
+<configuration><br><!--NameNode--><br><property><br>        <name>dfs.namenode.name.dir</name><br>        <value>/vgopbak/hadoop/namedir</value><br></property><br><!--DataNode--><br><br><!--在176上，这个值应该改成/vgopbak/hadoop2/datadir--><br><property><br>        <name>dfs.datanode.data.dir</name><br>        <value>/vgopbak/hadoop/datadir</value><br></property><br><br></configuration>
+
+
+<p><strong>conf/yarn-site.xml</strong></p>
+<configuration><br><br><!-- Site specific YARN configuration properties --><br><property><br>        <name>yarn.resourcemanager.address</name><br>        <value>135.191.27.175:8032</value><br></property><br><property><br>        <name>yarn.resourcemanager.scheduler.address</name><br>        <value>135.191.27.175:8030</value><br></property><br><br><property><br>        <name>yarn.resourcemanager.resource-tracker.address</name><br>        <value>135.191.27.175:8031</value><br></property><br><br><property><br>        <name>yarn.resourcemanager.admin.address</name><br>        <value>135.191.27.175:8033</value><br></property><br><br><property><br>        <name>yarn.resourcemanager.webapp.address</name><br>        <value>135.191.27.175:8088</value><br></property><br></configuration>
+
+
+<p><strong>conf/mapred-site.xml</strong><br>暂不添加</p>
+<p><strong>conf/slaves</strong><br>35.191.27.156<br>135.191.27.161<br>135.191.27.176</p>
+<p>分发至其它节点<br>scp -r hadoop-2.2.0   135.191.27.161:/opt/hadoop/<br>scp -r hadoop-2.2.0   135.191.27.176:/opt/hadoop/<br>scp -r hadoop-2.2.0   135.191.27.156:/opt/hadoop/</p>
+<h2 id="启动">启动</h2>
+<p>格式化：bin/hdfs namenode -format</p>
+<blockquote>
+<blockquote>
+<p>格式化成功后在/vgopbak/hadoop/namedir下面会有文件生成</p>
+</blockquote>
+</blockquote>
+<p>启动：<br>sbin/start-dfs.sh<br>sbin/start-yarn.sh </p>
+<p>可以用jps命令查看下，如果没东西，就需要看日志分析原因了</p>
+<p><a href="http://135.191.27.175:8088" target="_blank">http://135.191.27.175:8088</a><br><a href="http://135.191.27.175:50070" target="_blank">http://135.191.27.175:50070</a></p>
+<h2 id="测试">测试</h2>
+<p>以下可以集群某一台机器上执行，也可以在客户端上执行</p>
+<p>创建目录：</p>
+<p>bin/hadoop fs -mkdir /qhbi</p>
+<p>从DB2导出来些数据<br>db2 “export to gprs_ticket_20140420.dat of del select bigint(timeid),bigint(serv_id),bigint(DURATION), bigint(DATA_UP1), bigint(DATA_DOWN1), bigint(DURATION1),recordextension_new,bill_item from nwh.gprs_ticket_20140420 with ur”</p>
+<p>put到HDFS中</p>
+<p>bin/hadoop fs -put /vgopbak/gprs_ticket_20140420.dat   /qhbi</p>
+<p>写代码，打包，<br>略</p>
+<p>求时长<br>bin/hadoop jar StudyHadoop-1.0.jar  me.migle.mr.SumGPRSDuration /qhbi/gprs_ticket_20140420.dat  /qhbi/output_sum/<br>在<a href="http://135.191.27.175:50070中查看结果，" target="_blank">http://135.191.27.175:50070中查看结果，</a><br>导到结果输出目录上查看结果</p>
+<p>拆分<br>bin/hadoop jar StudyHadoop-1.0.jar me.migle.mr.SplitBillItem /qhbi/gprs_ticket_20140420.dat   /qhbi/output_gprs/spliit/<br>在文件系统中查看结果</p>
 <h2 id="其它">其它</h2>
-<p>在Ubuntu13.10中bash可以自动补全git命令，但在CentOS6.4中发现不行，发现/etc/bash_completion.d/git 但是没有加载<br>试着执行一下 <code>source /etc/bash_completion.d/git</code> 然后发现可以自动补全Git命令，所以可以把这一加在自己的<em>.bashrc</em>文件中或直接在<em>/etc/bashrc</em>中添加以下  </p>
-<pre><code>    <span class="keyword">for</span> file <span class="keyword">in</span> /etc/bash_completion.d/* ; <span class="keyword">do</span>
-            <span class="built_in">source</span> <span class="string">"<span class="variable">$file</span>"</span> 
-    <span class="keyword">done</span>
-</code></pre><h2 id="日志">日志</h2>
-<h2 id="基本概念">基本概念</h2>
+<p>为方便起见可以将HADOOP的bin/ sbin/目录加入PATH</p>
   
 	</div>
 		<footer class="article-footer clearfix">
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/git/">git</a>
+  <span></span> <a href="/tags/Hadoop/">Hadoop</a>
   </div>
 
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/工具/">工具</a>
+  <a class="article-category-link" href="/categories/Hadoop/">Hadoop</a>
 </div>
 
 
@@ -170,19 +235,11 @@ git config -l  #列举所有配置git config --get user.name #查看单个参数
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2014/05/12/hadoop环境搭建笔记/" title="hadoop环境搭建笔记">
-  <strong>PREVIOUS:</strong><br/>
-  <span>
-  hadoop环境搭建笔记</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2014/05/12/cdh5伪分布式环境搭建/"  title="CDH5伪分布式环境搭建">
+<a href="/post/git常用命令/"  title="git常用命令">
  <strong>NEXT:</strong><br/> 
- <span>CDH5伪分布式环境搭建
+ <span>git常用命令
 </span>
 </a>
 </div>
@@ -199,7 +256,7 @@ git config -l  #列举所有配置git config --get user.name #查看单个参数
 
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
-  <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#git常用命令"><span class="toc-number">1.</span> <span class="toc-text">git常用命令</span></a></li><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#配置"><span class="toc-number">1.1.</span> <span class="toc-text">配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#远程"><span class="toc-number">1.2.</span> <span class="toc-text">远程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#分支"><span class="toc-number">1.3.</span> <span class="toc-text">分支</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#diff"><span class="toc-number">1.4.</span> <span class="toc-text">diff</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#合并"><span class="toc-number">1.5.</span> <span class="toc-text">合并</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#回退"><span class="toc-number">1.6.</span> <span class="toc-text">回退</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#其它"><span class="toc-number">1.7.</span> <span class="toc-text">其它</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#日志"><span class="toc-number">1.8.</span> <span class="toc-text">日志</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#基本概念"><span class="toc-number">1.9.</span> <span class="toc-text">基本概念</span></a></li></ol>
+  <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#环境"><span class="toc-number">1.</span> <span class="toc-text">环境</span></a></li><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#硬件环境："><span class="toc-number">1.1.</span> <span class="toc-text">硬件环境：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#软件环境："><span class="toc-number">1.2.</span> <span class="toc-text">软件环境：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#启动"><span class="toc-number">1.3.</span> <span class="toc-text">启动</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#测试"><span class="toc-number">1.4.</span> <span class="toc-text">测试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#其它"><span class="toc-number">1.5.</span> <span class="toc-text">其它</span></a></li></ol>
   </div>
 
 <div id="asidepart">
