@@ -4,7 +4,7 @@
   <subtitle><![CDATA[一路走来，一路唱]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://www.migle.me/"/>
-  <updated>2014-05-13T02:19:53.282Z</updated>
+  <updated>2014-05-13T02:30:02.768Z</updated>
   <id>http://www.migle.me/</id>
   
   <author>
@@ -15,139 +15,14 @@
   <generator uri="http://zespia.tw/hexo/">Hexo</generator>
   
   <entry>
-    <title><![CDATA[hadoop环境搭建笔记]]></title>
-    <link href="http://www.migle.me/post/hadoop%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E7%AC%94%E8%AE%B0/"/>
-    <id>http://www.migle.me/post/hadoop环境搭建笔记/</id>
-    <published>2014-05-12T06:57:34.000Z</published>
-    <updated>2014-05-12T07:06:34.000Z</updated>
-    <content type="html"><![CDATA[<h1 id="环境">环境</h1>
-<h2 id="硬件环境：">硬件环境：</h2>
-<p>  共有如下四台机器,网络互通</p>
-<ol>
-<li>135.191.27.175  </li>
-<li>135.191.27.176  </li>
-<li>135.191.27.161 </li>
-<li>135.191.27.156   </li>
-</ol>
-<p>175为NameNode，其余三台机器为DataNode  </p>
-<blockquote>
-<blockquote>
-<p><em>为行文方便,涉及到相关机器IP的时候只写最后一个IP段</em> </p>
-</blockquote>
-</blockquote>
-<h2 id="软件环境：">软件环境：</h2>
-<ol>
-<li>操作系统: Linux</li>
-<li>必备软件: ssh/ Oracle JDK1.6</li>
-</ol>
-<blockquote>
-<blockquote>
-<p>SSH一般发行版都自带了，JDK大多数系统带的都是Open JDK  </p>
-</blockquote>
-</blockquote>
-<ol>
-<li><p>用户创建各机器上分别执行<br> 创建HADOOP用户组<code>groupadd hadoop</code><br> 创建用户：<code>adduser hadoop -g hadoop --password ha_12QW</code></p>
-</li>
-<li><p>SSH免密码登陆配置<br> 用新hadoop账号登录<br> 生成密钥： ssh-keygen -t rsa<br> 在175上合并：<br> scp hadoop@135.191.27.156:/home/hadoop/.ssh/id_rsa.pub ./a.pub<br> scp hadoop@135.191.27.161:/home/hadoop/.ssh/id_rsa.pub ./b.pub<br> scp hadoop@135.191.27.176:/home/hadoop/.ssh/id_rsa.pub ./c.pub<br> cat id_rsa.pub &gt;&gt; authorized_keys<br> cat ./a.pub &gt;&gt; authorized_keys<br> cat ./b.pub &gt;&gt; authorized_keys<br> cat ./c.pub &gt;&gt; authorized_keys</p>
-</li>
-</ol>
-<p>复制到其它机器上</p>
-<p>scp authorized_keys  135.191.27.176:/home/hadoop/.ssh/<br>scp authorized_keys  135.191.27.161:/home/hadoop/.ssh/<br>scp authorized_keys  135.191.27.156:/home/hadoop/.ssh/ </p>
-<p><strong>有可能这需要修改一相以下两个文件的权限：</strong><br>chmod 700 /home/hadoop/.ssh/<br>chmod 600 /home/hadoop/.ssh/authorized_keys</p>
-<p>测试：<br>    各个机器都交互测试一下<br>    ssh 135.191.27.156  不要密码直接登陆，证明配置成功</p>
-<ol>
-<li><p>host配置<br> 用ROOT在一台机器上设置好，然后scp到其它机器 </p>
-</li>
-<li><p>Hadoop配置<br> 所有机器上：<br> mkdir /opt/hadoop<br> chown -R hadoop:hadoop /opt/hadoop/<br> mkdir /vgopbak/hadoop<br> chown -R hadoop:hadoop /vgopbak/hadoop </p>
-</li>
-</ol>
-<p>用hadoop用户做以下操作：<br>mkdir /vgopbak/hadoop/namedir </p>
-<p>其它机器：<br>mkdir /vgopbak/hadoop/datadir   </p>
-<p> <strong>175和176共的/vgopbak上当是共享存储，所以在176上创建为/vgopbak/hadoop2/，否则目录权限会有问题</strong> </p>
-<p>在175上配置好，复制到其它机器<br><strong>conf/core-site.xml</strong></p>
-<configuration><br><property><br>        <name>fs.defaultFS</name><br>        <value>hdfs://135.191.27.175:9999</value><br></property><br></configuration>
-
-
-<p><strong>conf/hdfs-site.xml</strong></p>
-<configuration><br><!--NameNode--><br><property><br>        <name>dfs.namenode.name.dir</name><br>        <value>/vgopbak/hadoop/namedir</value><br></property><br><!--DataNode--><br><br><!--在176上，这个值应该改成/vgopbak/hadoop2/datadir--><br><property><br>        <name>dfs.datanode.data.dir</name><br>        <value>/vgopbak/hadoop/datadir</value><br></property><br><br></configuration>
-
-
-<p><strong>conf/yarn-site.xml</strong></p>
-<configuration><br><br><!-- Site specific YARN configuration properties --><br><property><br>        <name>yarn.resourcemanager.address</name><br>        <value>135.191.27.175:8032</value><br></property><br><property><br>        <name>yarn.resourcemanager.scheduler.address</name><br>        <value>135.191.27.175:8030</value><br></property><br><br><property><br>        <name>yarn.resourcemanager.resource-tracker.address</name><br>        <value>135.191.27.175:8031</value><br></property><br><br><property><br>        <name>yarn.resourcemanager.admin.address</name><br>        <value>135.191.27.175:8033</value><br></property><br><br><property><br>        <name>yarn.resourcemanager.webapp.address</name><br>        <value>135.191.27.175:8088</value><br></property><br></configuration>
-
-
-<p><strong>conf/mapred-site.xml</strong><br>暂不添加</p>
-<p><strong>conf/slaves</strong><br>35.191.27.156<br>135.191.27.161<br>135.191.27.176</p>
-<p>分发至其它节点<br>scp -r hadoop-2.2.0   135.191.27.161:/opt/hadoop/<br>scp -r hadoop-2.2.0   135.191.27.176:/opt/hadoop/<br>scp -r hadoop-2.2.0   135.191.27.156:/opt/hadoop/</p>
-<h2 id="启动">启动</h2>
-<p>格式化：bin/hdfs namenode -format</p>
-<blockquote>
-<blockquote>
-<p>格式化成功后在/vgopbak/hadoop/namedir下面会有文件生成</p>
-</blockquote>
-</blockquote>
-<p>启动：<br>sbin/start-dfs.sh<br>sbin/start-yarn.sh </p>
-<p>可以用jps命令查看下，如果没东西，就需要看日志分析原因了</p>
-<p><a href="http://135.191.27.175:8088" target="_blank">http://135.191.27.175:8088</a><br><a href="http://135.191.27.175:50070" target="_blank">http://135.191.27.175:50070</a></p>
-<h2 id="测试">测试</h2>
-<p>以下可以集群某一台机器上执行，也可以在客户端上执行</p>
-<p>创建目录：</p>
-<p>bin/hadoop fs -mkdir /qhbi</p>
-<p>从DB2导出来些数据<br>db2 “export to gprs_ticket_20140420.dat of del select bigint(timeid),bigint(serv_id),bigint(DURATION), bigint(DATA_UP1), bigint(DATA_DOWN1), bigint(DURATION1),recordextension_new,bill_item from nwh.gprs_ticket_20140420 with ur”</p>
-<p>put到HDFS中</p>
-<p>bin/hadoop fs -put /vgopbak/gprs_ticket_20140420.dat   /qhbi</p>
-<p>写代码，打包，<br>略</p>
-<p>求时长<br>bin/hadoop jar StudyHadoop-1.0.jar  me.migle.mr.SumGPRSDuration /qhbi/gprs_ticket_20140420.dat  /qhbi/output_sum/<br>在<a href="http://135.191.27.175:50070中查看结果，" target="_blank">http://135.191.27.175:50070中查看结果，</a><br>导到结果输出目录上查看结果</p>
-<p>拆分<br>bin/hadoop jar StudyHadoop-1.0.jar me.migle.mr.SplitBillItem /qhbi/gprs_ticket_20140420.dat   /qhbi/output_gprs/spliit/<br>在文件系统中查看结果</p>
-<h2 id="其它">其它</h2>
-<p>为方便起见可以将HADOOP的bin/ sbin/目录加入PATH</p>
+    <title><![CDATA[Hello World]]></title>
+    <link href="http://www.migle.me/post/hello-world/"/>
+    <id>http://www.migle.me/post/hello-world/</id>
+    <published>2014-05-12T02:25:50.000Z</published>
+    <updated>2014-05-12T02:25:50.000Z</updated>
+    <content type="html"><![CDATA[<p>Welcome to <a href="http://hexo.io" target="_blank">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs" target="_blank">documentation</a> to learn how to use.</p>
 ]]></content>
     
-    
-      <category term="Hadoop" scheme="http://www.migle.me/tags/Hadoop/"/>
-    
-      <category term="Hadoop" scheme="http://www.migle.me/categories/Hadoop/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[git常用命令]]></title>
-    <link href="http://www.migle.me/post/git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/"/>
-    <id>http://www.migle.me/post/git常用命令/</id>
-    <published>2014-05-12T06:55:07.000Z</published>
-    <updated>2014-05-12T06:56:26.000Z</updated>
-    <content type="html"><![CDATA[<h1 id="git常用命令">git常用命令</h1>
-<h2 id="配置">配置</h2>
-<p><code>git config -l</code>  #列举所有配置<br><code>git config --get user.name</code> #查看单个参数<br><code>git config --global user.name &quot;migle&quot;</code><br><code>git config --global user.email &quot;longforfreedom+github@gmail.com&quot;</code><br><code>git config --global core.quotepath false</code> #要不中文文件名都是数据编码,ore.quotepath设为false的话，就不会对0×80以上的字符进行quote。中文显示正常 。   </p>
-<p><strong>别名</strong><br><code>git config --global alias.co checkout</code><br><code>git config --global alias.ci commit</code><br><code>git config --global alias.st status</code><br><code>git config --global alias.br branch</code>    </p>
-<h2 id="远程">远程</h2>
-<p><em>可以是本机的其它目录，或git、ssh、https等协议</em><br>检出仓库：<code>git clone git://github.com/jquery/jquery.git</code><br>查看远程仓库：<code>git remote -v</code><br>查看远程服务器仓库状态:<code>git remote show origin</code><br>添加远程仓库：<code>git remote add [name] [url]</code><br>删除远程仓库：<code>git remote rm [name]</code><br>修改远程仓库地址：<code>git remote set-url --push[name][newUrl]</code><br>git remote set-url origin  <a href="https://longforfreedom@github.com/longforfreedom/m-note.git" target="_blank">https://longforfreedom@github.com/longforfreedom/m-note.git</a><br>拉取远程仓库：<code>git pull [remoteName] [localBranchName]</code><br>推送远程仓库：<code>git push [remoteName] [localBranchName]</code>  </p>
-<blockquote>
-<blockquote>
-<p><code>git pull  url</code>   #它从远程分支(remote branch)抓取修改的内容，然后把它合并进当前的分支，不同的仓库也能合并，确实不错</p>
-</blockquote>
-</blockquote>
-<p><code>git remote add origin https://github.com/longforfreedom/m-note.git</code>         # 添加远程仓库地址，相当于一个别名<br>执行git fetch origin 的时候只抓取不合并，会有一个origin/master分支生成然后，再merge      </p>
-<p><code>git remote set-url origin https://github.com/miadaner/miadaner.git</code> # 设置远程仓库地址(用于修改远程仓库地址)      </p>
-<p><code>git push origin master</code>           #将本地主分支推到远程主分支<br><code>git push -u origin master</code>        #将本地主分支推到远程(如无远程主分支则创建，用于初始化远程仓库)  </p>
-<h2 id="分支">分支</h2>
-<p><code>git branch</code>   #列出当前本地所有分支<br><code>git branch -a</code> #列出当前本地及远程所有分支<br><code>git branch --no-merged</code> #查看没有合并的分支<br><code>git branch branhname</code>  #创建本地分支，直接使用<code>git push</code>时不会推送到远程<br><code>git checkout -b 分支名</code> #创建新分支并立即切换到新分支<br><code>git merge 分支名</code>  #合并到当前分支 ，如有冲突的话，会报错，需要手工处理完成后commit,再push远程<br><code>git push origin 分支名</code>   #推送本地分支到远程仓库<br><code>git push origin --delete 分支名</code> #删除远程分支<br><code>git branch -d branhname</code>  #删除本地分支，如果是没有合并的分支，用-D删除<br>“.git/HEAD”这个文件里保存的是我们当前在哪个分支上工作的信息。  </p>
-<h2 id="diff">diff</h2>
-<h2 id="合并">合并</h2>
-<h2 id="回退">回退</h2>
-<h2 id="其它">其它</h2>
-<p>在Ubuntu13.10中bash可以自动补全git命令，但在CentOS6.4中发现不行，发现/etc/bash_completion.d/git 但是没有加载<br>试着执行一下 <code>source /etc/bash_completion.d/git</code> 然后发现可以自动补全Git命令，所以可以把这一加在自己的<em>.bashrc</em>文件中或直接在<em>/etc/bashrc</em>中添加以下  </p>
-<pre><code>    <span class="keyword">for</span> file <span class="keyword">in</span> /etc/bash_completion.d/* ; <span class="keyword">do</span>
-            <span class="built_in">source</span> <span class="string">"<span class="variable">$file</span>"</span> 
-    <span class="keyword">done</span>
-</code></pre><h2 id="日志">日志</h2>
-<h2 id="基本概念">基本概念</h2>
-]]></content>
-    
-    
-      <category term="git" scheme="http://www.migle.me/tags/git/"/>
-    
-      <category term="工具" scheme="http://www.migle.me/categories/%E5%B7%A5%E5%85%B7/"/>
     
   </entry>
   
@@ -155,8 +30,8 @@
     <title><![CDATA[CDH5伪分布式环境搭建]]></title>
     <link href="http://www.migle.me/post/cdh5%E4%BC%AA%E5%88%86%E5%B8%83%E5%BC%8F%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/"/>
     <id>http://www.migle.me/post/cdh5伪分布式环境搭建/</id>
-    <published>2014-05-12T05:59:23.000Z</published>
-    <updated>2014-05-12T07:06:37.000Z</updated>
+    <published>2014-04-30T05:59:23.000Z</published>
+    <updated>2014-05-13T02:29:28.000Z</updated>
     <content type="html"><![CDATA[<h2 id="说明：">说明：</h2>
 <ol>
 <li><p>本文描述的是基于Windows+虚拟机+CentOS的Hadoop+HBase的开发环境搭建过程，使用的Hadoop版本是CDH5(Cloudera Distribution including Apache Hadoop，CDH)，旨在说明HADOOP的伪分布式环境搭建关键步骤。CDH5与Hadoop的关系，Hadoop、Hbase、Zookeeper之间的关系，及文中涉及的一些工具、命令的使用等与本文有关系不是特别密切的东西都没有详细说明,想了解更多请：<a href="http://www.google.com" target="_blank">http://www.google.com</a></p>
@@ -568,8 +443,8 @@ enable <span class="string">'mtable'</span>
     <title><![CDATA[HBase入门笔记]]></title>
     <link href="http://www.migle.me/post/hbase%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0/"/>
     <id>http://www.migle.me/post/hbase入门笔记/</id>
-    <published>2014-05-12T03:28:47.000Z</published>
-    <updated>2014-05-12T07:06:46.000Z</updated>
+    <published>2014-04-10T03:28:47.000Z</published>
+    <updated>2014-05-13T02:29:00.000Z</updated>
     <content type="html"><![CDATA[<h2 id="安装配置">安装配置</h2>
 <ul>
 <li>条件：Hadoop集群已搭建</li>
@@ -738,116 +613,139 @@ enable <span class="string">'mtable'</span>
   </entry>
   
   <entry>
-    <title><![CDATA[Markdown笔记]]></title>
-    <link href="http://www.migle.me/post/markdown%E7%AC%94%E8%AE%B0/"/>
-    <id>http://www.migle.me/post/markdown笔记/</id>
-    <published>2014-05-12T03:24:21.000Z</published>
-    <updated>2014-05-12T06:29:19.000Z</updated>
-    <content type="html"><![CDATA[<h2 id="markdown_简述">markdown 简述</h2>
-<blockquote>
-<p>Markdown 的语法全由一些符号所组成，这些符号经过精挑细选，其作用一目了然。比如：在文字两旁加上星号，看起来就像<em>强调</em>。Markdown 的列表看起来，嗯，就是列表。Markdown 的区块引用看起来就真的像是引用一段文字，就像你曾在电子邮件中见过的那样。</p>
-<p>Markdown 语法的目标是：成为一种适用于网络的书写语言。</p>
-<p>Markdown 不是想要取代 HTML，甚至也没有要和它相近，它的语法种类很少，   只对应 HTML 标记的一小部分。Markdown 的构想不是要使得 HTML 文档更容易书写。在我看来， HTML 已经很容易写了。Markdown 的理念是，能让文档更容易读、写和随意改。HTML 是一种发布的格式，Markdown 是一种书写的格式。就这样，Markdown 的格式语法只涵盖纯文本可以涵盖的范围。</p>
-<p>不在 Markdown 涵盖范围之内的标签，都可以直接在文档里面用 HTML 撰写。不需要额外标注这是 HTML 或是 Markdown；只要直接加标签就可以了。</p>
-<p>要制约的只有一些 HTML 区块元素――比如 <code>&lt;div&gt;,&lt;table&gt;,&lt;pre&gt;,&lt;p&gt;</code><br>等标签，必须在前后加上空行与其它内容区隔开，还要求它们的开始标签与结尾标签不能用制表符或空格来缩进。Markdown 的生成器有足够智能，不会在 HTML 区块标签外加上不必要的 <code>&lt;p&gt;</code> 标签。</p>
-<p>在 HTML 区块标签间的 Markdown 格式语法将不会被处理。比如，你在 HTML 区块内使用 Markdown 样式的<em>强调</em>会没有效果。</p>
-<p>HTML 的区段（行内）标签如 <code>&lt;span&gt;、&lt;cite&gt;、&lt;del&gt;</code> 可以在 Markdown 的段落、列表或是标题里随意使用。依照个人习惯，甚至可以不用 Markdown 格式，而直接采用 HTML 标签来格式化。举例说明：如果比较喜欢 HTML 的 <code>&lt;a&gt; 或 &lt;img&gt;</code>标签，可以直接使用这些标签，而不用 Markdown 提供的链接或是图像标签语法。</p>
-<p>和处在 HTML 区块标签间不同，Markdown 语法在 HTML 区段标签间是有效的。</p>
-</blockquote>
-<h2 id="标题">标题</h2>
-<h2 id="列表">列表</h2>
-<h3 id="Markdown_支持有序列表和无序列表。">Markdown 支持有序列表和无序列表。</h3>
-<ul>
-<li><p>无序列表使用星号、加号或是减号作为列表标记:<em>\</em>、+、-*：</p>
-</li>
-<li><p>有序列表则使用数字接着一个英文句点：</p>
-</li>
-<li><p>列表项目可以包含多个段落，每个项目下的段落都必须缩进 4 个空格或是 1 个制表符</p>
-</li>
-</ul>
-<h2 id="代码块">代码块</h2>
-<pre><code>缩进4个空格或一个制表符
-在生成HTML时会用 <span class="tag">&lt;<span class="title">pre</span>&gt;</span> 和 <span class="tag">&lt;<span class="title">code</span>&gt;</span> 标签来把代码区块包起来
-代码区块中，一般的 Markdown 语法不会被转换，像是星号便只是星号，这表示你可以很容易地以 Markdown 语法撰写 Markdown 语法相关的文件。
-一个代码区块会一直持续到没有缩进的那一行（或是文件结尾）
-如果要标记一小段行内代码，你可以用反引号把它包起来(`)
-如果要在代码区段内插入反引号，你可以用多个反引号来开启和结束代码区段：
-</code></pre><h2 id="链接">链接</h2>
-<p>Markdown 支持两种形式的链接语法链接地址形式有HTML中的A是一样，可以是外部地址，也可以本机地址： 行内式和参考式两种形式。</p>
-<ul>
-<li>文本链接</li>
-</ul>
-<pre><code>要建立一个行内式的链接，只要在方块括号后面紧接着圆括号并插入网址链接即可，如果你还想要加上链接的 title 文字，只要在网址后面，用双引号把 title 文字包起来即可，例如：
-</code></pre><p>This is <a href="http://example.com/" title="Title" target="_blank">an example</a> inline link.</p>
-<pre><code>[<span class="link_label">This link</span>](<span class="link_url">http://example.net/</span>) has no title attribute.
-
- 参考式的链接是在链接文字的括号后面再接上另一个方括号，而在第二个方括号里面要填入用以辨识链接的标记：
-
- This is [<span class="link_label">an example</span>][<span class="link_reference">id</span>] reference-style link.
- 你也可以选择性地在两个方括号中间加上一个空格：
-
- This is [an example] [id] reference-style link.
- 接着，在文件的任意处，你可以把这个标记的链接内容定义出来：
-</code></pre><ul>
-<li>图片链接,<ol>
-<li>行内式<br><code>![Alt text](/path/to/img.jpg)</code><br><code>![Alt text](/path/to/img.jpg &quot;Optional title&quot;)</code><br>2.和参考式。<br><code>·![Alt text][id]</code><br> 「id」是图片参考的名称，图片参考的定义方式则和连结参考一样：<br><code>[id]: url/to/image  &quot;Optional title attribute&quot;</code></li>
+    <title><![CDATA[hadoop环境搭建笔记]]></title>
+    <link href="http://www.migle.me/post/hadoop%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E7%AC%94%E8%AE%B0/"/>
+    <id>http://www.migle.me/post/hadoop环境搭建笔记/</id>
+    <published>2014-04-02T06:57:34.000Z</published>
+    <updated>2014-05-13T02:29:09.000Z</updated>
+    <content type="html"><![CDATA[<h1 id="环境">环境</h1>
+<h2 id="硬件环境：">硬件环境：</h2>
+<p>  共有如下四台机器,网络互通</p>
+<ol>
+<li>135.191.27.175  </li>
+<li>135.191.27.176  </li>
+<li>135.191.27.161 </li>
+<li>135.191.27.156   </li>
 </ol>
+<p>175为NameNode，其余三台机器为DataNode  </p>
+<blockquote>
+<blockquote>
+<p><em>为行文方便,涉及到相关机器IP的时候只写最后一个IP段</em> </p>
+</blockquote>
+</blockquote>
+<h2 id="软件环境：">软件环境：</h2>
+<ol>
+<li>操作系统: Linux</li>
+<li>必备软件: ssh/ Oracle JDK1.6</li>
+</ol>
+<blockquote>
+<blockquote>
+<p>SSH一般发行版都自带了，JDK大多数系统带的都是Open JDK  </p>
+</blockquote>
+</blockquote>
+<ol>
+<li><p>用户创建各机器上分别执行<br> 创建HADOOP用户组<code>groupadd hadoop</code><br> 创建用户：<code>adduser hadoop -g hadoop --password ha_12QW</code></p>
 </li>
-<li>自动链接<br>  <code>&lt;http://example.com/&gt;</code></li>
-</ul>
-<h2 id="强调">强调</h2>
-<p>Markdown 使用星号（<em>）和底线（_）作为标记强调字词的符号，被 </em> 或 <em> 包围的字词会被转成用 <code>&lt;em&gt;</code> 标签包围，用两个 * 或 \</em> 包起来的话，则会被转成 <code>&lt;strong&gt;</code><br>但是如果你的 * 和 _ 两边都有空白的话，它们就只会被当成普通的符号。</p>
-<h2 id="分隔线">分隔线</h2>
-<p>你可以在一行中用三个以上的星号、减号、底线来建立一个分隔线，行内不能有其他东西。你也可以在星号或是减号中间插入空格。下面每种写法都可以建立分隔线：</p>
-<h2 id="参考资料">参考资料</h2>
-<p><a href="http://wowubuntu.com/markdown/" target="_blank">Markdown 语法说明 (简体中文版)</a></p>
-<p>测试一下代码块</p>
-<pre><code><span class="comment">#encoding: utf-8</span>
-<span class="comment">=begin
-这里的就是内嵌文档，相当于Java doc
-=end</span>
-<span class="class"><span class="keyword">class</span> <span class="title">FirstClass</span></span>
-    <span class="keyword">attr_accessor</span> <span class="symbol">:name</span> <span class="comment">#可以在修改类定义的时候加上</span>
+<li><p>SSH免密码登陆配置<br> 用新hadoop账号登录<br> 生成密钥： ssh-keygen -t rsa<br> 在175上合并：<br> scp hadoop@135.191.27.156:/home/hadoop/.ssh/id_rsa.pub ./a.pub<br> scp hadoop@135.191.27.161:/home/hadoop/.ssh/id_rsa.pub ./b.pub<br> scp hadoop@135.191.27.176:/home/hadoop/.ssh/id_rsa.pub ./c.pub<br> cat id_rsa.pub &gt;&gt; authorized_keys<br> cat ./a.pub &gt;&gt; authorized_keys<br> cat ./b.pub &gt;&gt; authorized_keys<br> cat ./c.pub &gt;&gt; authorized_keys</p>
+</li>
+</ol>
+<p>复制到其它机器上</p>
+<p>scp authorized_keys  135.191.27.176:/home/hadoop/.ssh/<br>scp authorized_keys  135.191.27.161:/home/hadoop/.ssh/<br>scp authorized_keys  135.191.27.156:/home/hadoop/.ssh/ </p>
+<p><strong>有可能这需要修改一相以下两个文件的权限：</strong><br>chmod 700 /home/hadoop/.ssh/<br>chmod 600 /home/hadoop/.ssh/authorized_keys</p>
+<p>测试：<br>    各个机器都交互测试一下<br>    ssh 135.191.27.156  不要密码直接登陆，证明配置成功</p>
+<ol>
+<li><p>host配置<br> 用ROOT在一台机器上设置好，然后scp到其它机器 </p>
+</li>
+<li><p>Hadoop配置<br> 所有机器上：<br> mkdir /opt/hadoop<br> chown -R hadoop:hadoop /opt/hadoop/<br> mkdir /vgopbak/hadoop<br> chown -R hadoop:hadoop /vgopbak/hadoop </p>
+</li>
+</ol>
+<p>用hadoop用户做以下操作：<br>mkdir /vgopbak/hadoop/namedir </p>
+<p>其它机器：<br>mkdir /vgopbak/hadoop/datadir   </p>
+<p> <strong>175和176共的/vgopbak上当是共享存储，所以在176上创建为/vgopbak/hadoop2/，否则目录权限会有问题</strong> </p>
+<p>在175上配置好，复制到其它机器<br><strong>conf/core-site.xml</strong></p>
+<configuration><br><property><br>        <name>fs.defaultFS</name><br>        <value>hdfs://135.191.27.175:9999</value><br></property><br></configuration>
 
-    <span class="function"><span class="keyword">def</span> </span>initialize(name=<span class="string">"migle"</span>)
-        <span class="variable">@name</span> = name
-    <span class="keyword">end</span>
 
-    <span class="function"><span class="keyword">def</span> </span>sayHi
-        puts <span class="string">"中文可以不：Hi <span class="subst">#{<span class="variable">@name</span>}</span>"</span>
-    <span class="keyword">end</span> 
-<span class="keyword">end</span>
-<span class="keyword">if</span> __FILE_<span class="number">_</span> == <span class="variable">$0</span>
-    m = <span class="constant">FirstClass</span>.new(<span class="string">"Miyong"</span>)
-    m.sayHi
-    a=<span class="string">'米哥'</span>
-    puts m.respond_to?(<span class="string">"name"</span>)
-    puts m.respond_to?(<span class="string">"name="</span>)
-    <span class="comment">#class FirstClass    #这里可以修改类定义</span>
-    <span class="comment">#    attr_accessor :name</span>
-    <span class="comment">#end</span>
-    m.name = <span class="string">"Mike"</span>
-    m.sayHi
-<span class="keyword">end</span>
-</code></pre><p>语法高亮</p>
+<p><strong>conf/hdfs-site.xml</strong></p>
+<configuration><br><!--NameNode--><br><property><br>        <name>dfs.namenode.name.dir</name><br>        <value>/vgopbak/hadoop/namedir</value><br></property><br><!--DataNode--><br><br><!--在176上，这个值应该改成/vgopbak/hadoop2/datadir--><br><property><br>        <name>dfs.datanode.data.dir</name><br>        <value>/vgopbak/hadoop/datadir</value><br></property><br><br></configuration>
+
+
+<p><strong>conf/yarn-site.xml</strong></p>
+<configuration><br><br><!-- Site specific YARN configuration properties --><br><property><br>        <name>yarn.resourcemanager.address</name><br>        <value>135.191.27.175:8032</value><br></property><br><property><br>        <name>yarn.resourcemanager.scheduler.address</name><br>        <value>135.191.27.175:8030</value><br></property><br><br><property><br>        <name>yarn.resourcemanager.resource-tracker.address</name><br>        <value>135.191.27.175:8031</value><br></property><br><br><property><br>        <name>yarn.resourcemanager.admin.address</name><br>        <value>135.191.27.175:8033</value><br></property><br><br><property><br>        <name>yarn.resourcemanager.webapp.address</name><br>        <value>135.191.27.175:8088</value><br></property><br></configuration>
+
+
+<p><strong>conf/mapred-site.xml</strong><br>暂不添加</p>
+<p><strong>conf/slaves</strong><br>35.191.27.156<br>135.191.27.161<br>135.191.27.176</p>
+<p>分发至其它节点<br>scp -r hadoop-2.2.0   135.191.27.161:/opt/hadoop/<br>scp -r hadoop-2.2.0   135.191.27.176:/opt/hadoop/<br>scp -r hadoop-2.2.0   135.191.27.156:/opt/hadoop/</p>
+<h2 id="启动">启动</h2>
+<p>格式化：bin/hdfs namenode -format</p>
+<blockquote>
+<blockquote>
+<p>格式化成功后在/vgopbak/hadoop/namedir下面会有文件生成</p>
+</blockquote>
+</blockquote>
+<p>启动：<br>sbin/start-dfs.sh<br>sbin/start-yarn.sh </p>
+<p>可以用jps命令查看下，如果没东西，就需要看日志分析原因了</p>
+<p><a href="http://135.191.27.175:8088" target="_blank">http://135.191.27.175:8088</a><br><a href="http://135.191.27.175:50070" target="_blank">http://135.191.27.175:50070</a></p>
+<h2 id="测试">测试</h2>
+<p>以下可以集群某一台机器上执行，也可以在客户端上执行</p>
+<p>创建目录：</p>
+<p>bin/hadoop fs -mkdir /qhbi</p>
+<p>从DB2导出来些数据<br>db2 “export to gprs_ticket_20140420.dat of del select bigint(timeid),bigint(serv_id),bigint(DURATION), bigint(DATA_UP1), bigint(DATA_DOWN1), bigint(DURATION1),recordextension_new,bill_item from nwh.gprs_ticket_20140420 with ur”</p>
+<p>put到HDFS中</p>
+<p>bin/hadoop fs -put /vgopbak/gprs_ticket_20140420.dat   /qhbi</p>
+<p>写代码，打包，<br>略</p>
+<p>求时长<br>bin/hadoop jar StudyHadoop-1.0.jar  me.migle.mr.SumGPRSDuration /qhbi/gprs_ticket_20140420.dat  /qhbi/output_sum/<br>在<a href="http://135.191.27.175:50070中查看结果，" target="_blank">http://135.191.27.175:50070中查看结果，</a><br>导到结果输出目录上查看结果</p>
+<p>拆分<br>bin/hadoop jar StudyHadoop-1.0.jar me.migle.mr.SplitBillItem /qhbi/gprs_ticket_20140420.dat   /qhbi/output_gprs/spliit/<br>在文件系统中查看结果</p>
+<h2 id="其它">其它</h2>
+<p>为方便起见可以将HADOOP的bin/ sbin/目录加入PATH</p>
 ]]></content>
     
     
-      <category term="Markdown" scheme="http://www.migle.me/tags/Markdown/"/>
+      <category term="Hadoop" scheme="http://www.migle.me/tags/Hadoop/"/>
     
-      <category term="其它" scheme="http://www.migle.me/categories/%E5%85%B6%E5%AE%83/"/>
+      <category term="Hadoop" scheme="http://www.migle.me/categories/Hadoop/"/>
     
   </entry>
   
   <entry>
-    <title><![CDATA[Hello World]]></title>
-    <link href="http://www.migle.me/post/hello-world/"/>
-    <id>http://www.migle.me/post/hello-world/</id>
-    <published>2014-05-12T02:25:50.000Z</published>
-    <updated>2014-05-12T02:25:50.000Z</updated>
-    <content type="html"><![CDATA[<p>Welcome to <a href="http://hexo.io" target="_blank">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs" target="_blank">documentation</a> to learn how to use.</p>
+    <title><![CDATA[git常用命令]]></title>
+    <link href="http://www.migle.me/post/git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/"/>
+    <id>http://www.migle.me/post/git常用命令/</id>
+    <published>2014-01-12T06:55:07.000Z</published>
+    <updated>2014-05-13T02:29:13.000Z</updated>
+    <content type="html"><![CDATA[<h1 id="git常用命令">git常用命令</h1>
+<h2 id="配置">配置</h2>
+<p><code>git config -l</code>  #列举所有配置<br><code>git config --get user.name</code> #查看单个参数<br><code>git config --global user.name &quot;migle&quot;</code><br><code>git config --global user.email &quot;longforfreedom+github@gmail.com&quot;</code><br><code>git config --global core.quotepath false</code> #要不中文文件名都是数据编码,ore.quotepath设为false的话，就不会对0×80以上的字符进行quote。中文显示正常 。   </p>
+<p><strong>别名</strong><br><code>git config --global alias.co checkout</code><br><code>git config --global alias.ci commit</code><br><code>git config --global alias.st status</code><br><code>git config --global alias.br branch</code>    </p>
+<h2 id="远程">远程</h2>
+<p><em>可以是本机的其它目录，或git、ssh、https等协议</em><br>检出仓库：<code>git clone git://github.com/jquery/jquery.git</code><br>查看远程仓库：<code>git remote -v</code><br>查看远程服务器仓库状态:<code>git remote show origin</code><br>添加远程仓库：<code>git remote add [name] [url]</code><br>删除远程仓库：<code>git remote rm [name]</code><br>修改远程仓库地址：<code>git remote set-url --push[name][newUrl]</code><br>git remote set-url origin  <a href="https://longforfreedom@github.com/longforfreedom/m-note.git" target="_blank">https://longforfreedom@github.com/longforfreedom/m-note.git</a><br>拉取远程仓库：<code>git pull [remoteName] [localBranchName]</code><br>推送远程仓库：<code>git push [remoteName] [localBranchName]</code>  </p>
+<blockquote>
+<blockquote>
+<p><code>git pull  url</code>   #它从远程分支(remote branch)抓取修改的内容，然后把它合并进当前的分支，不同的仓库也能合并，确实不错</p>
+</blockquote>
+</blockquote>
+<p><code>git remote add origin https://github.com/longforfreedom/m-note.git</code>         # 添加远程仓库地址，相当于一个别名<br>执行git fetch origin 的时候只抓取不合并，会有一个origin/master分支生成然后，再merge      </p>
+<p><code>git remote set-url origin https://github.com/miadaner/miadaner.git</code> # 设置远程仓库地址(用于修改远程仓库地址)      </p>
+<p><code>git push origin master</code>           #将本地主分支推到远程主分支<br><code>git push -u origin master</code>        #将本地主分支推到远程(如无远程主分支则创建，用于初始化远程仓库)  </p>
+<h2 id="分支">分支</h2>
+<p><code>git branch</code>   #列出当前本地所有分支<br><code>git branch -a</code> #列出当前本地及远程所有分支<br><code>git branch --no-merged</code> #查看没有合并的分支<br><code>git branch branhname</code>  #创建本地分支，直接使用<code>git push</code>时不会推送到远程<br><code>git checkout -b 分支名</code> #创建新分支并立即切换到新分支<br><code>git merge 分支名</code>  #合并到当前分支 ，如有冲突的话，会报错，需要手工处理完成后commit,再push远程<br><code>git push origin 分支名</code>   #推送本地分支到远程仓库<br><code>git push origin --delete 分支名</code> #删除远程分支<br><code>git branch -d branhname</code>  #删除本地分支，如果是没有合并的分支，用-D删除<br>“.git/HEAD”这个文件里保存的是我们当前在哪个分支上工作的信息。  </p>
+<h2 id="diff">diff</h2>
+<h2 id="合并">合并</h2>
+<h2 id="回退">回退</h2>
+<h2 id="其它">其它</h2>
+<p>在Ubuntu13.10中bash可以自动补全git命令，但在CentOS6.4中发现不行，发现/etc/bash_completion.d/git 但是没有加载<br>试着执行一下 <code>source /etc/bash_completion.d/git</code> 然后发现可以自动补全Git命令，所以可以把这一加在自己的<em>.bashrc</em>文件中或直接在<em>/etc/bashrc</em>中添加以下  </p>
+<pre><code>    <span class="keyword">for</span> file <span class="keyword">in</span> /etc/bash_completion.d/* ; <span class="keyword">do</span>
+            <span class="built_in">source</span> <span class="string">"<span class="variable">$file</span>"</span> 
+    <span class="keyword">done</span>
+</code></pre><h2 id="日志">日志</h2>
+<h2 id="基本概念">基本概念</h2>
 ]]></content>
     
+    
+      <category term="git" scheme="http://www.migle.me/tags/git/"/>
+    
+      <category term="工具" scheme="http://www.migle.me/categories/%E5%B7%A5%E5%85%B7/"/>
     
   </entry>
   
@@ -1141,6 +1039,108 @@ db2 <span class="string">"export to tb_dpi_20131025_00_01.dat   of del select * 
       <category term="DB2" scheme="http://www.migle.me/tags/DB2/"/>
     
       <category term="数据库" scheme="http://www.migle.me/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Markdown笔记]]></title>
+    <link href="http://www.migle.me/post/markdown%E7%AC%94%E8%AE%B0/"/>
+    <id>http://www.migle.me/post/markdown笔记/</id>
+    <published>2013-06-12T03:24:21.000Z</published>
+    <updated>2014-05-13T02:29:35.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="markdown_简述">markdown 简述</h2>
+<blockquote>
+<p>Markdown 的语法全由一些符号所组成，这些符号经过精挑细选，其作用一目了然。比如：在文字两旁加上星号，看起来就像<em>强调</em>。Markdown 的列表看起来，嗯，就是列表。Markdown 的区块引用看起来就真的像是引用一段文字，就像你曾在电子邮件中见过的那样。</p>
+<p>Markdown 语法的目标是：成为一种适用于网络的书写语言。</p>
+<p>Markdown 不是想要取代 HTML，甚至也没有要和它相近，它的语法种类很少，   只对应 HTML 标记的一小部分。Markdown 的构想不是要使得 HTML 文档更容易书写。在我看来， HTML 已经很容易写了。Markdown 的理念是，能让文档更容易读、写和随意改。HTML 是一种发布的格式，Markdown 是一种书写的格式。就这样，Markdown 的格式语法只涵盖纯文本可以涵盖的范围。</p>
+<p>不在 Markdown 涵盖范围之内的标签，都可以直接在文档里面用 HTML 撰写。不需要额外标注这是 HTML 或是 Markdown；只要直接加标签就可以了。</p>
+<p>要制约的只有一些 HTML 区块元素――比如 <code>&lt;div&gt;,&lt;table&gt;,&lt;pre&gt;,&lt;p&gt;</code><br>等标签，必须在前后加上空行与其它内容区隔开，还要求它们的开始标签与结尾标签不能用制表符或空格来缩进。Markdown 的生成器有足够智能，不会在 HTML 区块标签外加上不必要的 <code>&lt;p&gt;</code> 标签。</p>
+<p>在 HTML 区块标签间的 Markdown 格式语法将不会被处理。比如，你在 HTML 区块内使用 Markdown 样式的<em>强调</em>会没有效果。</p>
+<p>HTML 的区段（行内）标签如 <code>&lt;span&gt;、&lt;cite&gt;、&lt;del&gt;</code> 可以在 Markdown 的段落、列表或是标题里随意使用。依照个人习惯，甚至可以不用 Markdown 格式，而直接采用 HTML 标签来格式化。举例说明：如果比较喜欢 HTML 的 <code>&lt;a&gt; 或 &lt;img&gt;</code>标签，可以直接使用这些标签，而不用 Markdown 提供的链接或是图像标签语法。</p>
+<p>和处在 HTML 区块标签间不同，Markdown 语法在 HTML 区段标签间是有效的。</p>
+</blockquote>
+<h2 id="标题">标题</h2>
+<h2 id="列表">列表</h2>
+<h3 id="Markdown_支持有序列表和无序列表。">Markdown 支持有序列表和无序列表。</h3>
+<ul>
+<li><p>无序列表使用星号、加号或是减号作为列表标记:<em>\</em>、+、-*：</p>
+</li>
+<li><p>有序列表则使用数字接着一个英文句点：</p>
+</li>
+<li><p>列表项目可以包含多个段落，每个项目下的段落都必须缩进 4 个空格或是 1 个制表符</p>
+</li>
+</ul>
+<h2 id="代码块">代码块</h2>
+<pre><code>缩进4个空格或一个制表符
+在生成HTML时会用 <span class="tag">&lt;<span class="title">pre</span>&gt;</span> 和 <span class="tag">&lt;<span class="title">code</span>&gt;</span> 标签来把代码区块包起来
+代码区块中，一般的 Markdown 语法不会被转换，像是星号便只是星号，这表示你可以很容易地以 Markdown 语法撰写 Markdown 语法相关的文件。
+一个代码区块会一直持续到没有缩进的那一行（或是文件结尾）
+如果要标记一小段行内代码，你可以用反引号把它包起来(`)
+如果要在代码区段内插入反引号，你可以用多个反引号来开启和结束代码区段：
+</code></pre><h2 id="链接">链接</h2>
+<p>Markdown 支持两种形式的链接语法链接地址形式有HTML中的A是一样，可以是外部地址，也可以本机地址： 行内式和参考式两种形式。</p>
+<ul>
+<li>文本链接</li>
+</ul>
+<pre><code>要建立一个行内式的链接，只要在方块括号后面紧接着圆括号并插入网址链接即可，如果你还想要加上链接的 title 文字，只要在网址后面，用双引号把 title 文字包起来即可，例如：
+</code></pre><p>This is <a href="http://example.com/" title="Title" target="_blank">an example</a> inline link.</p>
+<pre><code>[<span class="link_label">This link</span>](<span class="link_url">http://example.net/</span>) has no title attribute.
+
+ 参考式的链接是在链接文字的括号后面再接上另一个方括号，而在第二个方括号里面要填入用以辨识链接的标记：
+
+ This is [<span class="link_label">an example</span>][<span class="link_reference">id</span>] reference-style link.
+ 你也可以选择性地在两个方括号中间加上一个空格：
+
+ This is [an example] [id] reference-style link.
+ 接着，在文件的任意处，你可以把这个标记的链接内容定义出来：
+</code></pre><ul>
+<li>图片链接,<ol>
+<li>行内式<br><code>![Alt text](/path/to/img.jpg)</code><br><code>![Alt text](/path/to/img.jpg &quot;Optional title&quot;)</code><br>2.和参考式。<br><code>·![Alt text][id]</code><br> 「id」是图片参考的名称，图片参考的定义方式则和连结参考一样：<br><code>[id]: url/to/image  &quot;Optional title attribute&quot;</code></li>
+</ol>
+</li>
+<li>自动链接<br>  <code>&lt;http://example.com/&gt;</code></li>
+</ul>
+<h2 id="强调">强调</h2>
+<p>Markdown 使用星号（<em>）和底线（_）作为标记强调字词的符号，被 </em> 或 <em> 包围的字词会被转成用 <code>&lt;em&gt;</code> 标签包围，用两个 * 或 \</em> 包起来的话，则会被转成 <code>&lt;strong&gt;</code><br>但是如果你的 * 和 _ 两边都有空白的话，它们就只会被当成普通的符号。</p>
+<h2 id="分隔线">分隔线</h2>
+<p>你可以在一行中用三个以上的星号、减号、底线来建立一个分隔线，行内不能有其他东西。你也可以在星号或是减号中间插入空格。下面每种写法都可以建立分隔线：</p>
+<h2 id="参考资料">参考资料</h2>
+<p><a href="http://wowubuntu.com/markdown/" target="_blank">Markdown 语法说明 (简体中文版)</a></p>
+<p>测试一下代码块</p>
+<pre><code><span class="comment">#encoding: utf-8</span>
+<span class="comment">=begin
+这里的就是内嵌文档，相当于Java doc
+=end</span>
+<span class="class"><span class="keyword">class</span> <span class="title">FirstClass</span></span>
+    <span class="keyword">attr_accessor</span> <span class="symbol">:name</span> <span class="comment">#可以在修改类定义的时候加上</span>
+
+    <span class="function"><span class="keyword">def</span> </span>initialize(name=<span class="string">"migle"</span>)
+        <span class="variable">@name</span> = name
+    <span class="keyword">end</span>
+
+    <span class="function"><span class="keyword">def</span> </span>sayHi
+        puts <span class="string">"中文可以不：Hi <span class="subst">#{<span class="variable">@name</span>}</span>"</span>
+    <span class="keyword">end</span> 
+<span class="keyword">end</span>
+<span class="keyword">if</span> __FILE_<span class="number">_</span> == <span class="variable">$0</span>
+    m = <span class="constant">FirstClass</span>.new(<span class="string">"Miyong"</span>)
+    m.sayHi
+    a=<span class="string">'米哥'</span>
+    puts m.respond_to?(<span class="string">"name"</span>)
+    puts m.respond_to?(<span class="string">"name="</span>)
+    <span class="comment">#class FirstClass    #这里可以修改类定义</span>
+    <span class="comment">#    attr_accessor :name</span>
+    <span class="comment">#end</span>
+    m.name = <span class="string">"Mike"</span>
+    m.sayHi
+<span class="keyword">end</span>
+</code></pre><p>语法高亮</p>
+]]></content>
+    
+    
+      <category term="Markdown" scheme="http://www.migle.me/tags/Markdown/"/>
+    
+      <category term="其它" scheme="http://www.migle.me/categories/%E5%85%B6%E5%AE%83/"/>
     
   </entry>
   
