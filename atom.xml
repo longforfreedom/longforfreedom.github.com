@@ -4,7 +4,7 @@
   <subtitle><![CDATA[一路走来，一路唱]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://www.migle.me/"/>
-  <updated>2014-05-13T02:54:52.246Z</updated>
+  <updated>2014-05-13T03:48:01.554Z</updated>
   <id>http://www.migle.me/</id>
   
   <author>
@@ -19,8 +19,8 @@
     <link href="http://www.migle.me/post/hello-world/"/>
     <id>http://www.migle.me/post/hello-world/</id>
     <published>2014-05-12T02:25:50.000Z</published>
-    <updated>2014-05-12T02:25:50.000Z</updated>
-    <content type="html"><![CDATA[<p>Welcome to <a href="http://hexo.io" target="_blank">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs" target="_blank">documentation</a> to learn how to use.</p>
+    <updated>2014-05-13T03:47:49.000Z</updated>
+    <content type="html"><![CDATA[<p>今天迁到 <a href="http://hexo.io" target="_blank">Hexo</a>!  ^_^  <a href="http://hexo.io/docs" target="_blank">documentation</a> to learn how to use.</p>
 ]]></content>
     
     
@@ -31,7 +31,7 @@
     <link href="http://www.migle.me/post/cdh5%E4%BC%AA%E5%88%86%E5%B8%83%E5%BC%8F%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/"/>
     <id>http://www.migle.me/post/cdh5伪分布式环境搭建/</id>
     <published>2014-04-30T05:59:23.000Z</published>
-    <updated>2014-05-13T02:29:28.000Z</updated>
+    <updated>2014-05-13T02:58:58.000Z</updated>
     <content type="html"><![CDATA[<h2 id="说明：">说明：</h2>
 <ol>
 <li><p>本文描述的是基于Windows+虚拟机+CentOS的Hadoop+HBase的开发环境搭建过程，使用的Hadoop版本是CDH5(Cloudera Distribution including Apache Hadoop，CDH)，旨在说明HADOOP的伪分布式环境搭建关键步骤。CDH5与Hadoop的关系，Hadoop、Hbase、Zookeeper之间的关系，及文中涉及的一些工具、命令的使用等与本文有关系不是特别密切的东西都没有详细说明,想了解更多请：<a href="http://www.google.com" target="_blank">http://www.google.com</a></p>
@@ -393,10 +393,13 @@ enable <span class="string">'mtable'</span>
 <h4 id="JAVA_API远程测试">JAVA API远程测试</h4>
 <p>代码见：<a href="https://github.com/longforfreedom/StudyHadoop" target="_blank">https://github.com/longforfreedom/StudyHadoop</a></p>
 <h4 id="Python">Python</h4>
-<p>@TODO<br>—安装 thrift<br>—thrift依赖</p>
-<h2 id="—sudo_yum_install_automake_libtool_flex_bison_pkgconfig_gcc-c++_boost-devel_libevent-devel_zlib-devel_python-devel_ruby—-devel">—sudo yum install automake libtool flex bison pkgconfig gcc-c++ boost-devel libevent-devel zlib-devel python-devel ruby—-devel</h2>
-<h2 id="—/usr/lib/hbase/include/thrift">—/usr/lib/hbase/include/thrift</h2>
-<h2 id="—http://blog-csdn-net/guxch/article/details/12163047">—<a href="http://blog.csdn.net/guxch/article/details/12163047" target="_blank">http://blog.csdn.net/guxch/article/details/12163047</a></h2>
+<hr>
+<p>@TODO</p>
+<blockquote>
+<blockquote>
+<p>安装 thrift<br>thrift依赖<br>sudo yum install automake libtool flex bison pkgconfig gcc-c++ boost-devel libevent-devel zlib-devel python-devel ruby—-devel<br>/usr/lib/hbase/include/thrift<br><a href="http://blog.csdn.net/guxch/article/details/12163047" target="_blank">http://blog.csdn.net/guxch/article/details/12163047</a></p>
+</blockquote>
+</blockquote>
 <h2 id="其它:">其它:</h2>
 <ol>
 <li>在虚拟机中不要把HOSTNAME映射成127.0.0.1否则宿主机中JAVA API不能访问HBASE！！</li>
