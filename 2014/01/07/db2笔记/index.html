@@ -1,0 +1,656 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>DB2笔记 | migle.me</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
+    
+    <meta name="author" content="migle">
+    
+    <meta name="description" content="基本命令
+
+查看DB2版本信息：db2level 
+连接: db2 connect to dbname [user username using password]
+
+
+dbname是编目的数据库别名，编目信息可以参考下一节,可以通过db2 list database directory 来查看你可">
+    
+    
+    
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="iammigle" />
+    <meta name="twitter:title" content="DB2笔记 | migle.me" />
+      
+    
+    
+    <link rel="alternative" href="atom.xml" title="migle.me" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/pacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/pacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      <div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.svg" alt="migle.me" title="migle.me"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="migle.me">migle.me</a></h1>
+				<h2 class="blog-motto">一路走来，一路唱</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页</a></li>
+					
+						<li><a href="/about/index.html">关于</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+					<li>
+					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:www.migle.me">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/01/07/db2笔记/" title="DB2笔记" itemprop="url">DB2笔记</a>
+  </h1>
+  <p class="article-author">By
+    
+      <a href="https://plus.google.com/100499485361267920799?rel=author" title="migle" target="_blank" itemprop="author">migle</a>
+    </p>
+  <p class="article-time">
+    <time datetime="2014-01-07T08:48:03.000Z" itemprop="datePublished">1月 7 2014</time>
+    更新日期:<time datetime="2014-05-12T08:49:20.000Z" itemprop="dateModified">5月 12 2014</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#基本命令"><span class="toc-number">1.</span> <span class="toc-text">基本命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#编目信息"><span class="toc-number">2.</span> <span class="toc-text">编目信息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#表空间"><span class="toc-number">3.</span> <span class="toc-text">表空间</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#查看数据各结果分布点况"><span class="toc-number">4.</span> <span class="toc-text">查看数据各结果分布点况</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#应用"><span class="toc-number">5.</span> <span class="toc-text">应用</span></a></li><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#查看表空间："><span class="toc-number">5.1.</span> <span class="toc-text">查看表空间：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#统计所有节点表空间使用率"><span class="toc-number">5.2.</span> <span class="toc-text">统计所有节点表空间使用率</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#查看表空间使用率_不分结点"><span class="toc-number">5.3.</span> <span class="toc-text">查看表空间使用率   不分结点</span></a></li></ol><li class="toc-item toc-level-2"><a class="toc-link" href="#系统表"><span class="toc-number">6.</span> <span class="toc-text">系统表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#db2锁"><span class="toc-number">7.</span> <span class="toc-text">db2锁</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DB2_SQL"><span class="toc-number">8.</span> <span class="toc-text">DB2 SQL</span></a></li><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#创建"><span class="toc-number">8.1.</span> <span class="toc-text">创建</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#_字符串"><span class="toc-number">8.2.</span> <span class="toc-text">　字符串</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#update"><span class="toc-number">8.3.</span> <span class="toc-text">update</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#delete"><span class="toc-number">8.4.</span> <span class="toc-text">delete</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#清空表:"><span class="toc-number">8.5.</span> <span class="toc-text">清空表:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#多字段："><span class="toc-number">8.6.</span> <span class="toc-text">多字段：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#order_by"><span class="toc-number">8.7.</span> <span class="toc-text">order by</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Merge"><span class="toc-number">8.8.</span> <span class="toc-text">Merge</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GROUPING_SETS、ROLLUP、CUBE"><span class="toc-number">8.9.</span> <span class="toc-text">GROUPING SETS、ROLLUP、CUBE</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SOME，ANY，All，EXISTS，IN"><span class="toc-number">8.10.</span> <span class="toc-text">SOME，ANY，All，EXISTS，IN</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#UNION_[ALL],_INTERSECT_[ALL],_EXCEPT_[ALL]"><span class="toc-number">8.11.</span> <span class="toc-text">UNION [ALL], INTERSECT [ALL], EXCEPT [ALL]</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#分页排序"><span class="toc-number">8.12.</span> <span class="toc-text">分页排序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#隔离级别"><span class="toc-number">8.13.</span> <span class="toc-text">隔离级别</span></a></li><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#常用函数"><span class="toc-number">8.13.1.</span> <span class="toc-text">常用函数</span></a></li></ol><li class="toc-item toc-level-3"><a class="toc-link" href="#坑："><span class="toc-number">8.14.</span> <span class="toc-text">坑：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#其它"><span class="toc-number">8.15.</span> <span class="toc-text">其它</span></a></li></ol><li class="toc-item toc-level-2"><a class="toc-link" href="#应用程序开发"><span class="toc-number">9.</span> <span class="toc-text">应用程序开发</span></a></li><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Java"><span class="toc-number">9.1.</span> <span class="toc-text">Java</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Python"><span class="toc-number">9.2.</span> <span class="toc-text">Python</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SHELL"><span class="toc-number">9.3.</span> <span class="toc-text">SHELL</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#C/C++"><span class="toc-number">9.4.</span> <span class="toc-text">C/C++</span></a></li></ol>
+		</div>
+		
+		<h2 id="基本命令">基本命令</h2>
+<ol>
+<li>查看DB2版本信息：<code>db2level</code> </li>
+<li><p>连接: <code>db2 connect to dbname [user username using password]</code></p>
+<blockquote>
+<blockquote>
+<p>dbname是编目的数据库别名，编目信息可以参考下一节,可以通过<code>db2 list database directory</code> 来查看你可以连接到那些数据库,缺省username和password时用操作系统当前用户连接<br>如果连接成功会有提示,连接成功后： 可以用 <code>db2 -tsvf  /path/sql.sql</code> 来执行一个sql脚本,出错停止，或通过 <code>db2 &quot;select * from table_name &quot;</code> 来执行一句SQL。<br>db2 可支持选项<code>db2 ? OPTIONS</code><br><strong>注意</strong>：如果是Windows系统的话，需要以<code>db2cmd</code>启动命令行窗口,否则会有错误提示:<em>未初始化命令行环境</em></p>
+</blockquote>
+</blockquote>
+</li>
+<li><p>db2 shell:<br>执行<code>db2</code> 进行db2交互Shell，再<code>connect to db2 ......</code>，在db2 shell中执行命令或SQL语句也不需要加前缀<code>db2</code>了，执行的命令也不需要用引号</p>
+</li>
+<li><p>查看SQLCODE对应的详细说明：<code>db2 ? sql-911</code></p>
+</li>
+<li><p>导出数据库DDL:<code>db2look -d dbname  -I username  -W password -e -a  -o /path/filename</code></p>
+<ul>
+<li>-d db2name ：指定数据库名，这是必须的</li>
+<li>-e: 抽取复制数据所需的DDL文件</li>
+<li>-a: 全部对象，可以用-z 来指定schema</li>
+<li>-o:导出文件名</li>
+<li>-I,-W用来指定用户名字和密码,省略的话会用操作当前用户</li>
+<li>更多选项请:<code>db2look -h</code></li>
+</ul>
+</li>
+<li><p>数据导出/导入 </p>
+<ul>
+<li>export  <pre><code> `export <span class="keyword">to</span> data.csv <span class="keyword">of</span> del <span class="keyword">select</span> * <span class="keyword">from</span> pt.area`  
+</code></pre></li>
+<li>import  <pre><code>`<span class="keyword">import</span> <span class="keyword">from</span> data.csv of <span class="keyword">del</span> insert into pt.area`   
+</code></pre></li>
+<li>load  <pre><code>`<span class="operator"><span class="keyword">load</span> <span class="keyword">from</span> data.csv <span class="keyword">of</span> del <span class="keyword">insert</span> <span class="keyword">into</span> pt.area<span class="string">`  </span></span>
+</code></pre></li>
+<li><p><strong>load from cursor</strong>  </p>
+<pre><code>  db2 <span class="keyword">connect</span> to <span class="variable">$target_db_node</span> user <span class="variable">$target_db_user</span> using <span class="variable">$target_db_passwd</span>  
+  db2 <span class="string">"DECLARE <span class="variable">$cursor_name</span> CURSOR DATABASE <span class="variable">$source_db_node</span> USER <span class="variable">$source_db_user</span> USING <span class="variable">$source_db_passwd</span>  FOR <span class="variable">$sql</span>"</span>
+  db2 <span class="string">"LOAD FROM <span class="variable">$cursor_name</span> OF CURSOR MESSAGES <span class="variable">$log</span> INSERT INTO <span class="variable">$target_table</span>"</span>  
+</code></pre></li>
+</ul>
+</li>
+<li><p>表空间查看  </p>
+<pre><code> <span class="tag">db2</span> <span class="tag">list</span> <span class="tag">tablespaces</span> <span class="attr_selector">[show detail ]</span>  
+</code></pre></li>
+</ol>
+<h2 id="编目信息">编目信息</h2>
+<ol>
+<li><p>查看本地编目信息:</p>
+<blockquote>
+<blockquote>
+<p>简单来说就是以本地为客户端能连接到那些服务器上</p>
+<ol>
+<li>查看节点信息：<code>db2 list node directory</code></li>
+<li>查看数据信息：<code>db2 list database directory</code></li>
+</ol>
+</blockquote>
+</blockquote>
+</li>
+<li><p>编目数据库</p>
+<blockquote>
+<blockquote>
+<p>简单来说，想要以本机为客户端连接到那些服务器上，需要先做下声明</p>
+<ol>
+<li>编目结点：<code>db2 catalog tcpip node db2node remote hostIP server service_port</code></br></li>
+<li>编目数据库:<code>db2 catalog database db_name as alias_name at node db2node</code></li>
+<li>eg:<br> 编目结点：<code>db2 catalog tcpip node TVGOPDB remote 135.191.27.175 server 50001</code><br> 编目数据库：<code>db2 catalog database vgopdb as tvgopdb at node tvgopdb</code><br> 测试:<code>db2 connect to tvgopdb</code> </li>
+</ol>
+</blockquote>
+</blockquote>
+</li>
+<li><p>删除编目 <strong>我没用过！！</strong></p>
+<ol>
+<li>删除结点编目结点：db2 uncatalog node nodename</li>
+<li>删除数据库编目：db2 uncatalog database  databasename</li>
+</ol>
+</li>
+</ol>
+<blockquote>
+<blockquote>
+<p>关于编目内容很多，概念涉及到DB2的体系结构，相关命令也不止上面提到的这些，有机会再完善，目前就只用到这么多</p>
+</blockquote>
+</blockquote>
+<h2 id="表空间">表空间</h2>
+<ol>
+<li>查看表空间 <code>db2 list tablespaces [show detail ]</code><blockquote>
+<blockquote>
+<p>show detail的时候请注意这几个字段的值:<em>Total pages</em>,<em>Useable pages</em>,<em>Used pages</em>,<em>Free pages</em>,<em>Page size</em>;<br>(XX pages)*(page size) == XX 大小，注意单位，应该对应的是每个节点的大小</p>
+</blockquote>
+</blockquote>
+</li>
+</ol>
+<ol>
+<li>查看库中的表:<ol>
+<li><code>db2 list tables for all</code></li>
+<li><code>db2 list tables for schema vgopportal|more</code></li>
+<li>列出系统表：<code>db2 list tables for system</code></li>
+</ol>
+</li>
+</ol>
+<ol>
+<li><p><code>db2 list applications  [show detail ]</code></p>
+</li>
+<li><p>查看数据库配置信息 <code>db2 get db cfg for vgopdb</code></p>
+</li>
+<li><p>runstats <code>db2 runstats   on   table   vgopportal.new_kpi_daily   and index all</code></p>
+<blockquote>
+<blockquote>
+<p>runstats可以搜集表的信息，也可以搜集索引信息。作为runstats本身没有优化的功能，<br>但是它更新了统计信息以后，可以让DB2优化器使用最新的统计信息来进行优化，这样优化的效果更好。<br>Quest等客户端中直接<code>runstats   on   table   vgopportal.new_kpi_daily  and index all</code></p>
+</blockquote>
+</blockquote>
+</li>
+<li><p><code>db2 force applications all</code> || <code>db2 &quot;force application(handle id)&quot;</code>  ——-Application handle,对应SYSIBMADM.SNAPLOCK表中的agent_id</p>
+</li>
+</ol>
+<h2 id="查看数据各结果分布点况">查看数据各结果分布点况</h2>
+<p>SELECT DBPARTITIONNUM(mbuser_id),count(mbuser_id) FROM nwh.mbuser   GROUP BY DBPARTITIONNUM( mbuser_id)</p>
+<h2 id="应用">应用</h2>
+<h3 id="查看表空间：">查看表空间：</h3>
+<pre><code>    db2 <span class="keyword">list</span> tablespaces show detail | more
+</code></pre><h3 id="统计所有节点表空间使用率">统计所有节点表空间使用率</h3>
+<pre><code>    <span class="operator"><span class="keyword">select</span> 
+        substr(TABLESPACE_NAME,<span class="number">1</span>,<span class="number">20</span>) <span class="keyword">as</span> TBSPC_NAME,*
+        bigint(TOTAL_PAGES * PAGE_SIZE)/<span class="number">1024</span>/<span class="number">1024</span> <span class="keyword">as</span> <span class="string">"TOTAL(MB)"</span>,
+        used_pages*PAGE_SIZE/<span class="number">1024</span>/<span class="number">1024</span> <span class="keyword">as</span> <span class="string">"USED(MB)"</span>, 
+        free_pages*PAGE_SIZE/<span class="number">1024</span>/<span class="number">1024</span> <span class="keyword">as</span> <span class="string">"FREE(MB)"</span> 
+    <span class="keyword">from</span>
+         <span class="keyword">table</span>(snapshot_tbs_cfg(<span class="string">'VGOPDB'</span>, -<span class="number">2</span>)) <span class="keyword">as</span> snapshot_tbs_cfg</span>
+</code></pre><h3 id="查看表空间使用率_不分结点">查看表空间使用率   不分结点</h3>
+<pre><code>    <span class="operator"><span class="keyword">select</span> 
+        substr(tbsp_name,<span class="number">1</span>,<span class="number">20</span>) <span class="keyword">as</span> TABLESPACE_NAME,
+        substr(tbsp_content_type,<span class="number">1</span>,<span class="number">10</span>) <span class="keyword">as</span> TABLESPACE_TYPE,
+        <span class="aggregate">sum</span>(tbsp_total_size_kb)/<span class="number">1024</span> <span class="keyword">as</span> TOTAL_MB,
+        <span class="aggregate">sum</span>(tbsp_used_size_kb)/<span class="number">1024</span> <span class="keyword">as</span> USED_MB,
+        <span class="aggregate">sum</span>(tbsp_free_size_kb)/<span class="number">1024</span> <span class="keyword">as</span> FREE_MB,
+        tbsp_page_size <span class="keyword">AS</span> PAGE_SIZE <span class="keyword">from</span> 
+    SYSIBMADM.TBSP_UTILIZATION 
+        <span class="keyword">group</span> <span class="keyword">by</span> tbsp_name,
+        tbsp_content_type,
+        tbsp_page_size
+    <span class="keyword">order</span> <span class="keyword">by</span> <span class="number">1</span></span>
+</code></pre><h2 id="系统表">系统表</h2>
+<pre><code><span class="comment">syscat</span><span class="string">.</span><span class="comment">tables</span> <span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="comment">fpages</span> <span class="comment">表所占的页数据</span> <span class="comment">乘表空间的页大小后等于该表占的空间，runstatus后才能看有，否则为</span><span class="literal">-</span><span class="comment">1或0</span>
+</code></pre><h2 id="db2锁">db2锁</h2>
+<ol>
+<li>查看锁<br><strong>sql</strong>: <code>SELECT * FROM SYSIBMADM.SNAPLOCK</code><br><strong>命令</strong>: <code>db2 get snapshot for locks on vgopdb</code><br> <em>List Of Locks:…. 就是锁表了的地方</em>  </li>
+</ol>
+<p><em>这两种方式的结果有什么差异我没有仔细比对过，但SQL方式在qhbidb上执行出错，估计是要用实例用户执行吧，不是很清楚</em>  </p>
+<ol>
+<li>解锁：<br>如果出现-911的错的时候，下面的语句您可能会用到:   <pre><code> db2pd <span class="attribute">-db</span> vgopdb <span class="attribute">-apinfo</span> handle_id  
+ db2 <span class="string">"force application(handle id)"</span>   <span class="subst">--</span>Application <span class="keyword">handle</span>,对应SYSIBMADM<span class="built_in">.</span>SNAPLOCK表中的agent_id
+</code></pre></li>
+</ol>
+<p><a href="http://publib.boulder.ibm.com/infocenter/db2luw/v9/index.jsp?topic=%2Fcom.ibm.db2.udb.admin.doc%2Fdoc%2Fr0021992.htm" target="_blank">http://publib.boulder.ibm.com/infocenter/db2luw/v9/index.jsp?topic=%2Fcom.ibm.db2.udb.admin.doc%2Fdoc%2Fr0021992.htm</a></p>
+<hr>
+<h2 id="DB2_SQL">DB2 SQL</h2>
+<h3 id="创建">创建</h3>
+<pre><code>    <span class="operator"><span class="keyword">create</span> <span class="keyword">table</span> target_table <span class="keyword">as</span> (<span class="keyword">select</span> col_1,col_2,col_2 <span class="keyword">from</span> template_table)  definition <span class="keyword">only</span>
+    <span class="keyword">create</span> <span class="keyword">table</span> target_table <span class="keyword">like</span>  template_table 
+    **注意表空间**</span>
+</code></pre><h3 id="_字符串">　字符串</h3>
+<pre><code>    <span class="keyword">values</span> <span class="string">'aa'</span>||<span class="string">'bb'</span>
+    <span class="keyword">values</span> concat(<span class="string">'aa'</span>,<span class="string">'bb'</span>)
+</code></pre><p>特殊符:<code>values &#39;aa&#39;||chr(13)||chr(10)||&#39;bb&#39;</code></p>
+<p>上月一号：current date - 1 months -  (day(current date) -1) days</p>
+<h3 id="update">update</h3>
+<pre><code>    <span class="operator"><span class="keyword">update</span> (<span class="keyword">select</span> * <span class="keyword">from</span> <span class="keyword">where</span> col_1 = vlaue_1) <span class="keyword">set</span> col_2 = value_2</span>
+</code></pre><p>查看那些行被更新了(结果为更新后的值):<code>SELECT * FROM FINAL TABLE (UPDATE USER SET SALARY=SALARY*(1+0.2) WHERE SALARY&lt;=2000 )</code><br>把 FINAL TABLE 换成OLD ABLE就是更新前的值，另外把上面的 UPDATE 语句换成 INSERT 和 DELETE 语句同样适用</p>
+<h3 id="delete">delete</h3>
+<h3 id="清空表:">清空表:</h3>
+<pre><code>1. 先<span class="operator"><span class="keyword">drop</span>再<span class="keyword">create</span>
+<span class="number">2.</span> 清空: <span class="keyword">alter</span> <span class="keyword">table</span> activate <span class="keyword">not</span> logged <span class="keyword">initially</span> <span class="keyword">with</span> empty <span class="keyword">table</span> </span>
+</code></pre><h3 id="多字段：">多字段：</h3>
+<ol>
+<li><code>SELECT * FROM TABLE_NAME WHERE (col_1,col_2)=(value_1,value_2);</code></li>
+<li><code>SELECT * FROM TABLE_NAME WHERE (col_1,col_2) in (select col_1,col_2 from TABLE_NAME_2);</code></li>
+<li><code>update TABLE_NAME set (col_1,col_2) = (value_1,value_2)</code></li>
+<li><code>update TABLE_NAME set (col_1,col_2) = (select col_1,col_2 from TABLE_NAME_2 where TABLE_NAME.XX = TABLE_NAME_2.XX) where</code></li>
+</ol>
+<h3 id="order_by">order by</h3>
+<h3 id="Merge">Merge</h3>
+<h3 id="GROUPING_SETS、ROLLUP、CUBE">GROUPING SETS、ROLLUP、CUBE</h3>
+<h3 id="SOME，ANY，All，EXISTS，IN">SOME，ANY，All，EXISTS，IN</h3>
+<h3 id="UNION_[ALL],_INTERSECT_[ALL],_EXCEPT_[ALL]">UNION [ALL], INTERSECT [ALL], EXCEPT [ALL]</h3>
+<h3 id="分页排序">分页排序</h3>
+<ol>
+<li>有同值的行时order by 顺序有可能不一致</li>
+<li>前10行:<code>SELECT * FROM &lt;TABLE_NAME&gt; ORDER BY 1 FETCH FIRST 10 ROWS ONLY ;</code></li>
+<li>随机取前10行:<code>SELECT * FROM &lt;TABLE_NAME&gt; ORDER BY RAND() FETCH FIRST 10 ROWS ONLY ;</code></li>
+<li>从 staff 表中，采用 BERNOULLI 抽样方法，抽取 8%的样本数据，REPEATABLE 表示多次执行相同的语句返回相同的结果:<code>SELECT * FROM staff TABLESAMPLE BERNOULLI(8) REPEATABLE(586) ORDER BY id;</code><blockquote>
+<blockquote>
+<p>1、BERNOULLI(行级别伯努利采样)：它检查每一行，准确率高，但是性能差。<br>2、SYSTEM(系统页级采样)：它检查每一数据页(一个数据页包含若干行)，性能高，但准确率差</p>
+</blockquote>
+</blockquote>
+</li>
+</ol>
+<h3 id="隔离级别">隔离级别</h3>
+<ol>
+<li>可重复读（RR）</li>
+<li>读稳定性（RS）</li>
+<li>游标稳定性（CS）—-默认的隔离级别</li>
+<li>未落实的读（UR）</li>
+</ol>
+<h4 id="常用函数">常用函数</h4>
+<h3 id="坑：">坑：</h3>
+<ol>
+<li>select * from TABLENAME where col1 in(select distinct col2 from TABLENAME2)   —-是需要加distinct</li>
+<li>能把where中的OR换成in可以换成in</li>
+<li>尽量少在where 条件或关联的时候少用<strong>函数转换</strong></li>
+<li>where中尽量少用或不用<strong>like</strong></li>
+</ol>
+<h3 id="其它">其它</h3>
+<p>第一：SQL 语句执行的顺序</p>
+<ol>
+<li>FROM</li>
+<li>JOIN ON</li>
+<li>WHERE</li>
+<li>GROUP BY</li>
+<li>HAVING</li>
+<li>SELECT</li>
+<li>ORDER BY</li>
+<li>FETCH FIRST</li>
+</ol>
+<p>   <code>db2 catalog tcpip node QHBIDB remote 135.191.27.50 server 50000</code> </br><br>        <code>db2 catalog database QHBIDB as QHBIDB at node QHBIDB</code>       </p>
+<pre><code>    <span class="escape">`d</span>b2 catalog tcpip node MVGOPDB remote <span class="number">135.191</span>.<span class="number">27.170</span> server <span class="number">50001</span><span class="escape">` </span>  
+    <span class="escape">`d</span>b2 catalog database vgopdb as mvgopdb at node mvgopdb`
+</code></pre><h2 id="应用程序开发">应用程序开发</h2>
+<h3 id="Java">Java</h3>
+<p>没什么说的，注意jdbc驱动和Tomcat7有点冲突,后面的版本再没测过</p>
+<h3 id="Python">Python</h3>
+<hr>
+<p>用过的db2驱动有<a href="https://code.google.com/p/pyodbc/" target="_blank">pyodbc</a> 和 <a href="https://code.google.com/p/ibm-db/" target="_blank">ibm_db</a><br><strong>pyodbc</strong>的通用性要好一些,安装方便，实现了DB-API 2.0 specification 性能估计没有ibm_db好，Windows下各版都有编译好的包可以安装,详细内容可以参见:<a href="https://code.google.com/p/pyodbc/" target="_blank">https://code.google.com/p/pyodbc/</a><br><strong>ibm_db</strong>性能应该会好些,是DB2 API的Python包装，所以你可能还需要至少装上(IBM Data Server Driver Package)[<a href="https://www-304.ibm.com/support/docview.wss?uid=swg27016878" target="_blank">https://www-304.ibm.com/support/docview.wss?uid=swg27016878</a>] , 另外还有一个ibm_db_dbi 也是对DB-API 2.0 specification的实现，如果能连网的话可以直接用easy_install安装<code>easy_install ibm_db</code>，如果不能连网，就用签出源码自己编译吧，<em>下次安装的时候再补充</em><br>这两个包项目主页都有很详细的说明，自己看吧，这里就不复制粘贴了</p>
+<h3 id="SHELL">SHELL</h3>
+<hr>
+<pre><code><span class="function"><span class="title">connDB2</span></span>()
+{
+    db2 connect to <span class="variable">$1</span>  user <span class="variable">$2</span> using <span class="variable">$3</span> &gt; /dev/null )b
+    <span class="keyword">then</span> 
+        <span class="built_in">echo</span> <span class="string">'连接成功'</span>
+    <span class="keyword">else</span>
+        <span class="built_in">echo</span> <span class="string">"连接失败"</span>
+    <span class="keyword">exit</span> -<span class="number">1</span>
+    <span class="keyword">fi</span>
+}
+
+connDB2 <span class="variable">${DBNODE}</span> <span class="variable">${DBUSER}</span> <span class="variable">${DBPASSWORD}</span>
+sql=<span class="string">"
+    select 
+        area_id ,areaname
+    from 
+        pt.area"</span>
+
+<span class="comment">##循环读取数据</span>
+db2 -x <span class="variable">${sql}</span>| <span class="keyword">while</span> <span class="built_in">read</span> area_id areaname  
+<span class="keyword">do</span>  
+    <span class="built_in">echo</span> <span class="string">"Result:<span class="variable">${area_id}</span>-&gt;<span class="variable">${areaname}</span>"</span>  
+<span class="keyword">done</span>
+<span class="comment">##读取单个值</span>
+ISEXISTS=$(db2 -x <span class="string">"select count(1) from SYSIBM.SYSTABLES where lower(name) =lower('user_user') and lower(creator)=lower('vgopportal') with ur"</span>)
+
+   <span class="comment">##update </span>
+db2 -x <span class="string">"update pt.area set area_id=123 where area_id=456"</span>
+
+<span class="comment">##export</span>
+db2 <span class="string">"export to tb_dpi_20131025_00_01.dat   of del select * from NIPD.V_SERVICE_INFO_20131025 "</span>
+</code></pre><p>注意每一次执行db2命令后，你可能还需要进行类似下面的语句进行错误处理，否则会有问题</p>
+<pre><code><span class="keyword">if</span> [ <span class="string">"$?"</span> <span class="operator">-ne</span> <span class="string">"0"</span> ]  
+<span class="keyword">then</span>
+    <span class="built_in">echo</span> <span class="string">"执行出现错误所以退出"</span>  
+    <span class="keyword">exit</span> -<span class="number">1</span>
+<span class="keyword">else</span>
+    <span class="built_in">echo</span> <span class="string">"执行成功了"</span>
+<span class="keyword">fi</span> 
+</code></pre><blockquote>
+<blockquote>
+<p>返回值代码及说明如下：<br>0     DB2 command or SQL statement executed successfully<br>1     SELECT or FETCH statement returned no rows<br>2     DB2 command or SQL statement warning<br>4     DB2 command or SQL statement error<br>8     Command line processor system error  </p>
+</blockquote>
+</blockquote>
+<p><a href="http://publib.boulder.ibm.com/infocenter/db2luw/v8/topic/com.ibm.db2.udb.doc/core/r0010411.htm" target="_blank">返回值官方说明</a></p>
+<h3 id="C/C++">C/C++</h3>
+<p>这个你来补吧，太煎熬了，我应该不会用到这，感兴趣可以看看DB2自带的例子程序SQLLIB\samples\ :(</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/DB2/">DB2</a>
+  </div>
+
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/数据库/">数据库</a>
+</div>
+
+
+
+<div class="article-share" id="share">
+
+  
+<div class="jiathis_style">
+    <span class="jiathis_txt">分享到：</span>
+    <a class="jiathis_button_tsina">新浪微博</a>
+    <a class="jiathis_button_weixin">微信</a>
+    <a class="jiathis_button_twitter">Twitter</a>
+    <a class="jiathis_button_evernote">EverNote</a>
+    <a href="http://www.jiathis.com/share?uid=1501277" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+</div>
+<script type="text/javascript" >
+    var jiathis_config={
+    data_track_clickback:true,
+    sm:"copy,renren,cqq",
+    pic:"",
+    summary:"",
+     ralateuid:{"tsina":"1158367782## e.g. 1664838973 Your weibo id,It will be used in share button."},hideMore:false}
+    
+  </script> 
+<script type="text/javascript" src="//v3.jiathis.com/code/jia.js?uid=
+" charset="utf-8"></script>      
+
+
+</div>
+</footer>   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2014/05/12/hello-world/" title="Hello World">
+  <strong>PREVIOUS:</strong><br/>
+  <span>
+  Hello World</span>
+</a>
+</div>
+
+
+</nav>
+
+	
+<section class="comment">
+	<div class="ds-thread"></div>
+</section>
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#基本命令"><span class="toc-number">1.</span> <span class="toc-text">基本命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#编目信息"><span class="toc-number">2.</span> <span class="toc-text">编目信息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#表空间"><span class="toc-number">3.</span> <span class="toc-text">表空间</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#查看数据各结果分布点况"><span class="toc-number">4.</span> <span class="toc-text">查看数据各结果分布点况</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#应用"><span class="toc-number">5.</span> <span class="toc-text">应用</span></a></li><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#查看表空间："><span class="toc-number">5.1.</span> <span class="toc-text">查看表空间：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#统计所有节点表空间使用率"><span class="toc-number">5.2.</span> <span class="toc-text">统计所有节点表空间使用率</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#查看表空间使用率_不分结点"><span class="toc-number">5.3.</span> <span class="toc-text">查看表空间使用率   不分结点</span></a></li></ol><li class="toc-item toc-level-2"><a class="toc-link" href="#系统表"><span class="toc-number">6.</span> <span class="toc-text">系统表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#db2锁"><span class="toc-number">7.</span> <span class="toc-text">db2锁</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DB2_SQL"><span class="toc-number">8.</span> <span class="toc-text">DB2 SQL</span></a></li><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#创建"><span class="toc-number">8.1.</span> <span class="toc-text">创建</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#_字符串"><span class="toc-number">8.2.</span> <span class="toc-text">　字符串</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#update"><span class="toc-number">8.3.</span> <span class="toc-text">update</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#delete"><span class="toc-number">8.4.</span> <span class="toc-text">delete</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#清空表:"><span class="toc-number">8.5.</span> <span class="toc-text">清空表:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#多字段："><span class="toc-number">8.6.</span> <span class="toc-text">多字段：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#order_by"><span class="toc-number">8.7.</span> <span class="toc-text">order by</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Merge"><span class="toc-number">8.8.</span> <span class="toc-text">Merge</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GROUPING_SETS、ROLLUP、CUBE"><span class="toc-number">8.9.</span> <span class="toc-text">GROUPING SETS、ROLLUP、CUBE</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SOME，ANY，All，EXISTS，IN"><span class="toc-number">8.10.</span> <span class="toc-text">SOME，ANY，All，EXISTS，IN</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#UNION_[ALL],_INTERSECT_[ALL],_EXCEPT_[ALL]"><span class="toc-number">8.11.</span> <span class="toc-text">UNION [ALL], INTERSECT [ALL], EXCEPT [ALL]</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#分页排序"><span class="toc-number">8.12.</span> <span class="toc-text">分页排序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#隔离级别"><span class="toc-number">8.13.</span> <span class="toc-text">隔离级别</span></a></li><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#常用函数"><span class="toc-number">8.13.1.</span> <span class="toc-text">常用函数</span></a></li></ol><li class="toc-item toc-level-3"><a class="toc-link" href="#坑："><span class="toc-number">8.14.</span> <span class="toc-text">坑：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#其它"><span class="toc-number">8.15.</span> <span class="toc-text">其它</span></a></li></ol><li class="toc-item toc-level-2"><a class="toc-link" href="#应用程序开发"><span class="toc-number">9.</span> <span class="toc-text">应用程序开发</span></a></li><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Java"><span class="toc-number">9.1.</span> <span class="toc-text">Java</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Python"><span class="toc-number">9.2.</span> <span class="toc-text">Python</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SHELL"><span class="toc-number">9.3.</span> <span class="toc-text">SHELL</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#C/C++"><span class="toc-number">9.4.</span> <span class="toc-text">C/C++</span></a></li></ol>
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+			<li><a href="/categories/Hadoop/" title="Hadoop">Hadoop<sup>3</sup></a></li>
+		
+			<li><a href="/categories/其它/" title="其它">其它<sup>1</sup></a></li>
+		
+			<li><a href="/categories/工具/" title="工具">工具<sup>1</sup></a></li>
+		
+			<li><a href="/categories/数据库/" title="数据库">数据库<sup>1</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			<li><a href="/tags/CDH5/" title="CDH5">CDH5<sup>1</sup></a></li>
+		
+			<li><a href="/tags/DB2/" title="DB2">DB2<sup>1</sup></a></li>
+		
+			<li><a href="/tags/HBase/" title="HBase">HBase<sup>2</sup></a></li>
+		
+			<li><a href="/tags/Hadoop/" title="Hadoop">Hadoop<sup>3</sup></a></li>
+		
+			<li><a href="/tags/Markdown/" title="Markdown">Markdown<sup>1</sup></a></li>
+		
+			<li><a href="/tags/git/" title="git">git<sup>1</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  <div class="rsspart">
+	<a href="atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+      <li><a href="http://lishihu.com/" target="_blank" title="伟哥">伟哥</a></li>
+      <li><a href="http://yangjian.me" target="_blank" title="YangJian">Alimon's Blog</a></li>
+      <li><a href="http://zespia.tw/hexo" target="_blank" title="Hexo">Hexo</a></li>
+    </ul>
+</div>
+
+  
+  <div class="tagcloudlist">
+    <p class="asidetitle">标签云</p>
+    <div class="tagcloudlist clearfix">
+       <a href="/tags/CDH5/" style="font-size: 10.00px;">CDH5</a><a href="/tags/DB2/" style="font-size: 10.00px;">DB2</a><a href="/tags/HBase/" style="font-size: 15.00px;">HBase</a><a href="/tags/Hadoop/" style="font-size: 20.00px;">Hadoop</a><a href="/tags/Markdown/" style="font-size: 10.00px;">Markdown</a><a href="/tags/git/" style="font-size: 10.00px;">git</a>
+    </div>
+  </div>
+
+
+  
+  <div class="archiveslist">
+    <p class="asidetitle"><a href="/archives">归档</a></p>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05">五月 2014</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/01">一月 2014</a><span class="archive-list-count">1</span></li></ul>
+  </div>
+
+
+</aside>
+</div>
+	  <!--微博评论箱，先这样写上
+	  <wb:comments url="auto" width="610" skin="blue" ></wb:comments>
+	  -->
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/1158367782" target="_blank" title="weibo"></a>
+		
+		
+		<a href="https://twitter.com/iammigle" target="_blank" title="twitter"></a>
+		
+		
+		<a href="https://github.com/longforfreedom" target="_blank" title="github"></a>
+		
+		
+	</div>
+		<p class="copyright">Powered by <a href="http://zespia.tw/hexo/" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/A-limon/pacman" target="_blank" title="Pacman">Pacman</a> © 2014 
+		
+		<a href="http://www.migle.me" target="_blank" title="migle">migle</a>
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.1.0.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else
+    {
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      h  = $('article h2')
+      ah = $('article h2'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  if(ah.length==0){
+    t.css('display','none');
+  }else{
+    c.click(function(){
+      ta.css('display', 'block').addClass('fadeIn');
+    });
+    o.click(function(){
+      ta.css('display', 'none');
+    });
+    $(window).scroll(function(){
+      ta.css("top",Math.max(140,320-$(this).scrollTop()));
+    });
+  };
+});
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"migle"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+  </body>
+</html>

@@ -1,0 +1,465 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>hadoop环境搭建笔记 | migle.me</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
+    
+    <meta name="author" content="migle">
+    
+    <meta name="description" content="环境
+硬件环境：
+  共有如下四台机器,网络互通
+
+135.191.27.175  
+135.191.27.176  
+135.191.27.161 
+135.191.27.156   
+
+175为NameNode，其余三台机器为DataNode  
+
+
+为行文方便,涉及到相关机器IP的时候只写最后">
+    
+    
+    
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="iammigle" />
+    <meta name="twitter:title" content="hadoop环境搭建笔记 | migle.me" />
+      
+    
+    
+    <link rel="alternative" href="atom.xml" title="migle.me" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/pacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/pacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      <div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.svg" alt="migle.me" title="migle.me"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="migle.me">migle.me</a></h1>
+				<h2 class="blog-motto">一路走来，一路唱</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页</a></li>
+					
+						<li><a href="/about/index.html">关于</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+					<li>
+					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:www.migle.me">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/05/12/hadoop环境搭建笔记/" title="hadoop环境搭建笔记" itemprop="url">hadoop环境搭建笔记</a>
+  </h1>
+  <p class="article-author">By
+    
+      <a href="https://plus.google.com/100499485361267920799?rel=author" title="migle" target="_blank" itemprop="author">migle</a>
+    </p>
+  <p class="article-time">
+    <time datetime="2014-05-12T06:57:34.000Z" itemprop="datePublished">5月 12 2014</time>
+    更新日期:<time datetime="2014-05-12T07:06:34.000Z" itemprop="dateModified">5月 12 2014</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#环境"><span class="toc-number">1.</span> <span class="toc-text">环境</span></a></li><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#硬件环境："><span class="toc-number">1.1.</span> <span class="toc-text">硬件环境：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#软件环境："><span class="toc-number">1.2.</span> <span class="toc-text">软件环境：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#启动"><span class="toc-number">1.3.</span> <span class="toc-text">启动</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#测试"><span class="toc-number">1.4.</span> <span class="toc-text">测试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#其它"><span class="toc-number">1.5.</span> <span class="toc-text">其它</span></a></li></ol>
+		</div>
+		
+		<h1 id="环境">环境</h1>
+<h2 id="硬件环境：">硬件环境：</h2>
+<p>  共有如下四台机器,网络互通</p>
+<ol>
+<li>135.191.27.175  </li>
+<li>135.191.27.176  </li>
+<li>135.191.27.161 </li>
+<li>135.191.27.156   </li>
+</ol>
+<p>175为NameNode，其余三台机器为DataNode  </p>
+<blockquote>
+<blockquote>
+<p><em>为行文方便,涉及到相关机器IP的时候只写最后一个IP段</em> </p>
+</blockquote>
+</blockquote>
+<h2 id="软件环境：">软件环境：</h2>
+<ol>
+<li>操作系统: Linux</li>
+<li>必备软件: ssh/ Oracle JDK1.6</li>
+</ol>
+<blockquote>
+<blockquote>
+<p>SSH一般发行版都自带了，JDK大多数系统带的都是Open JDK  </p>
+</blockquote>
+</blockquote>
+<ol>
+<li><p>用户创建各机器上分别执行<br> 创建HADOOP用户组<code>groupadd hadoop</code><br> 创建用户：<code>adduser hadoop -g hadoop --password ha_12QW</code></p>
+</li>
+<li><p>SSH免密码登陆配置<br> 用新hadoop账号登录<br> 生成密钥： ssh-keygen -t rsa<br> 在175上合并：<br> scp hadoop@135.191.27.156:/home/hadoop/.ssh/id_rsa.pub ./a.pub<br> scp hadoop@135.191.27.161:/home/hadoop/.ssh/id_rsa.pub ./b.pub<br> scp hadoop@135.191.27.176:/home/hadoop/.ssh/id_rsa.pub ./c.pub<br> cat id_rsa.pub &gt;&gt; authorized_keys<br> cat ./a.pub &gt;&gt; authorized_keys<br> cat ./b.pub &gt;&gt; authorized_keys<br> cat ./c.pub &gt;&gt; authorized_keys</p>
+</li>
+</ol>
+<p>复制到其它机器上</p>
+<p>scp authorized_keys  135.191.27.176:/home/hadoop/.ssh/<br>scp authorized_keys  135.191.27.161:/home/hadoop/.ssh/<br>scp authorized_keys  135.191.27.156:/home/hadoop/.ssh/ </p>
+<p><strong>有可能这需要修改一相以下两个文件的权限：</strong><br>chmod 700 /home/hadoop/.ssh/<br>chmod 600 /home/hadoop/.ssh/authorized_keys</p>
+<p>测试：<br>    各个机器都交互测试一下<br>    ssh 135.191.27.156  不要密码直接登陆，证明配置成功</p>
+<ol>
+<li><p>host配置<br> 用ROOT在一台机器上设置好，然后scp到其它机器 </p>
+</li>
+<li><p>Hadoop配置<br> 所有机器上：<br> mkdir /opt/hadoop<br> chown -R hadoop:hadoop /opt/hadoop/<br> mkdir /vgopbak/hadoop<br> chown -R hadoop:hadoop /vgopbak/hadoop </p>
+</li>
+</ol>
+<p>用hadoop用户做以下操作：<br>mkdir /vgopbak/hadoop/namedir </p>
+<p>其它机器：<br>mkdir /vgopbak/hadoop/datadir   </p>
+<p> <strong>175和176共的/vgopbak上当是共享存储，所以在176上创建为/vgopbak/hadoop2/，否则目录权限会有问题</strong> </p>
+<p>在175上配置好，复制到其它机器<br><strong>conf/core-site.xml</strong></p>
+<configuration><br><property><br>        <name>fs.defaultFS</name><br>        <value>hdfs://135.191.27.175:9999</value><br></property><br></configuration>
+
+
+<p><strong>conf/hdfs-site.xml</strong></p>
+<configuration><br><!--NameNode--><br><property><br>        <name>dfs.namenode.name.dir</name><br>        <value>/vgopbak/hadoop/namedir</value><br></property><br><!--DataNode--><br><br><!--在176上，这个值应该改成/vgopbak/hadoop2/datadir--><br><property><br>        <name>dfs.datanode.data.dir</name><br>        <value>/vgopbak/hadoop/datadir</value><br></property><br><br></configuration>
+
+
+<p><strong>conf/yarn-site.xml</strong></p>
+<configuration><br><br><!-- Site specific YARN configuration properties --><br><property><br>        <name>yarn.resourcemanager.address</name><br>        <value>135.191.27.175:8032</value><br></property><br><property><br>        <name>yarn.resourcemanager.scheduler.address</name><br>        <value>135.191.27.175:8030</value><br></property><br><br><property><br>        <name>yarn.resourcemanager.resource-tracker.address</name><br>        <value>135.191.27.175:8031</value><br></property><br><br><property><br>        <name>yarn.resourcemanager.admin.address</name><br>        <value>135.191.27.175:8033</value><br></property><br><br><property><br>        <name>yarn.resourcemanager.webapp.address</name><br>        <value>135.191.27.175:8088</value><br></property><br></configuration>
+
+
+<p><strong>conf/mapred-site.xml</strong><br>暂不添加</p>
+<p><strong>conf/slaves</strong><br>35.191.27.156<br>135.191.27.161<br>135.191.27.176</p>
+<p>分发至其它节点<br>scp -r hadoop-2.2.0   135.191.27.161:/opt/hadoop/<br>scp -r hadoop-2.2.0   135.191.27.176:/opt/hadoop/<br>scp -r hadoop-2.2.0   135.191.27.156:/opt/hadoop/</p>
+<h2 id="启动">启动</h2>
+<p>格式化：bin/hdfs namenode -format</p>
+<blockquote>
+<blockquote>
+<p>格式化成功后在/vgopbak/hadoop/namedir下面会有文件生成</p>
+</blockquote>
+</blockquote>
+<p>启动：<br>sbin/start-dfs.sh<br>sbin/start-yarn.sh </p>
+<p>可以用jps命令查看下，如果没东西，就需要看日志分析原因了</p>
+<p><a href="http://135.191.27.175:8088" target="_blank">http://135.191.27.175:8088</a><br><a href="http://135.191.27.175:50070" target="_blank">http://135.191.27.175:50070</a></p>
+<h2 id="测试">测试</h2>
+<p>以下可以集群某一台机器上执行，也可以在客户端上执行</p>
+<p>创建目录：</p>
+<p>bin/hadoop fs -mkdir /qhbi</p>
+<p>从DB2导出来些数据<br>db2 “export to gprs_ticket_20140420.dat of del select bigint(timeid),bigint(serv_id),bigint(DURATION), bigint(DATA_UP1), bigint(DATA_DOWN1), bigint(DURATION1),recordextension_new,bill_item from nwh.gprs_ticket_20140420 with ur”</p>
+<p>put到HDFS中</p>
+<p>bin/hadoop fs -put /vgopbak/gprs_ticket_20140420.dat   /qhbi</p>
+<p>写代码，打包，<br>略</p>
+<p>求时长<br>bin/hadoop jar StudyHadoop-1.0.jar  me.migle.mr.SumGPRSDuration /qhbi/gprs_ticket_20140420.dat  /qhbi/output_sum/<br>在<a href="http://135.191.27.175:50070中查看结果，" target="_blank">http://135.191.27.175:50070中查看结果，</a><br>导到结果输出目录上查看结果</p>
+<p>拆分<br>bin/hadoop jar StudyHadoop-1.0.jar me.migle.mr.SplitBillItem /qhbi/gprs_ticket_20140420.dat   /qhbi/output_gprs/spliit/<br>在文件系统中查看结果</p>
+<h2 id="其它">其它</h2>
+<p>为方便起见可以将HADOOP的bin/ sbin/目录加入PATH</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Hadoop/">Hadoop</a>
+  </div>
+
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Hadoop/">Hadoop</a>
+</div>
+
+
+
+<div class="article-share" id="share">
+
+  
+<div class="jiathis_style">
+    <span class="jiathis_txt">分享到：</span>
+    <a class="jiathis_button_tsina">新浪微博</a>
+    <a class="jiathis_button_weixin">微信</a>
+    <a class="jiathis_button_twitter">Twitter</a>
+    <a class="jiathis_button_evernote">EverNote</a>
+    <a href="http://www.jiathis.com/share?uid=1501277" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+</div>
+<script type="text/javascript" >
+    var jiathis_config={
+    data_track_clickback:true,
+    sm:"copy,renren,cqq",
+    pic:"",
+    summary:"",
+     ralateuid:{"tsina":"1158367782## e.g. 1664838973 Your weibo id,It will be used in share button."},hideMore:false}
+    
+  </script> 
+<script type="text/javascript" src="//v3.jiathis.com/code/jia.js?uid=
+" charset="utf-8"></script>      
+
+
+</div>
+</footer>   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2014/05/12/git常用命令/"  title="git常用命令">
+ <strong>NEXT:</strong><br/> 
+ <span>git常用命令
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section class="comment">
+	<div class="ds-thread"></div>
+</section>
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+  <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#环境"><span class="toc-number">1.</span> <span class="toc-text">环境</span></a></li><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#硬件环境："><span class="toc-number">1.1.</span> <span class="toc-text">硬件环境：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#软件环境："><span class="toc-number">1.2.</span> <span class="toc-text">软件环境：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#启动"><span class="toc-number">1.3.</span> <span class="toc-text">启动</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#测试"><span class="toc-number">1.4.</span> <span class="toc-text">测试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#其它"><span class="toc-number">1.5.</span> <span class="toc-text">其它</span></a></li></ol>
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+			<li><a href="/categories/Hadoop/" title="Hadoop">Hadoop<sup>3</sup></a></li>
+		
+			<li><a href="/categories/其它/" title="其它">其它<sup>1</sup></a></li>
+		
+			<li><a href="/categories/工具/" title="工具">工具<sup>1</sup></a></li>
+		
+			<li><a href="/categories/数据库/" title="数据库">数据库<sup>1</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			<li><a href="/tags/CDH5/" title="CDH5">CDH5<sup>1</sup></a></li>
+		
+			<li><a href="/tags/DB2/" title="DB2">DB2<sup>1</sup></a></li>
+		
+			<li><a href="/tags/HBase/" title="HBase">HBase<sup>2</sup></a></li>
+		
+			<li><a href="/tags/Hadoop/" title="Hadoop">Hadoop<sup>3</sup></a></li>
+		
+			<li><a href="/tags/Markdown/" title="Markdown">Markdown<sup>1</sup></a></li>
+		
+			<li><a href="/tags/git/" title="git">git<sup>1</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  <div class="rsspart">
+	<a href="atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+      <li><a href="http://lishihu.com/" target="_blank" title="伟哥">伟哥</a></li>
+      <li><a href="http://yangjian.me" target="_blank" title="YangJian">Alimon's Blog</a></li>
+      <li><a href="http://zespia.tw/hexo" target="_blank" title="Hexo">Hexo</a></li>
+    </ul>
+</div>
+
+  
+  <div class="tagcloudlist">
+    <p class="asidetitle">标签云</p>
+    <div class="tagcloudlist clearfix">
+       <a href="/tags/CDH5/" style="font-size: 10.00px;">CDH5</a><a href="/tags/DB2/" style="font-size: 10.00px;">DB2</a><a href="/tags/HBase/" style="font-size: 15.00px;">HBase</a><a href="/tags/Hadoop/" style="font-size: 20.00px;">Hadoop</a><a href="/tags/Markdown/" style="font-size: 10.00px;">Markdown</a><a href="/tags/git/" style="font-size: 10.00px;">git</a>
+    </div>
+  </div>
+
+
+  
+  <div class="archiveslist">
+    <p class="asidetitle"><a href="/archives">归档</a></p>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05">五月 2014</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/01">一月 2014</a><span class="archive-list-count">1</span></li></ul>
+  </div>
+
+
+</aside>
+</div>
+	  <!--微博评论箱，先这样写上
+	  <wb:comments url="auto" width="610" skin="blue" ></wb:comments>
+	  -->
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/1158367782" target="_blank" title="weibo"></a>
+		
+		
+		<a href="https://twitter.com/iammigle" target="_blank" title="twitter"></a>
+		
+		
+		<a href="https://github.com/longforfreedom" target="_blank" title="github"></a>
+		
+		
+	</div>
+		<p class="copyright">Powered by <a href="http://zespia.tw/hexo/" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/A-limon/pacman" target="_blank" title="Pacman">Pacman</a> © 2014 
+		
+		<a href="http://www.migle.me" target="_blank" title="migle">migle</a>
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.1.0.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else
+    {
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      h  = $('article h2')
+      ah = $('article h2'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  if(ah.length==0){
+    t.css('display','none');
+  }else{
+    c.click(function(){
+      ta.css('display', 'block').addClass('fadeIn');
+    });
+    o.click(function(){
+      ta.css('display', 'none');
+    });
+    $(window).scroll(function(){
+      ta.css("top",Math.max(140,320-$(this).scrollTop()));
+    });
+  };
+});
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"migle"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+  </body>
+</html>
