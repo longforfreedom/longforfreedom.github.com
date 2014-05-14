@@ -21,7 +21,7 @@
       
     
     
-    <link rel="alternative" href="atom.xml" title="migle.me" type="application/atom+xml">
+    <link rel="alternative" href="/atom.xml" title="migle.me" type="application/atom+xml">
     
     
     <link rel="icon" href="/img/favicon.ico">
@@ -90,7 +90,7 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
     </p>
   <p class="article-time">
     <time datetime="2014-04-30T05:59:23.000Z" itemprop="datePublished">4月 30 2014</time>
-    更新日期:<time datetime="2014-05-13T02:58:58.000Z" itemprop="dateModified">5月 13 2014</time>
+    更新日期:<time datetime="2014-05-14T02:37:50.000Z" itemprop="dateModified">5月 14 2014</time>
     
   </p>
 </header>
@@ -151,9 +151,11 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
 </ol>
 </li>
 </ol>
-<figure class="highlight export"><figcaption><span>JAVA_HOME=/usr/java/jdk1.7.0_55    </span></figcaption><table><tr><td class="gutter"><pre>1
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
 2
-</pre></td><td class="code"><pre><span class="keyword">export</span> CLASSPATH=.:<span class="variable">$JAVA_HOME</span>/lib/dt.jar:<span class="variable">$JAVA_HOME</span>/lib/tools.jar      
+3
+</pre></td><td class="code"><pre><span class="keyword">export</span> JAVA_HOME=/usr/java/jdk1.<span class="number">7.0</span>_55    
+<span class="keyword">export</span> CLASSPATH=.:<span class="variable">$JAVA_HOME</span>/lib/dt.jar:<span class="variable">$JAVA_HOME</span>/lib/tools.jar      
 <span class="keyword">export</span> PATH=<span class="variable">$PATH</span>:<span class="variable">$JAVA_HOME</span>/bin
 </pre></td></tr></table></figure>
 
@@ -168,9 +170,11 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
 <ol>
 <li>设置软件源  </li>
 </ol>
-<figure class="highlight wget"><figcaption><span>http://archive.cloudera.com/cdh5/one-click-install/redhat/6/x86_64/cloudera-cdh-5-0.x86_64.rpm</span></figcaption><table><tr><td class="gutter"><pre>1
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
 2
-</pre></td><td class="code"><pre>sudo yum --nogpgcheck localinstall cloudera-cdh-<span class="number">5</span>-<span class="number">0.</span>x86_64<span class="preprocessor">.rpm</span>  
+3
+</pre></td><td class="code"><pre>wget http://archive<span class="preprocessor">.cloudera</span><span class="preprocessor">.com</span>/cdh5/one-click-install/redhat/<span class="number">6</span>/x86_64/cloudera-cdh-<span class="number">5</span>-<span class="number">0.</span>x86_64<span class="preprocessor">.rpm</span>
+sudo yum --nogpgcheck localinstall cloudera-cdh-<span class="number">5</span>-<span class="number">0.</span>x86_64<span class="preprocessor">.rpm</span>  
 sudo rpm --import http://archive<span class="preprocessor">.cloudera</span><span class="preprocessor">.com</span>/cdh5/redhat/<span class="number">6</span>/x86_64/cdh/RPM-GPG-KEY-cloudera
 </pre></td></tr></table></figure>
 
@@ -424,7 +428,7 @@ chown <span class="attribute">-R</span> zookeeper /<span class="built_in">var</s
 <li>查看版本:<code>version</code>  </li>
 <li>创建表：<code>create &#39;mtable&#39;,&#39;cf&#39;</code>  指定表名和列族,多个列族用“,”分隔如：<code>create &#39;mtable&#39;,&#39;cf&#39;,&#39;cf2&#39;</code>  </li>
 <li>插入数据: <code>put &#39;表名&#39;,&#39;rowKey&#39;,&#39;列名&#39;,&#39;列值&#39;</code><br>  <code>put &#39;mtable&#39;,&#39;rowKey1&#39;,&#39;cf:acc_nbr&#39;,&#39;18797384480&#39;</code><br>   <code>put &#39;mtable&#39;,&#39;rowKey1&#39;,&#39;cf:name&#39;,&#39;migle&#39;</code><br>列可以动态创建:  列格式是:<em>列族:列名</em>  </li>
-<li>查看数据:<br>  <strong>单行:</strong>get ‘mtable’ , ‘rowKey1’<br>   get ‘mtable’,’rowKey1’,’cf:acc_nbr’<br>   get ‘mtable’,’rowKey1’,’cf’<br>  <strong>所有:</strong>scan ‘mtable’    </li>
+<li>查看数据:<br>  <strong>单行:</strong><br>   <code>get &#39;mtable&#39; , &#39;rowKey1&#39;</code><br>   <code>get &#39;mtable&#39;,&#39;rowKey1&#39;,&#39;cf:acc_nbr&#39;</code><br>   <code>get &#39;mtable&#39;,&#39;rowKey1&#39;,&#39;cf&#39;</code><br>  <strong>所有:</strong> <code>scan &#39;mtable&#39;</code>    </li>
 <li>行数：<code>count &#39;mtable&#39;</code>  </li>
 <li>更新数据：<code>put &#39;mtable&#39;,&#39;1&#39;,&#39;cf:acc_nbr&#39;,&#39;18797384481&#39;</code></li>
 <li>删除数据：<code>delete &#39;mtable&#39;,&#39;1&#39;,&#39;cf:name&#39;</code>  </li>
@@ -435,17 +439,21 @@ chown <span class="attribute">-R</span> zookeeper /<span class="built_in">var</s
 </ol>
 </li>
 </ul>
-<figure class="highlight disable"><figcaption><span>'mtable'  </span></figcaption><table><tr><td class="gutter"><pre>1
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
 2
-</pre></td><td class="code"><pre>   alter <span class="string">'mtable'</span>, NAME =&gt; <span class="string">'cf2'</span>  
+3
+</pre></td><td class="code"><pre>   disable <span class="string">'mtable'</span>  
+   alter <span class="string">'mtable'</span>, NAME =&gt; <span class="string">'cf2'</span>  
    enable <span class="string">'mtable'</span>
 </pre></td></tr></table></figure>
 
 
 <pre><code><span class="bullet">2. </span>删除列族： 
-</code></pre><figure class="highlight disable"><figcaption><span>'mtable'   </span></figcaption><table><tr><td class="gutter"><pre>1
+</code></pre><figure class="highlight"><table><tr><td class="gutter"><pre>1
 2
-</pre></td><td class="code"><pre>alter <span class="string">'mtable'</span>, <span class="string">'delete'</span> =&gt; <span class="string">'cf2'</span>  
+3
+</pre></td><td class="code"><pre>disable <span class="string">'mtable'</span>   
+alter <span class="string">'mtable'</span>, <span class="string">'delete'</span> =&gt; <span class="string">'cf2'</span>  
 enable <span class="string">'mtable'</span>
 </pre></td></tr></table></figure>
 
@@ -475,16 +483,18 @@ enable <span class="string">'mtable'</span>
 <li>在虚拟机中不要把HOSTNAME映射成127.0.0.1否则宿主机中JAVA API不能访问HBASE！！</li>
 <li>可以pom.xml中加入cloudera的仓库，但直接用Apache版本的好像也没问题</li>
 </ol>
-<figure class="highlight <repositories>"><table><tr><td class="gutter"><pre>1
+<figure class="highlight xml"><table><tr><td class="gutter"><pre>1
 2
 3
 4
 5
-</pre></td><td class="code"><pre>    <span class="tag">&lt;<span class="title">repository</span>&gt;</span>
-      <span class="tag">&lt;<span class="title">id</span>&gt;</span>cloudera<span class="tag">&lt;/<span class="title">id</span>&gt;</span>
-      <span class="tag">&lt;<span class="title">url</span>&gt;</span>https://repository.cloudera.com/artifactory/cloudera-repos/<span class="tag">&lt;/<span class="title">url</span>&gt;</span>
-    <span class="tag">&lt;/<span class="title">repository</span>&gt;</span>
-  <span class="tag">&lt;/<span class="title">repositories</span>&gt;</span>
+6
+</pre></td><td class="code"><pre>  	<span class="tag">&lt;<span class="title">repositories</span>&gt;</span>
+    	<span class="tag">&lt;<span class="title">repository</span>&gt;</span>
+      		<span class="tag">&lt;<span class="title">id</span>&gt;</span>cloudera<span class="tag">&lt;/<span class="title">id</span>&gt;</span>
+      		<span class="tag">&lt;<span class="title">url</span>&gt;</span>https://repository.cloudera.com/artifactory/cloudera-repos/<span class="tag">&lt;/<span class="title">url</span>&gt;</span>
+    	<span class="tag">&lt;/<span class="title">repository</span>&gt;</span>
+  	<span class="tag">&lt;/<span class="title">repositories</span>&gt;</span>
 </pre></td></tr></table></figure>
 
 
@@ -616,12 +626,14 @@ enable <span class="string">'mtable'</span>
 		
 			<li><a href="/tags/git/" title="git">git<sup>1</sup></a></li>
 		
+			<li><a href="/tags/在路上/" title="在路上">在路上<sup>1</sup></a></li>
+		
 		</ul>
 </div>
 
 
   <div class="rsspart">
-	<a href="atom.xml" target="_blank" title="rss">RSS 订阅</a>
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
 </div>
 
   <div class="linkslist">
@@ -637,7 +649,7 @@ enable <span class="string">'mtable'</span>
   <div class="tagcloudlist">
     <p class="asidetitle">标签云</p>
     <div class="tagcloudlist clearfix">
-       <a href="/tags/CDH5/" style="font-size: 10.00px;">CDH5</a><a href="/tags/DB2/" style="font-size: 10.00px;">DB2</a><a href="/tags/HBase/" style="font-size: 15.00px;">HBase</a><a href="/tags/Hadoop/" style="font-size: 20.00px;">Hadoop</a><a href="/tags/Markdown/" style="font-size: 10.00px;">Markdown</a><a href="/tags/git/" style="font-size: 10.00px;">git</a>
+       <a href="/tags/CDH5/" style="font-size: 10.00px;">CDH5</a><a href="/tags/DB2/" style="font-size: 10.00px;">DB2</a><a href="/tags/HBase/" style="font-size: 15.00px;">HBase</a><a href="/tags/Hadoop/" style="font-size: 20.00px;">Hadoop</a><a href="/tags/Markdown/" style="font-size: 10.00px;">Markdown</a><a href="/tags/git/" style="font-size: 10.00px;">git</a><a href="/tags/在路上/" style="font-size: 10.00px;">在路上</a>
     </div>
   </div>
 
@@ -645,7 +657,7 @@ enable <span class="string">'mtable'</span>
   
   <div class="archiveslist">
     <p class="asidetitle"><a href="/archives">归档</a></p>
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05">五月 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04">四月 2014</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/01">一月 2014</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/06">六月 2013</a><span class="archive-list-count">1</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05">五月 2014</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04">四月 2014</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/01">一月 2014</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/06">六月 2013</a><span class="archive-list-count">1</span></li></ul>
   </div>
 
 
@@ -779,6 +791,27 @@ $(document).ready(function(){
 </script> 
 
 
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
 
 
 

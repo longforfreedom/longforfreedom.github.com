@@ -25,7 +25,7 @@ dbname是编目的数据库别名，编目信息可以参考下一节,可以通�
       
     
     
-    <link rel="alternative" href="atom.xml" title="migle.me" type="application/atom+xml">
+    <link rel="alternative" href="/atom.xml" title="migle.me" type="application/atom+xml">
     
     
     <link rel="icon" href="/img/favicon.ico">
@@ -501,12 +501,14 @@ db2 <span class="string">"export to tb_dpi_20131025_00_01.dat   of del select * 
 		
 			<li><a href="/tags/git/" title="git">git<sup>1</sup></a></li>
 		
+			<li><a href="/tags/在路上/" title="在路上">在路上<sup>1</sup></a></li>
+		
 		</ul>
 </div>
 
 
   <div class="rsspart">
-	<a href="atom.xml" target="_blank" title="rss">RSS 订阅</a>
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
 </div>
 
   <div class="linkslist">
@@ -522,7 +524,7 @@ db2 <span class="string">"export to tb_dpi_20131025_00_01.dat   of del select * 
   <div class="tagcloudlist">
     <p class="asidetitle">标签云</p>
     <div class="tagcloudlist clearfix">
-       <a href="/tags/CDH5/" style="font-size: 10.00px;">CDH5</a><a href="/tags/DB2/" style="font-size: 10.00px;">DB2</a><a href="/tags/HBase/" style="font-size: 15.00px;">HBase</a><a href="/tags/Hadoop/" style="font-size: 20.00px;">Hadoop</a><a href="/tags/Markdown/" style="font-size: 10.00px;">Markdown</a><a href="/tags/git/" style="font-size: 10.00px;">git</a>
+       <a href="/tags/CDH5/" style="font-size: 10.00px;">CDH5</a><a href="/tags/DB2/" style="font-size: 10.00px;">DB2</a><a href="/tags/HBase/" style="font-size: 15.00px;">HBase</a><a href="/tags/Hadoop/" style="font-size: 20.00px;">Hadoop</a><a href="/tags/Markdown/" style="font-size: 10.00px;">Markdown</a><a href="/tags/git/" style="font-size: 10.00px;">git</a><a href="/tags/在路上/" style="font-size: 10.00px;">在路上</a>
     </div>
   </div>
 
@@ -530,7 +532,7 @@ db2 <span class="string">"export to tb_dpi_20131025_00_01.dat   of del select * 
   
   <div class="archiveslist">
     <p class="asidetitle"><a href="/archives">归档</a></p>
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05">五月 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04">四月 2014</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/01">一月 2014</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/06">六月 2013</a><span class="archive-list-count">1</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05">五月 2014</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04">四月 2014</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/01">一月 2014</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/06">六月 2013</a><span class="archive-list-count">1</span></li></ul>
   </div>
 
 
@@ -664,6 +666,27 @@ $(document).ready(function(){
 </script> 
 
 
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
 
 
 

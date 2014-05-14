@@ -4,7 +4,7 @@
   <subtitle><![CDATA[一路走来，一路唱]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://www.migle.me/"/>
-  <updated>2014-05-13T04:26:01.816Z</updated>
+  <updated>2014-05-14T02:54:44.699Z</updated>
   <id>http://www.migle.me/</id>
   
   <author>
@@ -13,6 +13,20 @@
   </author>
   
   <generator uri="http://zespia.tw/hexo/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[孟达天池-20140501]]></title>
+    <link href="http://www.migle.me/post/%E5%AD%9F%E8%BE%BE%E5%A4%A9%E6%B1%A0-20140501/"/>
+    <id>http://www.migle.me/post/孟达天池-20140501/</id>
+    <published>2014-05-13T09:48:08.000Z</published>
+    <updated>2014-05-14T02:54:25.000Z</updated>
+    <content type="html"><![CDATA[<p>循化，孟达天池<br><img src="/images/20140501/IMG_5410.JPG" alt=""><br><img src="/images/20140501/IMG_5411.JPG" alt=""><br><img src="/images/20140501/IMG_5417.JPG" alt=""><br><img src="/images/20140501/IMG_5418.JPG" alt=""><br><img src="/images/20140501/IMG_5420.JPG" alt=""><br><img src="/images/20140501/IMG_5425.JPG" alt=""><br><img src="/images/20140501/IMG_5434.JPG" alt=""><br><img src="/images/20140501/IMG_5439.JPG" alt=""><br><img src="/images/20140501/IMG_5441.JPG" alt=""><br><img src="/images/20140501/IMG_5451.JPG" alt=""><br><img src="/images/20140501/IMG_5484.JPG" alt=""><br><img src="/images/20140501/IMG_5486.JPG" alt=""><br><img src="/images/20140501/IMG_5492.JPG" alt=""><br><img src="/images/20140501/IMG_5493.JPG" alt=""><br><img src="/images/20140501/IMG_5517.JPG" alt=""><br><img src="/images/20140501/IMG_5522.JPG" alt=""><br><img src="/images/20140501/IMG_5525.JPG" alt=""><br><img src="/images/20140501/IMG_5528.JPG" alt=""><br><img src="/images/20140501/IMG_5540.JPG" alt=""><br><img src="/images/20140501/IMG_5585.JPG" alt=""><br><img src="/images/20140501/IMG_5601.JPG" alt=""><br><img src="/images/20140501/IMG_5604.JPG" alt=""><br><img src="/images/20140501/IMG_5649.JPG" alt=""><br><img src="/images/20140501/IMG_5563.JPG" alt=""><br><img src="/images/20140501/IMG_5578.JPG" alt=""><br><img src="/images/20140501/IMG_5610.JPG" alt=""><br><img src="/images/20140501/IMG_5616.JPG" alt=""></p>
+]]></content>
+    
+    
+      <category term="在路上" scheme="http://www.migle.me/tags/%E5%9C%A8%E8%B7%AF%E4%B8%8A/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[Hello World]]></title>
@@ -31,7 +45,7 @@
     <link href="http://www.migle.me/post/cdh5%E4%BC%AA%E5%88%86%E5%B8%83%E5%BC%8F%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/"/>
     <id>http://www.migle.me/post/cdh5伪分布式环境搭建/</id>
     <published>2014-04-30T05:59:23.000Z</published>
-    <updated>2014-05-13T02:58:58.000Z</updated>
+    <updated>2014-05-14T02:37:50.000Z</updated>
     <content type="html"><![CDATA[<h2 id="说明：">说明：</h2>
 <ol>
 <li><p>本文描述的是基于Windows+虚拟机+CentOS的Hadoop+HBase的开发环境搭建过程，使用的Hadoop版本是CDH5(Cloudera Distribution including Apache Hadoop，CDH)，旨在说明HADOOP的伪分布式环境搭建关键步骤。CDH5与Hadoop的关系，Hadoop、Hbase、Zookeeper之间的关系，及文中涉及的一些工具、命令的使用等与本文有关系不是特别密切的东西都没有详细说明,想了解更多请：<a href="http://www.google.com" target="_blank">http://www.google.com</a></p>
@@ -81,9 +95,11 @@
 </ol>
 </li>
 </ol>
-<figure class="highlight export"><figcaption><span>JAVA_HOME=/usr/java/jdk1.7.0_55    </span></figcaption><table><tr><td class="gutter"><pre>1
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
 2
-</pre></td><td class="code"><pre><span class="keyword">export</span> CLASSPATH=.:<span class="variable">$JAVA_HOME</span>/lib/dt.jar:<span class="variable">$JAVA_HOME</span>/lib/tools.jar      
+3
+</pre></td><td class="code"><pre><span class="keyword">export</span> JAVA_HOME=/usr/java/jdk1.<span class="number">7.0</span>_55    
+<span class="keyword">export</span> CLASSPATH=.:<span class="variable">$JAVA_HOME</span>/lib/dt.jar:<span class="variable">$JAVA_HOME</span>/lib/tools.jar      
 <span class="keyword">export</span> PATH=<span class="variable">$PATH</span>:<span class="variable">$JAVA_HOME</span>/bin
 </pre></td></tr></table></figure>
 
@@ -98,9 +114,11 @@
 <ol>
 <li>设置软件源  </li>
 </ol>
-<figure class="highlight wget"><figcaption><span>http://archive.cloudera.com/cdh5/one-click-install/redhat/6/x86_64/cloudera-cdh-5-0.x86_64.rpm</span></figcaption><table><tr><td class="gutter"><pre>1
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
 2
-</pre></td><td class="code"><pre>sudo yum --nogpgcheck localinstall cloudera-cdh-<span class="number">5</span>-<span class="number">0.</span>x86_64<span class="preprocessor">.rpm</span>  
+3
+</pre></td><td class="code"><pre>wget http://archive<span class="preprocessor">.cloudera</span><span class="preprocessor">.com</span>/cdh5/one-click-install/redhat/<span class="number">6</span>/x86_64/cloudera-cdh-<span class="number">5</span>-<span class="number">0.</span>x86_64<span class="preprocessor">.rpm</span>
+sudo yum --nogpgcheck localinstall cloudera-cdh-<span class="number">5</span>-<span class="number">0.</span>x86_64<span class="preprocessor">.rpm</span>  
 sudo rpm --import http://archive<span class="preprocessor">.cloudera</span><span class="preprocessor">.com</span>/cdh5/redhat/<span class="number">6</span>/x86_64/cdh/RPM-GPG-KEY-cloudera
 </pre></td></tr></table></figure>
 
@@ -354,7 +372,7 @@ chown <span class="attribute">-R</span> zookeeper /<span class="built_in">var</s
 <li>查看版本:<code>version</code>  </li>
 <li>创建表：<code>create &#39;mtable&#39;,&#39;cf&#39;</code>  指定表名和列族,多个列族用“,”分隔如：<code>create &#39;mtable&#39;,&#39;cf&#39;,&#39;cf2&#39;</code>  </li>
 <li>插入数据: <code>put &#39;表名&#39;,&#39;rowKey&#39;,&#39;列名&#39;,&#39;列值&#39;</code><br>  <code>put &#39;mtable&#39;,&#39;rowKey1&#39;,&#39;cf:acc_nbr&#39;,&#39;18797384480&#39;</code><br>   <code>put &#39;mtable&#39;,&#39;rowKey1&#39;,&#39;cf:name&#39;,&#39;migle&#39;</code><br>列可以动态创建:  列格式是:<em>列族:列名</em>  </li>
-<li>查看数据:<br>  <strong>单行:</strong>get ‘mtable’ , ‘rowKey1’<br>   get ‘mtable’,’rowKey1’,’cf:acc_nbr’<br>   get ‘mtable’,’rowKey1’,’cf’<br>  <strong>所有:</strong>scan ‘mtable’    </li>
+<li>查看数据:<br>  <strong>单行:</strong><br>   <code>get &#39;mtable&#39; , &#39;rowKey1&#39;</code><br>   <code>get &#39;mtable&#39;,&#39;rowKey1&#39;,&#39;cf:acc_nbr&#39;</code><br>   <code>get &#39;mtable&#39;,&#39;rowKey1&#39;,&#39;cf&#39;</code><br>  <strong>所有:</strong> <code>scan &#39;mtable&#39;</code>    </li>
 <li>行数：<code>count &#39;mtable&#39;</code>  </li>
 <li>更新数据：<code>put &#39;mtable&#39;,&#39;1&#39;,&#39;cf:acc_nbr&#39;,&#39;18797384481&#39;</code></li>
 <li>删除数据：<code>delete &#39;mtable&#39;,&#39;1&#39;,&#39;cf:name&#39;</code>  </li>
@@ -365,17 +383,21 @@ chown <span class="attribute">-R</span> zookeeper /<span class="built_in">var</s
 </ol>
 </li>
 </ul>
-<figure class="highlight disable"><figcaption><span>'mtable'  </span></figcaption><table><tr><td class="gutter"><pre>1
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
 2
-</pre></td><td class="code"><pre>   alter <span class="string">'mtable'</span>, NAME =&gt; <span class="string">'cf2'</span>  
+3
+</pre></td><td class="code"><pre>   disable <span class="string">'mtable'</span>  
+   alter <span class="string">'mtable'</span>, NAME =&gt; <span class="string">'cf2'</span>  
    enable <span class="string">'mtable'</span>
 </pre></td></tr></table></figure>
 
 
 <pre><code><span class="bullet">2. </span>删除列族： 
-</code></pre><figure class="highlight disable"><figcaption><span>'mtable'   </span></figcaption><table><tr><td class="gutter"><pre>1
+</code></pre><figure class="highlight"><table><tr><td class="gutter"><pre>1
 2
-</pre></td><td class="code"><pre>alter <span class="string">'mtable'</span>, <span class="string">'delete'</span> =&gt; <span class="string">'cf2'</span>  
+3
+</pre></td><td class="code"><pre>disable <span class="string">'mtable'</span>   
+alter <span class="string">'mtable'</span>, <span class="string">'delete'</span> =&gt; <span class="string">'cf2'</span>  
 enable <span class="string">'mtable'</span>
 </pre></td></tr></table></figure>
 
@@ -405,16 +427,18 @@ enable <span class="string">'mtable'</span>
 <li>在虚拟机中不要把HOSTNAME映射成127.0.0.1否则宿主机中JAVA API不能访问HBASE！！</li>
 <li>可以pom.xml中加入cloudera的仓库，但直接用Apache版本的好像也没问题</li>
 </ol>
-<figure class="highlight <repositories>"><table><tr><td class="gutter"><pre>1
+<figure class="highlight xml"><table><tr><td class="gutter"><pre>1
 2
 3
 4
 5
-</pre></td><td class="code"><pre>    <span class="tag">&lt;<span class="title">repository</span>&gt;</span>
-      <span class="tag">&lt;<span class="title">id</span>&gt;</span>cloudera<span class="tag">&lt;/<span class="title">id</span>&gt;</span>
-      <span class="tag">&lt;<span class="title">url</span>&gt;</span>https://repository.cloudera.com/artifactory/cloudera-repos/<span class="tag">&lt;/<span class="title">url</span>&gt;</span>
-    <span class="tag">&lt;/<span class="title">repository</span>&gt;</span>
-  <span class="tag">&lt;/<span class="title">repositories</span>&gt;</span>
+6
+</pre></td><td class="code"><pre>  	<span class="tag">&lt;<span class="title">repositories</span>&gt;</span>
+    	<span class="tag">&lt;<span class="title">repository</span>&gt;</span>
+      		<span class="tag">&lt;<span class="title">id</span>&gt;</span>cloudera<span class="tag">&lt;/<span class="title">id</span>&gt;</span>
+      		<span class="tag">&lt;<span class="title">url</span>&gt;</span>https://repository.cloudera.com/artifactory/cloudera-repos/<span class="tag">&lt;/<span class="title">url</span>&gt;</span>
+    	<span class="tag">&lt;/<span class="title">repository</span>&gt;</span>
+  	<span class="tag">&lt;/<span class="title">repositories</span>&gt;</span>
 </pre></td></tr></table></figure>
 
 
@@ -447,7 +471,7 @@ enable <span class="string">'mtable'</span>
     <link href="http://www.migle.me/post/hbase%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0/"/>
     <id>http://www.migle.me/post/hbase入门笔记/</id>
     <published>2014-04-10T03:28:47.000Z</published>
-    <updated>2014-05-13T02:29:00.000Z</updated>
+    <updated>2014-05-14T02:45:02.000Z</updated>
     <content type="html"><![CDATA[<h2 id="安装配置">安装配置</h2>
 <ul>
 <li>条件：Hadoop集群已搭建</li>
@@ -455,7 +479,7 @@ enable <span class="string">'mtable'</span>
 <li>安装：<code>tar zxvf hbase-0.98.1-hadoop2-bin.tar.gz</code>  </li>
 <li>集群模式配置：<br>  单机模式和伪分布式请参见官方文档，集群模式请先保证你已经配置好Hadoop集群<br>  在<em>conf/hbase-site.xml</em>中添加以下：</li>
 </ul>
-<figure class="highlight <configuration>"><table><tr><td class="gutter"><pre>1
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
 2
 3
 4
@@ -492,7 +516,9 @@ enable <span class="string">'mtable'</span>
 35
 36
 37
-</pre></td><td class="code"><pre><span class="tag">&lt;<span class="title">property</span>&gt;</span>
+38
+</pre></td><td class="code"><pre><span class="tag">&lt;<span class="title">configuration</span>&gt;</span>
+<span class="tag">&lt;<span class="title">property</span>&gt;</span>
     	<span class="tag">&lt;<span class="title">name</span>&gt;</span>hbase.zookeeper.quorum<span class="tag">&lt;/<span class="title">name</span>&gt;</span>
     	<span class="tag">&lt;<span class="title">value</span>&gt;</span>avgopt2,avgwebt1,avgweb2<span class="tag">&lt;/<span class="title">value</span>&gt;</span>
     	<span class="tag">&lt;<span class="title">description</span>&gt;</span>The directory shared by RegionServers.
@@ -533,9 +559,11 @@ enable <span class="string">'mtable'</span>
 
 
 <p>在<em>conf/regionservers</em>中添加:  </p>
-<figure class="highlight 135.191.27.156"><table><tr><td class="gutter"><pre>1
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
 2
-</pre></td><td class="code"><pre>135.191.27.161  
+3
+</pre></td><td class="code"><pre>135.191.27.156 
+135.191.27.161  
 135.191.27.176
 </pre></td></tr></table></figure>
 
@@ -579,17 +607,21 @@ enable <span class="string">'mtable'</span>
 </ol>
 </li>
 </ul>
-<figure class="highlight disable"><figcaption><span>'mtable'  </span></figcaption><table><tr><td class="gutter"><pre>1
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
 2
-</pre></td><td class="code"><pre>   alter <span class="string">'mtable'</span>, NAME =&gt; <span class="string">'cf2'</span>  
-   enable <span class="string">'mtable'</span>
+3
+</pre></td><td class="code"><pre>disable <span class="string">'mtable'</span>  
+alter <span class="string">'mtable'</span>, NAME =&gt; <span class="string">'cf2'</span>  
+enable <span class="string">'mtable'</span>
 </pre></td></tr></table></figure>
 
 
 <pre><code><span class="bullet">2. </span>删除列族： 
-</code></pre><figure class="highlight disable"><figcaption><span>'mtable'   </span></figcaption><table><tr><td class="gutter"><pre>1
+</code></pre><figure class="highlight"><table><tr><td class="gutter"><pre>1
 2
-</pre></td><td class="code"><pre>alter <span class="string">'mtable'</span>, <span class="string">'delete'</span> =&gt; <span class="string">'cf2'</span>  
+3
+</pre></td><td class="code"><pre>disable <span class="string">'mtable'</span>   
+alter <span class="string">'mtable'</span>, <span class="string">'delete'</span> =&gt; <span class="string">'cf2'</span>  
 enable <span class="string">'mtable'</span>
 </pre></td></tr></table></figure>
 
@@ -597,8 +629,10 @@ enable <span class="string">'mtable'</span>
 <ul>
 <li>删除表：</li>
 </ul>
-<figure class="highlight disable"><figcaption><span>'mtable'</span></figcaption><table><tr><td class="gutter"><pre>1
-</pre></td><td class="code"><pre><span class="keyword">drop</span> <span class="string">'mtable'</span>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+</pre></td><td class="code"><pre>disable <span class="string">'mtable'</span>
+<span class="keyword">drop</span> <span class="string">'mtable'</span>
 </pre></td></tr></table></figure>
 
 

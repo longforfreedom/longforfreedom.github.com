@@ -24,7 +24,7 @@
       
     
     
-    <link rel="alternative" href="atom.xml" title="migle.me" type="application/atom+xml">
+    <link rel="alternative" href="/atom.xml" title="migle.me" type="application/atom+xml">
     
     
     <link rel="icon" href="/img/favicon.ico">
@@ -93,7 +93,7 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
     </p>
   <p class="article-time">
     <time datetime="2014-04-10T03:28:47.000Z" itemprop="datePublished">4月 10 2014</time>
-    更新日期:<time datetime="2014-05-13T02:29:00.000Z" itemprop="dateModified">5月 13 2014</time>
+    更新日期:<time datetime="2014-05-14T02:45:02.000Z" itemprop="dateModified">5月 14 2014</time>
     
   </p>
 </header>
@@ -112,7 +112,7 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
 <li>安装：<code>tar zxvf hbase-0.98.1-hadoop2-bin.tar.gz</code>  </li>
 <li>集群模式配置：<br>  单机模式和伪分布式请参见官方文档，集群模式请先保证你已经配置好Hadoop集群<br>  在<em>conf/hbase-site.xml</em>中添加以下：</li>
 </ul>
-<figure class="highlight <configuration>"><table><tr><td class="gutter"><pre>1
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
 2
 3
 4
@@ -149,7 +149,9 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
 35
 36
 37
-</pre></td><td class="code"><pre><span class="tag">&lt;<span class="title">property</span>&gt;</span>
+38
+</pre></td><td class="code"><pre><span class="tag">&lt;<span class="title">configuration</span>&gt;</span>
+<span class="tag">&lt;<span class="title">property</span>&gt;</span>
     	<span class="tag">&lt;<span class="title">name</span>&gt;</span>hbase.zookeeper.quorum<span class="tag">&lt;/<span class="title">name</span>&gt;</span>
     	<span class="tag">&lt;<span class="title">value</span>&gt;</span>avgopt2,avgwebt1,avgweb2<span class="tag">&lt;/<span class="title">value</span>&gt;</span>
     	<span class="tag">&lt;<span class="title">description</span>&gt;</span>The directory shared by RegionServers.
@@ -190,9 +192,11 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
 
 
 <p>在<em>conf/regionservers</em>中添加:  </p>
-<figure class="highlight 135.191.27.156"><table><tr><td class="gutter"><pre>1
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
 2
-</pre></td><td class="code"><pre>135.191.27.161  
+3
+</pre></td><td class="code"><pre>135.191.27.156 
+135.191.27.161  
 135.191.27.176
 </pre></td></tr></table></figure>
 
@@ -236,17 +240,21 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
 </ol>
 </li>
 </ul>
-<figure class="highlight disable"><figcaption><span>'mtable'  </span></figcaption><table><tr><td class="gutter"><pre>1
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
 2
-</pre></td><td class="code"><pre>   alter <span class="string">'mtable'</span>, NAME =&gt; <span class="string">'cf2'</span>  
-   enable <span class="string">'mtable'</span>
+3
+</pre></td><td class="code"><pre>disable <span class="string">'mtable'</span>  
+alter <span class="string">'mtable'</span>, NAME =&gt; <span class="string">'cf2'</span>  
+enable <span class="string">'mtable'</span>
 </pre></td></tr></table></figure>
 
 
 <pre><code><span class="bullet">2. </span>删除列族： 
-</code></pre><figure class="highlight disable"><figcaption><span>'mtable'   </span></figcaption><table><tr><td class="gutter"><pre>1
+</code></pre><figure class="highlight"><table><tr><td class="gutter"><pre>1
 2
-</pre></td><td class="code"><pre>alter <span class="string">'mtable'</span>, <span class="string">'delete'</span> =&gt; <span class="string">'cf2'</span>  
+3
+</pre></td><td class="code"><pre>disable <span class="string">'mtable'</span>   
+alter <span class="string">'mtable'</span>, <span class="string">'delete'</span> =&gt; <span class="string">'cf2'</span>  
 enable <span class="string">'mtable'</span>
 </pre></td></tr></table></figure>
 
@@ -254,8 +262,10 @@ enable <span class="string">'mtable'</span>
 <ul>
 <li>删除表：</li>
 </ul>
-<figure class="highlight disable"><figcaption><span>'mtable'</span></figcaption><table><tr><td class="gutter"><pre>1
-</pre></td><td class="code"><pre><span class="keyword">drop</span> <span class="string">'mtable'</span>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+</pre></td><td class="code"><pre>disable <span class="string">'mtable'</span>
+<span class="keyword">drop</span> <span class="string">'mtable'</span>
 </pre></td></tr></table></figure>
 
 
@@ -378,12 +388,14 @@ enable <span class="string">'mtable'</span>
 		
 			<li><a href="/tags/git/" title="git">git<sup>1</sup></a></li>
 		
+			<li><a href="/tags/在路上/" title="在路上">在路上<sup>1</sup></a></li>
+		
 		</ul>
 </div>
 
 
   <div class="rsspart">
-	<a href="atom.xml" target="_blank" title="rss">RSS 订阅</a>
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
 </div>
 
   <div class="linkslist">
@@ -399,7 +411,7 @@ enable <span class="string">'mtable'</span>
   <div class="tagcloudlist">
     <p class="asidetitle">标签云</p>
     <div class="tagcloudlist clearfix">
-       <a href="/tags/CDH5/" style="font-size: 10.00px;">CDH5</a><a href="/tags/DB2/" style="font-size: 10.00px;">DB2</a><a href="/tags/HBase/" style="font-size: 15.00px;">HBase</a><a href="/tags/Hadoop/" style="font-size: 20.00px;">Hadoop</a><a href="/tags/Markdown/" style="font-size: 10.00px;">Markdown</a><a href="/tags/git/" style="font-size: 10.00px;">git</a>
+       <a href="/tags/CDH5/" style="font-size: 10.00px;">CDH5</a><a href="/tags/DB2/" style="font-size: 10.00px;">DB2</a><a href="/tags/HBase/" style="font-size: 15.00px;">HBase</a><a href="/tags/Hadoop/" style="font-size: 20.00px;">Hadoop</a><a href="/tags/Markdown/" style="font-size: 10.00px;">Markdown</a><a href="/tags/git/" style="font-size: 10.00px;">git</a><a href="/tags/在路上/" style="font-size: 10.00px;">在路上</a>
     </div>
   </div>
 
@@ -407,7 +419,7 @@ enable <span class="string">'mtable'</span>
   
   <div class="archiveslist">
     <p class="asidetitle"><a href="/archives">归档</a></p>
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05">五月 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04">四月 2014</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/01">一月 2014</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/06">六月 2013</a><span class="archive-list-count">1</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05">五月 2014</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04">四月 2014</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/01">一月 2014</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/06">六月 2013</a><span class="archive-list-count">1</span></li></ul>
   </div>
 
 
@@ -541,6 +553,27 @@ $(document).ready(function(){
 </script> 
 
 
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
 
 
 
