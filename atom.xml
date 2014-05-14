@@ -4,7 +4,7 @@
   <subtitle><![CDATA[一路走来，一路唱]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://www.migle.me/"/>
-  <updated>2014-05-14T02:59:41.881Z</updated>
+  <updated>2014-05-14T04:15:54.612Z</updated>
   <id>http://www.migle.me/</id>
   
   <author>
@@ -45,7 +45,7 @@
     <link href="http://www.migle.me/post/cdh5%E4%BC%AA%E5%88%86%E5%B8%83%E5%BC%8F%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/"/>
     <id>http://www.migle.me/post/cdh5伪分布式环境搭建/</id>
     <published>2014-04-30T05:59:23.000Z</published>
-    <updated>2014-05-14T02:37:50.000Z</updated>
+    <updated>2014-05-14T04:15:38.000Z</updated>
     <content type="html"><![CDATA[<h2 id="说明：">说明：</h2>
 <ol>
 <li><p>本文描述的是基于Windows+虚拟机+CentOS的Hadoop+HBase的开发环境搭建过程，使用的Hadoop版本是CDH5(Cloudera Distribution including Apache Hadoop，CDH)，旨在说明HADOOP的伪分布式环境搭建关键步骤。CDH5与Hadoop的关系，Hadoop、Hbase、Zookeeper之间的关系，及文中涉及的一些工具、命令的使用等与本文有关系不是特别密切的东西都没有详细说明,想了解更多请：<a href="http://www.google.com" target="_blank">http://www.google.com</a></p>
@@ -464,6 +464,8 @@ enable <span class="string">'mtable'</span>
     
       <category term="Hadoop" scheme="http://www.migle.me/categories/Hadoop/"/>
     
+      <category term="HBase" scheme="http://www.migle.me/categories/Hadoop/HBase/"/>
+    
   </entry>
   
   <entry>
@@ -654,7 +656,7 @@ enable <span class="string">'mtable'</span>
     <link href="http://www.migle.me/post/hadoop%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E7%AC%94%E8%AE%B0/"/>
     <id>http://www.migle.me/post/hadoop环境搭建笔记/</id>
     <published>2014-04-02T06:57:34.000Z</published>
-    <updated>2014-05-13T02:29:09.000Z</updated>
+    <updated>2014-05-14T04:12:17.000Z</updated>
     <content type="html"><![CDATA[<h1 id="环境">环境</h1>
 <h2 id="硬件环境：">硬件环境：</h2>
 <p>  共有如下四台机器,网络互通</p>
@@ -750,7 +752,7 @@ enable <span class="string">'mtable'</span>
     <link href="http://www.migle.me/post/git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/"/>
     <id>http://www.migle.me/post/git常用命令/</id>
     <published>2014-01-12T06:55:07.000Z</published>
-    <updated>2014-05-13T02:29:13.000Z</updated>
+    <updated>2014-05-14T04:12:34.000Z</updated>
     <content type="html"><![CDATA[<h1 id="git常用命令">git常用命令</h1>
 <h2 id="配置">配置</h2>
 <p><code>git config -l</code>  #列举所有配置<br><code>git config --get user.name</code> #查看单个参数<br><code>git config --global user.name &quot;migle&quot;</code><br><code>git config --global user.email &quot;longforfreedom+github@gmail.com&quot;</code><br><code>git config --global core.quotepath false</code> #要不中文文件名都是数据编码,ore.quotepath设为false的话，就不会对0×80以上的字符进行quote。中文显示正常 。   </p>
@@ -791,7 +793,7 @@ enable <span class="string">'mtable'</span>
     <link href="http://www.migle.me/post/db2%E7%AC%94%E8%AE%B0/"/>
     <id>http://www.migle.me/post/db2笔记/</id>
     <published>2014-01-07T08:48:03.000Z</published>
-    <updated>2014-05-12T08:49:20.000Z</updated>
+    <updated>2014-05-14T04:13:49.000Z</updated>
     <content type="html"><![CDATA[<h2 id="基本命令">基本命令</h2>
 <ol>
 <li>查看DB2版本信息：<code>db2level</code> </li>
@@ -1178,6 +1180,45 @@ db2 <span class="string">"export to tb_dpi_20131025_00_01.dat   of del select * 
       <category term="Markdown" scheme="http://www.migle.me/tags/Markdown/"/>
     
       <category term="其它" scheme="http://www.migle.me/categories/%E5%85%B6%E5%AE%83/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[crontab]]></title>
+    <link href="http://www.migle.me/post/crontab/"/>
+    <id>http://www.migle.me/post/crontab/</id>
+    <published>2013-04-05T04:05:24.000Z</published>
+    <updated>2014-05-14T04:11:32.000Z</updated>
+    <content type="html"><![CDATA[<p>简单的记录一下Linux下的crontab的使用，方便日后使用<br><a id="more"></a></p>
+<h2 id="基本操作">基本操作</h2>
+<pre><code><span class="number">1</span>.  <span class="escape">`c</span>rontab –e<span class="escape">` </span>编辑当前用户的配置文件，添加完保存后会自动生效，如果有错误保存的时候会提示。
+<span class="number">2</span>.  <span class="escape">`c</span>rontab -l<span class="escape">` </span> 查看自己的所有调度列表，<span class="escape">`c</span>rontab -u vgop -l<span class="escape">` </span>  查看指定用户的调度列表root用户才能查看其它用户的任务列表
+</code></pre><h2 id="周期设置_：">周期设置 ：</h2>
+<p>  共5个字段，意义及取值范围如下：</p>
+<pre><code><span class="bullet">1. </span>分     0-59
+<span class="bullet">2. </span>小时     0-23
+<span class="bullet">3. </span>日期     1-31
+<span class="bullet">4. </span>月份     1-12
+<span class="bullet">5. </span>星期     0-7（0和7都是星期天）
+</code></pre><p>例如:<br>    每周5的23点执行/path/backup.sh一次:          <code>*  23  *  *  5   /path/backup.sh</code><br>    每月1号的凌晨1点执行/path/backup.sh一次:   <code>*  1  1  *  *   /path/backup.sh</code></p>
+<h2 id="日志">日志</h2>
+<p>  RedHat的调度日志是在/var/log下如: <em>/var/log/cron /var/log/cron.1  /var/log/cron.2 /var/log/cron.3 /var/log/cron.4</em>，但ubuntu是放在<em>/var/log/syslog</em></p>
+<h2 id="问题">问题</h2>
+<h3 id="环境变量问题">环境变量问题</h3>
+<p>因为crontab时的运行环境已经不是用户环境了，因此原本用户下的一些环境变量的设置就失效了<br>比如在用户自己的在脚本里加一行：<code>export LANG=XXXX</code><br>XXX的值可以用 <code>echo $LANG</code>看一下</p>
+<p>另外要在SHELL里执行DB2命令也是一样的道理，需要加上一行<br><code>.  XXXXXXXXXX/db2profile</code><br>因为在<code>~/.bash_profile,~/.profile</code>文件文件中添加的环境变量都不起作用了</p>
+<h3 id="相对路径问题">相对路径问题</h3>
+<p>注意的是如果执行的任务脚本中有相对路径，那十有八九会出问题，可以把调序任务的输出重定向到一个日志文件里来查看。</p>
+]]></content>
+    <summary type="html"><![CDATA[<p>简单的记录一下Linux下的crontab的使用，方便日后使用<br>]]></summary>
+    
+      <category term="Linux" scheme="http://www.migle.me/tags/Linux/"/>
+    
+      <category term="crontab" scheme="http://www.migle.me/tags/crontab/"/>
+    
+      <category term="任务调度" scheme="http://www.migle.me/tags/%E4%BB%BB%E5%8A%A1%E8%B0%83%E5%BA%A6/"/>
+    
+      <category term="Linux" scheme="http://www.migle.me/categories/Linux/"/>
     
   </entry>
   

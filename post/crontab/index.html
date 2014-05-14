@@ -4,18 +4,20 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>Hello World | migle.me</title>
+    <title>crontab | migle.me</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
     
     <meta name="author" content="migle">
     
-    <meta name="description" content="今天迁到 Hexo!  ^_^  documentation to learn how to use.">
+    <meta name="description" itemprop="description" content="简单的记录一下Linux下的crontab的使用，方便日后使用">
     
     
     
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:site" content="iammigle" />
-    <meta name="twitter:title" content="Hello World | migle.me" />
+    <meta name="twitter:title" content="crontab | migle.me" />
+      
+        <meta name="twitter:description" content="简单的记录一下Linux下的crontab的使用，方便日后使用" />
       
     
     
@@ -80,15 +82,15 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/post/hello-world/" title="Hello World" itemprop="url">Hello World</a>
+      <a href="/post/crontab/" title="crontab" itemprop="url">crontab</a>
   </h1>
   <p class="article-author">By
     
       <a href="https://plus.google.com/100499485361267920799?rel=author" title="migle" target="_blank" itemprop="author">migle</a>
     </p>
   <p class="article-time">
-    <time datetime="2014-05-12T02:25:50.000Z" itemprop="datePublished">5月 12 2014</time>
-    更新日期:<time datetime="2014-05-13T03:47:49.000Z" itemprop="dateModified">5月 13 2014</time>
+    <time datetime="2013-04-05T04:05:24.000Z" itemprop="datePublished">4月 5 2013</time>
+    更新日期:<time datetime="2014-05-14T04:11:32.000Z" itemprop="dateModified">5月 14 2014</time>
     
   </p>
 </header>
@@ -97,14 +99,43 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
 		
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
-		
+		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#基本操作"><span class="toc-number">1.</span> <span class="toc-text">基本操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#周期设置_："><span class="toc-number">2.</span> <span class="toc-text">周期设置 ：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#日志"><span class="toc-number">3.</span> <span class="toc-text">日志</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#问题"><span class="toc-number">4.</span> <span class="toc-text">问题</span></a></li><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#环境变量问题"><span class="toc-number">4.1.</span> <span class="toc-text">环境变量问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#相对路径问题"><span class="toc-number">4.2.</span> <span class="toc-text">相对路径问题</span></a></li></ol>
 		</div>
 		
-		<p>今天迁到 <a href="http://hexo.io" target="_blank">Hexo</a>!  ^_^  <a href="http://hexo.io/docs" target="_blank">documentation</a> to learn how to use.</p>
+		<p>简单的记录一下Linux下的crontab的使用，方便日后使用<br><a id="more"></a></p>
+<h2 id="基本操作">基本操作</h2>
+<pre><code><span class="number">1</span>.  <span class="escape">`c</span>rontab –e<span class="escape">` </span>编辑当前用户的配置文件，添加完保存后会自动生效，如果有错误保存的时候会提示。
+<span class="number">2</span>.  <span class="escape">`c</span>rontab -l<span class="escape">` </span> 查看自己的所有调度列表，<span class="escape">`c</span>rontab -u vgop -l<span class="escape">` </span>  查看指定用户的调度列表root用户才能查看其它用户的任务列表
+</code></pre><h2 id="周期设置_：">周期设置 ：</h2>
+<p>  共5个字段，意义及取值范围如下：</p>
+<pre><code><span class="bullet">1. </span>分     0-59
+<span class="bullet">2. </span>小时     0-23
+<span class="bullet">3. </span>日期     1-31
+<span class="bullet">4. </span>月份     1-12
+<span class="bullet">5. </span>星期     0-7（0和7都是星期天）
+</code></pre><p>例如:<br>    每周5的23点执行/path/backup.sh一次:          <code>*  23  *  *  5   /path/backup.sh</code><br>    每月1号的凌晨1点执行/path/backup.sh一次:   <code>*  1  1  *  *   /path/backup.sh</code></p>
+<h2 id="日志">日志</h2>
+<p>  RedHat的调度日志是在/var/log下如: <em>/var/log/cron /var/log/cron.1  /var/log/cron.2 /var/log/cron.3 /var/log/cron.4</em>，但ubuntu是放在<em>/var/log/syslog</em></p>
+<h2 id="问题">问题</h2>
+<h3 id="环境变量问题">环境变量问题</h3>
+<p>因为crontab时的运行环境已经不是用户环境了，因此原本用户下的一些环境变量的设置就失效了<br>比如在用户自己的在脚本里加一行：<code>export LANG=XXXX</code><br>XXX的值可以用 <code>echo $LANG</code>看一下</p>
+<p>另外要在SHELL里执行DB2命令也是一样的道理，需要加上一行<br><code>.  XXXXXXXXXX/db2profile</code><br>因为在<code>~/.bash_profile,~/.profile</code>文件文件中添加的环境变量都不起作用了</p>
+<h3 id="相对路径问题">相对路径问题</h3>
+<p>注意的是如果执行的任务脚本中有相对路径，那十有八九会出问题，可以把调序任务的输出重定向到一个日志文件里来查看。</p>
   
 	</div>
 		<footer class="article-footer clearfix">
 
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Linux/">Linux</a><a href="/tags/crontab/">crontab</a><a href="/tags/任务调度/">任务调度</a>
+  </div>
+
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Linux/">Linux</a>
+</div>
 
 
 
@@ -139,21 +170,13 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/post/孟达天池-20140501/" title="孟达天池-20140501">
+ <a href="/post/markdown笔记/" title="Markdown笔记">
   <strong>PREVIOUS:</strong><br/>
   <span>
-  孟达天池-20140501</span>
+  Markdown笔记</span>
 </a>
 </div>
 
-
-<div class="next">
-<a href="/post/cdh5伪分布式环境搭建/"  title="CDH5伪分布式环境搭建">
- <strong>NEXT:</strong><br/> 
- <span>CDH5伪分布式环境搭建
-</span>
-</a>
-</div>
 
 </nav>
 
@@ -167,7 +190,7 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
 
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
-  
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#基本操作"><span class="toc-number">1.</span> <span class="toc-text">基本操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#周期设置_："><span class="toc-number">2.</span> <span class="toc-text">周期设置 ：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#日志"><span class="toc-number">3.</span> <span class="toc-text">日志</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#问题"><span class="toc-number">4.</span> <span class="toc-text">问题</span></a></li><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#环境变量问题"><span class="toc-number">4.1.</span> <span class="toc-text">环境变量问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#相对路径问题"><span class="toc-number">4.2.</span> <span class="toc-text">相对路径问题</span></a></li></ol>
   </div>
 
 <div id="asidepart">
