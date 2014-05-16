@@ -4,7 +4,7 @@
   <subtitle><![CDATA[一路走来，一路唱]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://www.migle.me/"/>
-  <updated>2014-05-14T04:15:54.612Z</updated>
+  <updated>2014-05-16T03:33:07.796Z</updated>
   <id>http://www.migle.me/</id>
   
   <author>
@@ -473,7 +473,7 @@ enable <span class="string">'mtable'</span>
     <link href="http://www.migle.me/post/hbase%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0/"/>
     <id>http://www.migle.me/post/hbase入门笔记/</id>
     <published>2014-04-10T03:28:47.000Z</published>
-    <updated>2014-05-14T02:45:02.000Z</updated>
+    <updated>2014-05-14T06:29:30.000Z</updated>
     <content type="html"><![CDATA[<h2 id="安装配置">安装配置</h2>
 <ul>
 <li>条件：Hadoop集群已搭建</li>
@@ -583,12 +583,12 @@ enable <span class="string">'mtable'</span>
 <p>jps<br>175上会有：HMaster进程<br>其它机器上会有HRegionServer和HQuorumPeer进程</p>
 <p>HMaster Web界面<br><a href="http://135.191.27.175:60010/" target="_blank">http://135.191.27.175:60010/</a></p>
 <h2 id="测试">测试</h2>
-<p>从VGOP的库上导一个用户基本信息表出来<br>db2 “export to gdi_mbuser_baseinfo_20140424.dat of del select bigint(mbuser_id),cust_name,area_id from nmk.gdi_mbuser_baseinfo_20140424 with ur”</p>
+<p>从VGOP的库上导一个用户基本信息表出来<br>db2 “export to XXX of del select * from xxxxx”</p>
 <p>-put 到HDFS<br>gdi_mbuser_baseinfo_20140424.dat</p>
 <p>创建表：</p>
 <blockquote>
 <blockquote>
-<p>create ‘gdi_mbuser_20140424’,’pro’<br>create ‘gdi_mbuser_20140424’, {NAME =&gt; ‘pro’},   {SPLITS =&gt; [‘g’, ‘m’, ‘r’, ‘w’]}<br>bin/hbase org.apache.hadoop.hbase.mapreduce.ImportTsv -Dimporttsv.separator=”,” -Dimporttsv.columns=HBASE_ROW_KEY, baseinfo:cust_name, baseinfo:area_id, gdi_mbuser_20140424 /qhbi/gdi_mbuser_baseinfo_20140424.dat</p>
+<p>create ‘gdi_mbuser_20140424’,’pro’<br>create ‘gdi_mbuser_20140424’, {NAME =&gt; ‘pro’},   {SPLITS =&gt; [‘g’, ‘m’, ‘r’, ‘w’]}<br>/bin/hbase org.apache.hadoop.hbase.mapreduce.ImportTsv  -Dimporttsv.separator=”,”   -Dimporttsv.columns=HBASE_ROW_KEY,pro:acc_nbr,pro:cust_name gdi_mbuser_20140424 /vgopbak/test_hbase.txt</p>
 </blockquote>
 </blockquote>
 <h2 id="HBASE_SHELL_基本操作">HBASE SHELL 基本操作</h2>
@@ -1086,7 +1086,7 @@ db2 <span class="string">"export to tb_dpi_20131025_00_01.dat   of del select * 
     <link href="http://www.migle.me/post/markdown%E7%AC%94%E8%AE%B0/"/>
     <id>http://www.migle.me/post/markdown笔记/</id>
     <published>2013-06-12T03:24:21.000Z</published>
-    <updated>2014-05-13T02:29:35.000Z</updated>
+    <updated>2014-05-14T09:49:28.000Z</updated>
     <content type="html"><![CDATA[<h2 id="markdown_简述">markdown 简述</h2>
 <blockquote>
 <p>Markdown 的语法全由一些符号所组成，这些符号经过精挑细选，其作用一目了然。比如：在文字两旁加上星号，看起来就像<em>强调</em>。Markdown 的列表看起来，嗯，就是列表。Markdown 的区块引用看起来就真的像是引用一段文字，就像你曾在电子邮件中见过的那样。</p>
@@ -1137,7 +1137,7 @@ db2 <span class="string">"export to tb_dpi_20131025_00_01.dat   of del select * 
 <li>行内式<br><code>![Alt text](/path/to/img.jpg)</code><br><code>![Alt text](/path/to/img.jpg &quot;Optional title&quot;)</code><br>2.和参考式。<br><code>·![Alt text][id]</code><br> 「id」是图片参考的名称，图片参考的定义方式则和连结参考一样：<br><code>[id]: url/to/image  &quot;Optional title attribute&quot;</code></li>
 </ol>
 </li>
-<li>自动链接<br>  <code>&lt;http://example.com/&gt;</code></li>
+<li>自动链接<br>  <code>&lt;http://www.migle.com/&gt;</code></li>
 </ul>
 <h2 id="强调">强调</h2>
 <p>Markdown 使用星号（<em>）和底线（_）作为标记强调字词的符号，被 </em> 或 <em> 包围的字词会被转成用 <code>&lt;em&gt;</code> 标签包围，用两个 * 或 \</em> 包起来的话，则会被转成 <code>&lt;strong&gt;</code><br>但是如果你的 * 和 _ 两边都有空白的话，它们就只会被当成普通的符号。</p>

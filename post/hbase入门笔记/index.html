@@ -93,7 +93,7 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
     </p>
   <p class="article-time">
     <time datetime="2014-04-10T03:28:47.000Z" itemprop="datePublished">4月 10 2014</time>
-    更新日期:<time datetime="2014-05-14T02:45:02.000Z" itemprop="dateModified">5月 14 2014</time>
+    更新日期:<time datetime="2014-05-14T06:29:30.000Z" itemprop="dateModified">5月 14 2014</time>
     
   </p>
 </header>
@@ -214,12 +214,12 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
 <p>jps<br>175上会有：HMaster进程<br>其它机器上会有HRegionServer和HQuorumPeer进程</p>
 <p>HMaster Web界面<br><a href="http://135.191.27.175:60010/" target="_blank">http://135.191.27.175:60010/</a></p>
 <h2 id="测试">测试</h2>
-<p>从VGOP的库上导一个用户基本信息表出来<br>db2 “export to gdi_mbuser_baseinfo_20140424.dat of del select bigint(mbuser_id),cust_name,area_id from nmk.gdi_mbuser_baseinfo_20140424 with ur”</p>
+<p>从VGOP的库上导一个用户基本信息表出来<br>db2 “export to XXX of del select * from xxxxx”</p>
 <p>-put 到HDFS<br>gdi_mbuser_baseinfo_20140424.dat</p>
 <p>创建表：</p>
 <blockquote>
 <blockquote>
-<p>create ‘gdi_mbuser_20140424’,’pro’<br>create ‘gdi_mbuser_20140424’, {NAME =&gt; ‘pro’},   {SPLITS =&gt; [‘g’, ‘m’, ‘r’, ‘w’]}<br>bin/hbase org.apache.hadoop.hbase.mapreduce.ImportTsv -Dimporttsv.separator=”,” -Dimporttsv.columns=HBASE_ROW_KEY, baseinfo:cust_name, baseinfo:area_id, gdi_mbuser_20140424 /qhbi/gdi_mbuser_baseinfo_20140424.dat</p>
+<p>create ‘gdi_mbuser_20140424’,’pro’<br>create ‘gdi_mbuser_20140424’, {NAME =&gt; ‘pro’},   {SPLITS =&gt; [‘g’, ‘m’, ‘r’, ‘w’]}<br>/bin/hbase org.apache.hadoop.hbase.mapreduce.ImportTsv  -Dimporttsv.separator=”,”   -Dimporttsv.columns=HBASE_ROW_KEY,pro:acc_nbr,pro:cust_name gdi_mbuser_20140424 /vgopbak/test_hbase.txt</p>
 </blockquote>
 </blockquote>
 <h2 id="HBASE_SHELL_基本操作">HBASE SHELL 基本操作</h2>
@@ -582,6 +582,15 @@ $(document).ready(function(){
 }); 
 </script>
 
+
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-349313-1', 'null');  
+ga('send', 'pageview');
+</script>
 
 
   </body>
