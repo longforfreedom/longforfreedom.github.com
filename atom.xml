@@ -4,7 +4,7 @@
   <subtitle><![CDATA[一路走来，一路唱]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://www.migle.me/"/>
-  <updated>2014-05-21T03:47:53.464Z</updated>
+  <updated>2014-05-21T09:18:22.502Z</updated>
   <id>http://www.migle.me/</id>
   
   <author>
@@ -169,7 +169,7 @@ passwd()
     <link href="http://www.migle.me/post/cdh5%E4%BC%AA%E5%88%86%E5%B8%83%E5%BC%8F%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/"/>
     <id>http://www.migle.me/post/cdh5伪分布式环境搭建/</id>
     <published>2014-04-30T05:59:23.000Z</published>
-    <updated>2014-05-19T08:24:35.000Z</updated>
+    <updated>2014-05-21T09:17:42.000Z</updated>
     <content type="html"><![CDATA[<h2 id="说明：">说明：</h2>
 <ol>
 <li><p>本文描述的是基于Windows+虚拟机+CentOS的Hadoop+HBase的开发环境搭建过程，使用的Hadoop版本是CDH5(Cloudera Distribution including Apache Hadoop，CDH)，旨在说明HADOOP的伪分布式环境搭建关键步骤。CDH5与Hadoop的关系，Hadoop、Hbase、Zookeeper之间的关系，及文中涉及的一些工具、命令的使用等与本文有关系不是特别密切的东西都没有详细说明,想了解更多请：<a href="http://www.google.com" target="_blank">http://www.google.com</a></p>
@@ -179,16 +179,35 @@ passwd()
 </ol>
 <h2 id="基础环境">基础环境</h2>
 <h3 id="操作系统">操作系统</h3>
-<p>CDH5的环境要求可以参见：<a href="http://www.cloudera.com/content/cloudera-content/cloudera-docs/CDH5/latest/CDH5-Requirements-and-Supported-Versions/CDH5-Requirements-and-Supported-Versions.html" target="_blank">CDH 5 Requirements and Supported Versions</a> 虚拟机可以用VMWare或VirtualBox，详细安装过程请自行Google ，本文所用的环境为Win8+VMWare+CentOS6.4 +CDH5以下是一些需要注意的点：</p>
-<blockquote>
-<blockquote>
-<p>虚拟机安装CentOS6.4方便起见推荐使用安装minimal版，小巧玲珑<a href="http://pan.baidu.com/s/1i3zG0L3" target="_blank">百度网盘下载</a>   </p>
+<p>CDH5的环境要求可以参见：<a href="http://www.cloudera.com/content/cloudera-content/cloudera-docs/CDH5/latest/CDH5-Requirements-and-Supported-Versions/CDH5-Requirements-and-Supported-Versions.html" target="_blank">CDH 5 Requirements and Supported Versions</a> 虚拟机可以用VMWare或VirtualBox，详细安装过程请自行Google ，本文所用的环境为Win8+VMWare+CentOS6.4 +CDH5：<br>虚拟机安装CentOS6.4方便起见推荐使用安装minimal版，小巧玲珑<a href="http://pan.baidu.com/s/1i3zG0L3" target="_blank">百度网盘下载</a>   </p>
 <ol>
-<li>minimal版的CentOS网络默认没有打开<br>用以下命令打开：<br><code>ifconfig eth0 up</code><br><code>dhclient eth0</code><br>可以修改<em>/etc/sysconfig/network-scripts/ifcfg-eth0</em>将<em>ONBOOT=no</em> 改成<em>ONBOOT=yes</em>开机打开网络</li>
+<li><p>minimal版的CentOS网络默认没有打开<br> 用以下命令打开：<br>  <code>ifconfig eth0 up</code><br>  <code>dhclient eth0</code>    </p>
+<blockquote>
+<blockquote>
+<p>可以修改<em>/etc/sysconfig/network-scripts/ifcfg-eth0</em>将<em>ONBOOT=no</em> 改成<em>ONBOOT=yes</em>开机打开网络</p>
+</blockquote>
+</blockquote>
+</li>
+<li><p>为方便之后的操作，可能还需要以下操作，这一步不是必须的   </p>
+<p><code>yum update</code> 先更新一下会自动选最快的源<br>常用软件安装<br><code>yum install vim wget</code><br>下面这些你可能会能也会用到<br><code>yum install lsof make ntp tcpdump time  zip unzip git</code><br><code>yum groupinstall &quot;Development Tools&quot;</code>  </p>
+</li>
+<li><p>为方便与宿主机共享文件，可以安装VMwareTools，这一步也不是必须的</p>
+<p> 在虚拟机启动前先设置好共享目录然后</p>
+<pre><code> mkdir  /mnt/cdrom
+ mount /dev/cdrom /mnt/cdrom
+ cd /mnt/cdrom
+ tar -zxvf VMwareTools-xxxxx<span class="preprocessor">.tar</span><span class="preprocessor">.gz</span> -C /tmp
+ cd /tmp/vmware-tools-distrib
+
+ ./vmware-install<span class="preprocessor">.pl</span>   <span class="preprocessor">#安装</span>
+ 一路回车选默认值直接到**Would you like to enable VMware automatic kernel modules? [no]**这个地可能需要yes    
+</code></pre><p> 安装完成后重启，在/mnt/hgfs/就是可以看到共享的宿主机的目录</p>
+<p> 不行的话可以尝试手工挂载</p>
+<pre><code> mount -t vmhgfs .host:<span class="regexp">/ /m</span>nt/hgfs/ 
+ 编辑 /etc/fstab，添加下面一行
+ .host:<span class="regexp">/                  /m</span>nt/hgfs               vmhgfs  defaults  <span class="number">0</span> <span class="number">0</span>
+</code></pre></li>
 </ol>
-<p>为方便之后的操作，可能还需要以下操作…..<br><code>yum update</code> 先更新一下会自动选最快的源<br>常用软件安装<br><code>yum install vim wget</code><br>下面这些你可能会能也会用到<br><code>yum install lsof make ntp tcpdump time  zip unzip git</code><br><code>yum groupinstall &quot;Development Tools&quot;</code>  </p>
-</blockquote>
-</blockquote>
 <p><strong>注意：</strong></p>
 <ul>
 <li>/etc/sysconfig/network中HOSTNAME的值初始值是安装的时候提供的主机名，而在/etc/hosts中又没有提供相应的映射，Hadoop各组件之件默认会用HOSTNAE+端口号进行通信，所以默认情况下会出错，并且我们需要的是宿主机中进行开发测试，也就是需要外部访问此伪分布式集群，所以你需要在/etc/hosts文件中加入一条映射：</li>
@@ -201,7 +220,7 @@ passwd()
 <blockquote>
 <blockquote>
 <p>以上需要按实际情况做修改<strong>192.168.242.129</strong>是文中虚拟机地址， <strong>centos.migle</strong>是文中虚拟机HOSTNAME，下文中不再特别说明，如有出现请按自已实际对应做修改  </p>
-<p><em>估计不用虚拟机IP和HOSTNAME做映射也是可以，但需要把HOSTNAME映射成127.0.0.1，用一个新名字映射虚拟机IP也是可以的，但需要加两条!！</em></p>
+<p><em>估计不用虚拟机IP和HOSTNAME做映射也是可以，用一个新名字映射虚拟机IP也是可以的!！</em></p>
 </blockquote>
 </blockquote>
 <ul>
