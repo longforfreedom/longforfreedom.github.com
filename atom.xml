@@ -4,7 +4,7 @@
   <subtitle><![CDATA[一路走来，一路唱]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://www.migle.me/"/>
-  <updated>2014-05-16T03:33:07.796Z</updated>
+  <updated>2014-05-21T03:47:53.464Z</updated>
   <id>http://www.migle.me/</id>
   
   <author>
@@ -13,6 +13,130 @@
   </author>
   
   <generator uri="http://zespia.tw/hexo/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[CentOS6.5下python2.7及scikit-learn安装]]></title>
+    <link href="http://www.migle.me/post/centos65%E4%B8%8Bpython27%E5%8F%8Ascikit-learn%E5%AE%89%E8%A3%85/"/>
+    <id>http://www.migle.me/post/centos65下python27及scikit-learn安装/</id>
+    <published>2014-05-18T03:35:17.000Z</published>
+    <updated>2014-05-21T03:47:20.000Z</updated>
+    <content type="html"><![CDATA[<p>本文是CentOS6.5下python2.7,numpy,scikit-learn、ipython-notebook安装配置记录，CentOS6.5自带的是python2.6也可以,如果你不想升级到python2.7,可以试着直接安装打好包的scikit-learn。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+3
+</pre></td><td class="code"><pre>sudo yum <span class="attribute">-y</span> install gcc gcc<span class="attribute">-c</span><span class="subst">++</span> numpy python<span class="attribute">-devel</span> scipy
+wget https:<span class="comment">//bootstrap.pypa.io/get-pip.py -O - | sudo python </span>
+pip install <span class="attribute">-U</span> scikit<span class="attribute">-learn</span>
+</pre></td></tr></table></figure>
+
+
+<h2 id="Python2-7_安装">Python2.7 安装</h2>
+<h3 id="安装依赖">安装依赖</h3>
+<p><code>yum groupinstall &quot;Development Tools&quot;</code><br><code>yum install blas-devel lapack-devel atlas atlas-devel readline-devel sqlite-devel zlib-devel openssl openssl-devel</code>  </p>
+<h3 id="安装Python2-7">安装Python2.7</h3>
+<ul>
+<li>下载：<code>wget https://www.python.org/ftp/python/2.7.6/Python-2.7.6.tgz</code>     </li>
+<li><p>安装: </p>
+<pre><code>  <span class="comment">tar</span> <span class="comment">xjvf</span> <span class="comment">Python</span><span class="literal">-</span><span class="comment">2</span><span class="string">.</span><span class="comment">7</span><span class="string">.</span><span class="comment">6</span><span class="string">.</span><span class="comment">tgz</span> 
+  <span class="comment">cd</span> <span class="comment">Python</span><span class="literal">-</span><span class="comment">2</span><span class="string">.</span><span class="comment">7</span><span class="string">.</span><span class="comment">6</span><span class="string">.</span><span class="comment">tgz</span>     
+  <span class="string">.</span><span class="comment">/configure</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">enable</span><span class="literal">-</span><span class="comment">shared</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">prefix=/usr/local/python27</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">enable</span><span class="literal">-</span><span class="comment">shared</span>  
+  <span class="comment">make</span> <span class="comment">&amp;&amp;</span> <span class="comment">make</span> <span class="comment">install</span>  
+</code></pre></li>
+<li><p>配置：</p>
+<pre><code>  echo <span class="string">'/usr/local/python27/lib/'</span> &gt;&gt; /etc/ld.so.conf
+  /sbin/ldconfig             
+  /sbin/ldconfig -v
+  rm /usr/bin/python    
+  <span class="comment">#把/usr/local/python27/bin/加入PATH中也可以,</span>
+  <span class="built_in">ln</span> -s  /usr/<span class="built_in">local</span>/python27/bin/python2<span class="number">.7</span>   /usr/bin/python
+  <span class="built_in">ln</span> -s /usr/<span class="built_in">local</span>/python27/bin/python2<span class="number">.7</span>    /usr/bin/python2<span class="number">.7</span> 
+  <span class="built_in">ln</span> -s /usr/<span class="built_in">local</span>/python27/bin/python2<span class="number">.7</span>    /usr/bin/python2 
+</code></pre></li>
+</ul>
+<h3 id="pip安装:">pip安装:</h3>
+<pre><code>    wget https://bootstrap.pypa.io/get-pip.py -O - | <span class="built_in">sudo</span> python 
+    <span class="comment">#加环境变量，不喜欢这样也可以做链接</span>
+    <span class="built_in">echo</span> <span class="string">'export PYTHON_HOME=/usr/local/python27'</span> &gt;&gt; /etc/profile
+    <span class="built_in">echo</span> <span class="string">'export PATH=$PATH:$PYTHON_HOME/bin'</span> &gt;&gt; /etc/profile
+    <span class="comment">#立即生效</span>
+    . /etc/profile
+</code></pre><h3 id="其它">其它</h3>
+<ul>
+<li>把/usr/bin/yum的第一行修改成<code>#!/usr/bin/python2.6</code>否则yum不能用</li>
+</ul>
+<h2 id="cikit-learn_安装">cikit-learn 安装</h2>
+<h3 id="安装依赖-1">安装依赖</h3>
+<pre><code>yum install blas<span class="attribute">-devel</span> lapack<span class="attribute">-devel</span> atlas atlas<span class="attribute">-devel</span> readline<span class="attribute">-devel</span> sqlite<span class="attribute">-devel</span>  
+yum install freetype<span class="attribute">-devel</span> libpng<span class="attribute">-devel</span>  
+</code></pre><blockquote>
+<blockquote>
+<p>不明白不为什么不复制到/usr/local/lib下面安装numpy的时候编译ld老是报错不到链接不到-lpython2.7<br><code>cp /usr/local/python27/lib/libpython2.7.so.1.0  /usr/local/lib</code><br><code>cd /usr/local/lib</code><br><code>ln -s libpython2.7.so.1.0 libpython2.7.so</code><br>检查：<br><code>whereis libpython2.7.so.1.0</code><br><code>gcc  -lpython2.7 --verbose</code>    </p>
+</blockquote>
+</blockquote>
+<h3 id="安装scikit-learn">安装scikit-learn</h3>
+<pre><code>    pip <span class="keyword">install</span> numpy
+    pip <span class="keyword">install</span> scipy
+    pip <span class="keyword">install</span> matplotlib
+    pip <span class="keyword">install</span> -U scikit-learn
+    pip <span class="keyword">install</span> ipython[notebook]  <span class="comment">##这个很方便，推荐安装</span>
+</code></pre><h3 id="远程访问iPython">远程访问iPython</h3>
+<ul>
+<li>生成密码：<br>运行<code>ipython</code>输入以下：</li>
+</ul>
+<figure class="highlight `"><table><tr><td class="gutter"><pre>1
+2
+</pre></td><td class="code"><pre><span class="keyword">from</span> IPython.lib <span class="keyword">import</span> passwd
+passwd()
+</pre></td></tr></table></figure>
+
+
+<p>会有输入密码提示，输入密码后会有类似<strong>‘sha1:cdadcc8c28ad:918a0295e7efc42466ce9c51a53b993650ae3776’</strong>信息输出，复制后面有用</p>
+<ul>
+<li><p>生成密钥：</p>
+<pre><code>      openssl req <span class="attribute">-x509</span> <span class="attribute">-nodes</span> <span class="attribute">-days</span> <span class="number">365</span> <span class="attribute">-newkey</span> rsa:<span class="number">1024</span> <span class="attribute">-keyout</span> mycert<span class="built_in">.</span>pem <span class="attribute">-out</span> mycert<span class="built_in">.</span>pem
+      mv mycert<span class="built_in">.</span>pem  <span class="built_in">.</span>ipython<span class="subst">/</span>
+</code></pre></li>
+<li><p>创建配置文件：<br><code>ipython profile create nbserver</code>  看输出信息，会创建几个文件<br>在<em>~/.ipython/profile_nbserver/ipython_config.py</em>添加以下</p>
+</li>
+</ul>
+<pre><code>        <span class="comment"># Kernel config</span>
+        c.IPKernelApp.pylab = <span class="string">'inline'</span>  <span class="comment"># if you want plotting support always</span>
+        <span class="comment"># Notebook config</span>
+        c.NotebookApp.certfile = <span class="string">u'/root/.ipython/mycert.pem'</span>    <span class="comment">#######前面openssl生成的文件绝对路径 </span>
+        c.NotebookApp.ip = <span class="string">'*'</span>
+        c.NotebookApp.open_browser = <span class="keyword">False</span>
+        c.NotebookApp.password = <span class="string">u'sha1:cdadcc8c28ad:918a0295e7efc42466ce9c51a53b993650ae3776'</span>  <span class="comment">#前面passwd()生成的密码串</span>
+        <span class="comment"># It is a good idea to put it on a known, fixed port</span>
+        c.NotebookApp.port = <span class="number">9999</span>
+</code></pre><ul>
+<li>启动 <code>ipython notebook --profile=nbserver</code>  </li>
+<li>远程测试<br>  <a href="https://192.168.242.129:9999" target="_blank">https://192.168.242.129:9999</a><blockquote>
+<blockquote>
+<p>本文中的CentOS是在虚拟机中安装的，192.168.242.129是虚拟机IP，在Win8测试<br>会有证书不安全的提示，忽略之，要输入密码就是前面passwd()的时候输入的密码</p>
+</blockquote>
+</blockquote>
+</li>
+</ul>
+<h2 id="参考资料：">参考资料：</h2>
+<ul>
+<li><a href="http://ipython.org/ipython-doc/stable/notebook/public_server.html" target="_blank">Running a notebook server</a></li>
+</ul>
+]]></content>
+    
+    
+      <category term="python" scheme="http://www.migle.me/tags/python/"/>
+    
+      <category term="机器学习" scheme="http://www.migle.me/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+      <category term="scikit" scheme="http://www.migle.me/tags/scikit/"/>
+    
+      <category term="CentOS" scheme="http://www.migle.me/tags/CentOS/"/>
+    
+      <category term="ipython" scheme="http://www.migle.me/tags/ipython/"/>
+    
+      <category term="python" scheme="http://www.migle.me/categories/python/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[孟达天池-20140501]]></title>
@@ -45,7 +169,7 @@
     <link href="http://www.migle.me/post/cdh5%E4%BC%AA%E5%88%86%E5%B8%83%E5%BC%8F%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/"/>
     <id>http://www.migle.me/post/cdh5伪分布式环境搭建/</id>
     <published>2014-04-30T05:59:23.000Z</published>
-    <updated>2014-05-14T04:15:38.000Z</updated>
+    <updated>2014-05-19T08:24:35.000Z</updated>
     <content type="html"><![CDATA[<h2 id="说明：">说明：</h2>
 <ol>
 <li><p>本文描述的是基于Windows+虚拟机+CentOS的Hadoop+HBase的开发环境搭建过程，使用的Hadoop版本是CDH5(Cloudera Distribution including Apache Hadoop，CDH)，旨在说明HADOOP的伪分布式环境搭建关键步骤。CDH5与Hadoop的关系，Hadoop、Hbase、Zookeeper之间的关系，及文中涉及的一些工具、命令的使用等与本文有关系不是特别密切的东西都没有详细说明,想了解更多请：<a href="http://www.google.com" target="_blank">http://www.google.com</a></p>
@@ -62,7 +186,7 @@
 <ol>
 <li>minimal版的CentOS网络默认没有打开<br>用以下命令打开：<br><code>ifconfig eth0 up</code><br><code>dhclient eth0</code><br>可以修改<em>/etc/sysconfig/network-scripts/ifcfg-eth0</em>将<em>ONBOOT=no</em> 改成<em>ONBOOT=yes</em>开机打开网络</li>
 </ol>
-<p>为方便之后的操作，可能还需要以下操作…..<br><code>yum update</code> 先更新一下会自动选最快的源<br>常用软件安装<br><code>yum install vim wget</code><br>下面这些你可能会能也会用到<br><code>yum install lsof make ntp tcpdump time  zip unzip git</code>    </p>
+<p>为方便之后的操作，可能还需要以下操作…..<br><code>yum update</code> 先更新一下会自动选最快的源<br>常用软件安装<br><code>yum install vim wget</code><br>下面这些你可能会能也会用到<br><code>yum install lsof make ntp tcpdump time  zip unzip git</code><br><code>yum groupinstall &quot;Development Tools&quot;</code>  </p>
 </blockquote>
 </blockquote>
 <p><strong>注意：</strong></p>

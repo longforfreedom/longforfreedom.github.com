@@ -4,20 +4,20 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>git常用命令 | migle.me</title>
+    <title>CentOS6.5下python2.7及scikit-learn安装 | migle.me</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
     
     <meta name="author" content="migle">
     
-    <meta name="description" itemprop="description" content="git常用命令">
+    <meta name="description" itemprop="description" content="CentOS6.5下python2.7,numpy,scikit-learn,ipython安装及ipython-notebook远程访问配置">
     
     
     
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:site" content="iammigle" />
-    <meta name="twitter:title" content="git常用命令 | migle.me" />
+    <meta name="twitter:title" content="CentOS6.5下python2.7及scikit-learn安装 | migle.me" />
       
-        <meta name="twitter:description" content="git常用命令" />
+        <meta name="twitter:description" content="CentOS6.5下python2.7,numpy,scikit-learn,ipython安装及ipython-notebook远程访问配置" />
       
     
     
@@ -82,15 +82,15 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/post/git常用命令/" title="git常用命令" itemprop="url">git常用命令</a>
+      <a href="/post/centos65下python27及scikit-learn安装/" title="CentOS6.5下python2.7及scikit-learn安装" itemprop="url">CentOS6.5下python2.7及scikit-learn安装</a>
   </h1>
   <p class="article-author">By
     
       <a href="https://plus.google.com/100499485361267920799?rel=author" title="migle" target="_blank" itemprop="author">migle</a>
     </p>
   <p class="article-time">
-    <time datetime="2014-01-12T06:55:07.000Z" itemprop="datePublished">1月 12 2014</time>
-    更新日期:<time datetime="2014-05-14T04:12:34.000Z" itemprop="dateModified">5月 14 2014</time>
+    <time datetime="2014-05-18T03:35:17.000Z" itemprop="datePublished">5月 18 2014</time>
+    更新日期:<time datetime="2014-05-21T03:47:20.000Z" itemprop="dateModified">5月 21 2014</time>
     
   </p>
 </header>
@@ -99,48 +99,123 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
 		
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
-		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#git常用命令"><span class="toc-number">1.</span> <span class="toc-text">git常用命令</span></a></li><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#配置"><span class="toc-number">1.1.</span> <span class="toc-text">配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#远程"><span class="toc-number">1.2.</span> <span class="toc-text">远程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#分支"><span class="toc-number">1.3.</span> <span class="toc-text">分支</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#diff"><span class="toc-number">1.4.</span> <span class="toc-text">diff</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#合并"><span class="toc-number">1.5.</span> <span class="toc-text">合并</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#回退"><span class="toc-number">1.6.</span> <span class="toc-text">回退</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#其它"><span class="toc-number">1.7.</span> <span class="toc-text">其它</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#日志"><span class="toc-number">1.8.</span> <span class="toc-text">日志</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#基本概念"><span class="toc-number">1.9.</span> <span class="toc-text">基本概念</span></a></li></ol>
+		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Python2-7_安装"><span class="toc-number">1.</span> <span class="toc-text">Python2.7 安装</span></a></li><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#安装依赖"><span class="toc-number">1.1.</span> <span class="toc-text">安装依赖</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装Python2-7"><span class="toc-number">1.2.</span> <span class="toc-text">安装Python2.7</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#pip安装:"><span class="toc-number">1.3.</span> <span class="toc-text">pip安装:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#其它"><span class="toc-number">1.4.</span> <span class="toc-text">其它</span></a></li></ol><li class="toc-item toc-level-2"><a class="toc-link" href="#cikit-learn_安装"><span class="toc-number">2.</span> <span class="toc-text">cikit-learn 安装</span></a></li><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#安装依赖-1"><span class="toc-number">2.1.</span> <span class="toc-text">安装依赖</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装scikit-learn"><span class="toc-number">2.2.</span> <span class="toc-text">安装scikit-learn</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#远程访问iPython"><span class="toc-number">2.3.</span> <span class="toc-text">远程访问iPython</span></a></li></ol><li class="toc-item toc-level-2"><a class="toc-link" href="#参考资料："><span class="toc-number">3.</span> <span class="toc-text">参考资料：</span></a></li></ol>
 		</div>
 		
-		<h1 id="git常用命令">git常用命令</h1>
-<h2 id="配置">配置</h2>
-<p><code>git config -l</code>  #列举所有配置<br><code>git config --get user.name</code> #查看单个参数<br><code>git config --global user.name &quot;migle&quot;</code><br><code>git config --global user.email &quot;longforfreedom+github@gmail.com&quot;</code><br><code>git config --global core.quotepath false</code> #要不中文文件名都是数据编码,ore.quotepath设为false的话，就不会对0×80以上的字符进行quote。中文显示正常 。   </p>
-<p><strong>别名</strong><br><code>git config --global alias.co checkout</code><br><code>git config --global alias.ci commit</code><br><code>git config --global alias.st status</code><br><code>git config --global alias.br branch</code>    </p>
-<h2 id="远程">远程</h2>
-<p><em>可以是本机的其它目录，或git、ssh、https等协议</em><br>检出仓库：<code>git clone git://github.com/jquery/jquery.git</code><br>查看远程仓库：<code>git remote -v</code><br>查看远程服务器仓库状态:<code>git remote show origin</code><br>添加远程仓库：<code>git remote add [name] [url]</code><br>删除远程仓库：<code>git remote rm [name]</code><br>修改远程仓库地址：<code>git remote set-url --push[name][newUrl]</code><br>git remote set-url origin  <a href="https://longforfreedom@github.com/longforfreedom/m-note.git" target="_blank">https://longforfreedom@github.com/longforfreedom/m-note.git</a><br>拉取远程仓库：<code>git pull [remoteName] [localBranchName]</code><br>推送远程仓库：<code>git push [remoteName] [localBranchName]</code>  </p>
+		<p>本文是CentOS6.5下python2.7,numpy,scikit-learn、ipython-notebook安装配置记录，CentOS6.5自带的是python2.6也可以,如果你不想升级到python2.7,可以试着直接安装打好包的scikit-learn。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+3
+</pre></td><td class="code"><pre>sudo yum <span class="attribute">-y</span> install gcc gcc<span class="attribute">-c</span><span class="subst">++</span> numpy python<span class="attribute">-devel</span> scipy
+wget https:<span class="comment">//bootstrap.pypa.io/get-pip.py -O - | sudo python </span>
+pip install <span class="attribute">-U</span> scikit<span class="attribute">-learn</span>
+</pre></td></tr></table></figure>
+
+
+<h2 id="Python2-7_安装">Python2.7 安装</h2>
+<h3 id="安装依赖">安装依赖</h3>
+<p><code>yum groupinstall &quot;Development Tools&quot;</code><br><code>yum install blas-devel lapack-devel atlas atlas-devel readline-devel sqlite-devel zlib-devel openssl openssl-devel</code>  </p>
+<h3 id="安装Python2-7">安装Python2.7</h3>
+<ul>
+<li>下载：<code>wget https://www.python.org/ftp/python/2.7.6/Python-2.7.6.tgz</code>     </li>
+<li><p>安装: </p>
+<pre><code>  <span class="comment">tar</span> <span class="comment">xjvf</span> <span class="comment">Python</span><span class="literal">-</span><span class="comment">2</span><span class="string">.</span><span class="comment">7</span><span class="string">.</span><span class="comment">6</span><span class="string">.</span><span class="comment">tgz</span> 
+  <span class="comment">cd</span> <span class="comment">Python</span><span class="literal">-</span><span class="comment">2</span><span class="string">.</span><span class="comment">7</span><span class="string">.</span><span class="comment">6</span><span class="string">.</span><span class="comment">tgz</span>     
+  <span class="string">.</span><span class="comment">/configure</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">enable</span><span class="literal">-</span><span class="comment">shared</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">prefix=/usr/local/python27</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">enable</span><span class="literal">-</span><span class="comment">shared</span>  
+  <span class="comment">make</span> <span class="comment">&amp;&amp;</span> <span class="comment">make</span> <span class="comment">install</span>  
+</code></pre></li>
+<li><p>配置：</p>
+<pre><code>  echo <span class="string">'/usr/local/python27/lib/'</span> &gt;&gt; /etc/ld.so.conf
+  /sbin/ldconfig             
+  /sbin/ldconfig -v
+  rm /usr/bin/python    
+  <span class="comment">#把/usr/local/python27/bin/加入PATH中也可以,</span>
+  <span class="built_in">ln</span> -s  /usr/<span class="built_in">local</span>/python27/bin/python2<span class="number">.7</span>   /usr/bin/python
+  <span class="built_in">ln</span> -s /usr/<span class="built_in">local</span>/python27/bin/python2<span class="number">.7</span>    /usr/bin/python2<span class="number">.7</span> 
+  <span class="built_in">ln</span> -s /usr/<span class="built_in">local</span>/python27/bin/python2<span class="number">.7</span>    /usr/bin/python2 
+</code></pre></li>
+</ul>
+<h3 id="pip安装:">pip安装:</h3>
+<pre><code>    wget https://bootstrap.pypa.io/get-pip.py -O - | <span class="built_in">sudo</span> python 
+    <span class="comment">#加环境变量，不喜欢这样也可以做链接</span>
+    <span class="built_in">echo</span> <span class="string">'export PYTHON_HOME=/usr/local/python27'</span> &gt;&gt; /etc/profile
+    <span class="built_in">echo</span> <span class="string">'export PATH=$PATH:$PYTHON_HOME/bin'</span> &gt;&gt; /etc/profile
+    <span class="comment">#立即生效</span>
+    . /etc/profile
+</code></pre><h3 id="其它">其它</h3>
+<ul>
+<li>把/usr/bin/yum的第一行修改成<code>#!/usr/bin/python2.6</code>否则yum不能用</li>
+</ul>
+<h2 id="cikit-learn_安装">cikit-learn 安装</h2>
+<h3 id="安装依赖-1">安装依赖</h3>
+<pre><code>yum install blas<span class="attribute">-devel</span> lapack<span class="attribute">-devel</span> atlas atlas<span class="attribute">-devel</span> readline<span class="attribute">-devel</span> sqlite<span class="attribute">-devel</span>  
+yum install freetype<span class="attribute">-devel</span> libpng<span class="attribute">-devel</span>  
+</code></pre><blockquote>
 <blockquote>
-<blockquote>
-<p><code>git pull  url</code>   #它从远程分支(remote branch)抓取修改的内容，然后把它合并进当前的分支，不同的仓库也能合并，确实不错</p>
+<p>不明白不为什么不复制到/usr/local/lib下面安装numpy的时候编译ld老是报错不到链接不到-lpython2.7<br><code>cp /usr/local/python27/lib/libpython2.7.so.1.0  /usr/local/lib</code><br><code>cd /usr/local/lib</code><br><code>ln -s libpython2.7.so.1.0 libpython2.7.so</code><br>检查：<br><code>whereis libpython2.7.so.1.0</code><br><code>gcc  -lpython2.7 --verbose</code>    </p>
 </blockquote>
 </blockquote>
-<p><code>git remote add origin https://github.com/longforfreedom/m-note.git</code>         # 添加远程仓库地址，相当于一个别名<br>执行git fetch origin 的时候只抓取不合并，会有一个origin/master分支生成然后，再merge      </p>
-<p><code>git remote set-url origin https://github.com/miadaner/miadaner.git</code> # 设置远程仓库地址(用于修改远程仓库地址)      </p>
-<p><code>git push origin master</code>           #将本地主分支推到远程主分支<br><code>git push -u origin master</code>        #将本地主分支推到远程(如无远程主分支则创建，用于初始化远程仓库)  </p>
-<h2 id="分支">分支</h2>
-<p><code>git branch</code>   #列出当前本地所有分支<br><code>git branch -a</code> #列出当前本地及远程所有分支<br><code>git branch --no-merged</code> #查看没有合并的分支<br><code>git branch branhname</code>  #创建本地分支，直接使用<code>git push</code>时不会推送到远程<br><code>git checkout -b 分支名</code> #创建新分支并立即切换到新分支<br><code>git merge 分支名</code>  #合并到当前分支 ，如有冲突的话，会报错，需要手工处理完成后commit,再push远程<br><code>git push origin 分支名</code>   #推送本地分支到远程仓库<br><code>git push origin --delete 分支名</code> #删除远程分支<br><code>git branch -d branhname</code>  #删除本地分支，如果是没有合并的分支，用-D删除<br>“.git/HEAD”这个文件里保存的是我们当前在哪个分支上工作的信息。  </p>
-<h2 id="diff">diff</h2>
-<h2 id="合并">合并</h2>
-<h2 id="回退">回退</h2>
-<h2 id="其它">其它</h2>
-<p>在Ubuntu13.10中bash可以自动补全git命令，但在CentOS6.4中发现不行，发现/etc/bash_completion.d/git 但是没有加载<br>试着执行一下 <code>source /etc/bash_completion.d/git</code> 然后发现可以自动补全Git命令，所以可以把这一加在自己的<em>.bashrc</em>文件中或直接在<em>/etc/bashrc</em>中添加以下  </p>
-<pre><code>    <span class="keyword">for</span> file <span class="keyword">in</span> /etc/bash_completion.d/* ; <span class="keyword">do</span>
-            <span class="built_in">source</span> <span class="string">"<span class="variable">$file</span>"</span> 
-    <span class="keyword">done</span>
-</code></pre><h2 id="日志">日志</h2>
-<h2 id="基本概念">基本概念</h2>
+<h3 id="安装scikit-learn">安装scikit-learn</h3>
+<pre><code>    pip <span class="keyword">install</span> numpy
+    pip <span class="keyword">install</span> scipy
+    pip <span class="keyword">install</span> matplotlib
+    pip <span class="keyword">install</span> -U scikit-learn
+    pip <span class="keyword">install</span> ipython[notebook]  <span class="comment">##这个很方便，推荐安装</span>
+</code></pre><h3 id="远程访问iPython">远程访问iPython</h3>
+<ul>
+<li>生成密码：<br>运行<code>ipython</code>输入以下：</li>
+</ul>
+<figure class="highlight `"><table><tr><td class="gutter"><pre>1
+2
+</pre></td><td class="code"><pre><span class="keyword">from</span> IPython.lib <span class="keyword">import</span> passwd
+passwd()
+</pre></td></tr></table></figure>
+
+
+<p>会有输入密码提示，输入密码后会有类似<strong>‘sha1:cdadcc8c28ad:918a0295e7efc42466ce9c51a53b993650ae3776’</strong>信息输出，复制后面有用</p>
+<ul>
+<li><p>生成密钥：</p>
+<pre><code>      openssl req <span class="attribute">-x509</span> <span class="attribute">-nodes</span> <span class="attribute">-days</span> <span class="number">365</span> <span class="attribute">-newkey</span> rsa:<span class="number">1024</span> <span class="attribute">-keyout</span> mycert<span class="built_in">.</span>pem <span class="attribute">-out</span> mycert<span class="built_in">.</span>pem
+      mv mycert<span class="built_in">.</span>pem  <span class="built_in">.</span>ipython<span class="subst">/</span>
+</code></pre></li>
+<li><p>创建配置文件：<br><code>ipython profile create nbserver</code>  看输出信息，会创建几个文件<br>在<em>~/.ipython/profile_nbserver/ipython_config.py</em>添加以下</p>
+</li>
+</ul>
+<pre><code>        <span class="comment"># Kernel config</span>
+        c.IPKernelApp.pylab = <span class="string">'inline'</span>  <span class="comment"># if you want plotting support always</span>
+        <span class="comment"># Notebook config</span>
+        c.NotebookApp.certfile = <span class="string">u'/root/.ipython/mycert.pem'</span>    <span class="comment">#######前面openssl生成的文件绝对路径 </span>
+        c.NotebookApp.ip = <span class="string">'*'</span>
+        c.NotebookApp.open_browser = <span class="keyword">False</span>
+        c.NotebookApp.password = <span class="string">u'sha1:cdadcc8c28ad:918a0295e7efc42466ce9c51a53b993650ae3776'</span>  <span class="comment">#前面passwd()生成的密码串</span>
+        <span class="comment"># It is a good idea to put it on a known, fixed port</span>
+        c.NotebookApp.port = <span class="number">9999</span>
+</code></pre><ul>
+<li>启动 <code>ipython notebook --profile=nbserver</code>  </li>
+<li>远程测试<br>  <a href="https://192.168.242.129:9999" target="_blank">https://192.168.242.129:9999</a><blockquote>
+<blockquote>
+<p>本文中的CentOS是在虚拟机中安装的，192.168.242.129是虚拟机IP，在Win8测试<br>会有证书不安全的提示，忽略之，要输入密码就是前面passwd()的时候输入的密码</p>
+</blockquote>
+</blockquote>
+</li>
+</ul>
+<h2 id="参考资料：">参考资料：</h2>
+<ul>
+<li><a href="http://ipython.org/ipython-doc/stable/notebook/public_server.html" target="_blank">Running a notebook server</a></li>
+</ul>
   
 	</div>
 		<footer class="article-footer clearfix">
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/git/">git</a>
+  <span></span> <a href="/tags/python/">python</a><a href="/tags/机器学习/">机器学习</a><a href="/tags/scikit/">scikit</a><a href="/tags/CentOS/">CentOS</a><a href="/tags/ipython/">ipython</a>
   </div>
 
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/工具/">工具</a>
+  <a class="article-category-link" href="/categories/python/">python</a>
 </div>
 
 
@@ -175,19 +250,11 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/post/hadoop环境搭建笔记/" title="hadoop环境搭建笔记">
-  <strong>PREVIOUS:</strong><br/>
-  <span>
-  hadoop环境搭建笔记</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/post/db2笔记/"  title="DB2笔记">
+<a href="/post/孟达天池-20140501/"  title="孟达天池-20140501">
  <strong>NEXT:</strong><br/> 
- <span>DB2笔记
+ <span>孟达天池-20140501
 </span>
 </a>
 </div>
@@ -204,7 +271,7 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
 
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
-  <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#git常用命令"><span class="toc-number">1.</span> <span class="toc-text">git常用命令</span></a></li><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#配置"><span class="toc-number">1.1.</span> <span class="toc-text">配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#远程"><span class="toc-number">1.2.</span> <span class="toc-text">远程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#分支"><span class="toc-number">1.3.</span> <span class="toc-text">分支</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#diff"><span class="toc-number">1.4.</span> <span class="toc-text">diff</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#合并"><span class="toc-number">1.5.</span> <span class="toc-text">合并</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#回退"><span class="toc-number">1.6.</span> <span class="toc-text">回退</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#其它"><span class="toc-number">1.7.</span> <span class="toc-text">其它</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#日志"><span class="toc-number">1.8.</span> <span class="toc-text">日志</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#基本概念"><span class="toc-number">1.9.</span> <span class="toc-text">基本概念</span></a></li></ol>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Python2-7_安装"><span class="toc-number">1.</span> <span class="toc-text">Python2.7 安装</span></a></li><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#安装依赖"><span class="toc-number">1.1.</span> <span class="toc-text">安装依赖</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装Python2-7"><span class="toc-number">1.2.</span> <span class="toc-text">安装Python2.7</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#pip安装:"><span class="toc-number">1.3.</span> <span class="toc-text">pip安装:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#其它"><span class="toc-number">1.4.</span> <span class="toc-text">其它</span></a></li></ol><li class="toc-item toc-level-2"><a class="toc-link" href="#cikit-learn_安装"><span class="toc-number">2.</span> <span class="toc-text">cikit-learn 安装</span></a></li><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#安装依赖-1"><span class="toc-number">2.1.</span> <span class="toc-text">安装依赖</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装scikit-learn"><span class="toc-number">2.2.</span> <span class="toc-text">安装scikit-learn</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#远程访问iPython"><span class="toc-number">2.3.</span> <span class="toc-text">远程访问iPython</span></a></li></ol><li class="toc-item toc-level-2"><a class="toc-link" href="#参考资料："><span class="toc-number">3.</span> <span class="toc-text">参考资料：</span></a></li></ol>
   </div>
 
 <div id="asidepart">
