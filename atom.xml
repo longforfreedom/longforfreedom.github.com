@@ -4,7 +4,7 @@
   <subtitle><![CDATA[一路走来，一路唱]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://www.migle.me/"/>
-  <updated>2014-05-21T09:20:30.240Z</updated>
+  <updated>2014-05-26T07:49:54.365Z</updated>
   <id>http://www.migle.me/</id>
   
   <author>
@@ -169,7 +169,7 @@ passwd()
     <link href="http://www.migle.me/post/cdh5%E4%BC%AA%E5%88%86%E5%B8%83%E5%BC%8F%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/"/>
     <id>http://www.migle.me/post/cdh5伪分布式环境搭建/</id>
     <published>2014-04-30T05:59:23.000Z</published>
-    <updated>2014-05-21T09:20:16.000Z</updated>
+    <updated>2014-05-26T06:37:34.000Z</updated>
     <content type="html"><![CDATA[<h2 id="说明：">说明：</h2>
 <ol>
 <li><p>本文描述的是基于Windows+虚拟机+CentOS的Hadoop+HBase的开发环境搭建过程，使用的Hadoop版本是CDH5(Cloudera Distribution including Apache Hadoop，CDH)，旨在说明HADOOP的伪分布式环境搭建关键步骤。CDH5与Hadoop的关系，Hadoop、Hbase、Zookeeper之间的关系，及文中涉及的一些工具、命令的使用等与本文有关系不是特别密切的东西都没有详细说明,想了解更多请：<a href="http://www.google.com" target="_blank">http://www.google.com</a></p>
@@ -181,13 +181,28 @@ passwd()
 <h3 id="操作系统">操作系统</h3>
 <p>CDH5的环境要求可以参见：<a href="http://www.cloudera.com/content/cloudera-content/cloudera-docs/CDH5/latest/CDH5-Requirements-and-Supported-Versions/CDH5-Requirements-and-Supported-Versions.html" target="_blank">CDH 5 Requirements and Supported Versions</a> 虚拟机可以用VMWare或VirtualBox，详细安装过程请自行Google ，本文所用的环境为Win8+VMWare+CentOS6.4 +CDH5：<br>虚拟机安装CentOS6.4方便起见推荐使用安装minimal版，小巧玲珑<a href="http://pan.baidu.com/s/1i3zG0L3" target="_blank">百度网盘下载</a>   </p>
 <ol>
-<li><p>minimal版的CentOS网络默认没有打开<br> 用以下命令打开：<br>  <code>ifconfig eth0 up</code><br>  <code>dhclient eth0</code>    </p>
+<li>minimal版的CentOS网络默认没有打开<br> 用以下命令打开：<br>  <code>ifconfig eth0 up</code><br>  <code>dhclient eth0</code>    <blockquote>
 <blockquote>
-<blockquote>
-<p>可以修改<em>/etc/sysconfig/network-scripts/ifcfg-eth0</em>将<em>ONBOOT=no</em> 改成<em>ONBOOT=yes</em>开机打开网络</p>
-</blockquote>
+<p>可以修改<em>/etc/sysconfig/network-scripts/ifcfg-eth0</em>将<em>ONBOOT=no</em> 改成<em>ONBOOT=yes</em>开机打开网络，如果要设置静态IP可以参考以下内容进行做修改</p>
+<pre><code> DEVICE=eth0
+ BOOTPROTO=static
+ ONBOOT=<span class="literal">yes</span>
+ HWADDR=<span class="number">00</span>:<span class="number">0</span><span class="attribute">C</span>:<span class="number">29</span>:<span class="number">30</span>:<span class="number">35</span>:C5
+ TYPE=Ethernet
+ NAME=<span class="string">"System etho0"</span>
+ UUID=fdaced38-<span class="number">14e2</span>-<span class="number">4</span>b7e-<span class="number">905e-01</span>eebc698573
+ NM_CONTROLLED=<span class="literal">yes</span>
+ BROADCAST=<span class="number">192.168</span><span class="number">.242</span><span class="number">.255</span>
+ IPADDR=<span class="number">192.168</span><span class="number">.242</span><span class="number">.129</span>
+ NETMASK=<span class="number">255.255</span><span class="number">.255</span><span class="number">.0</span>
+ GATEWAY=<span class="number">192.168</span><span class="number">.242</span><span class="number">.2</span>
+ IPV6INIT=<span class="literal">no</span>
+ DNS1=<span class="number">192.168</span><span class="number">.242</span><span class="number">.2</span>
+</code></pre></blockquote>
 </blockquote>
 </li>
+</ol>
+<ol>
 <li><p>为方便之后的操作，可能还需要以下操作，这一步不是必须的   </p>
 <p><code>yum update</code> 先更新一下会自动选最快的源<br>常用软件安装<br><code>yum install vim wget</code><br>下面这些你可能会能也会用到<br><code>yum install lsof make ntp tcpdump time  zip unzip git</code><br><code>yum groupinstall &quot;Development Tools&quot;</code>  </p>
 </li>
