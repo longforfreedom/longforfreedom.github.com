@@ -106,9 +106,9 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
 <figure class="highlight"><table><tr><td class="gutter"><pre>1
 2
 3
-</pre></td><td class="code"><pre>sudo yum <span class="attribute">-y</span> install gcc gcc<span class="attribute">-c</span><span class="subst">++</span> numpy python<span class="attribute">-devel</span> scipy
-wget https:<span class="comment">//bootstrap.pypa.io/get-pip.py -O - | sudo python </span>
-pip install <span class="attribute">-U</span> scikit<span class="attribute">-learn</span>
+</pre></td><td class="code"><pre>		sudo yum <span class="attribute">-y</span> install gcc gcc<span class="attribute">-c</span><span class="subst">++</span> numpy python<span class="attribute">-devel</span> scipy
+		wget https:<span class="comment">//bootstrap.pypa.io/get-pip.py -O - | sudo python </span>
+		pip install <span class="attribute">-U</span> scikit<span class="attribute">-learn</span>
 </pre></td></tr></table></figure>
 
 
@@ -167,19 +167,16 @@ yum install freetype<span class="attribute">-devel</span> libpng<span class="att
 </ul>
 <figure class="highlight `"><table><tr><td class="gutter"><pre>1
 2
-</pre></td><td class="code"><pre><span class="keyword">from</span> IPython.lib <span class="keyword">import</span> passwd
-passwd()
-</pre></td></tr></table></figure>
+</pre></td><td class="code"><pre>		<span class="keyword">from</span> IPython.lib <span class="keyword">import</span> passwd
+		passwd()
+</pre></td></tr></table></figure><br>会有输入密码提示，输入密码后会有类似<strong>‘sha1:cdadcc8c28ad:918a0295e7efc42466ce9c51a53b993650ae3776’</strong>信息输出，复制后面有用<br><br>* 生成密钥：<br><figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+</pre></td><td class="code"><pre>		openssl req <span class="attribute">-x509</span> <span class="attribute">-nodes</span> <span class="attribute">-days</span> <span class="number">365</span> <span class="attribute">-newkey</span> rsa:<span class="number">1024</span> <span class="attribute">-keyout</span> mycert<span class="built_in">.</span>pem <span class="attribute">-out</span> mycert<span class="built_in">.</span>pem
+		mv mycert<span class="built_in">.</span>pem  <span class="built_in">.</span>ipython<span class="subst">/</span>
+</pre></td></tr></table></figure>    
 
-
-<p>会有输入密码提示，输入密码后会有类似<strong>‘sha1:cdadcc8c28ad:918a0295e7efc42466ce9c51a53b993650ae3776’</strong>信息输出，复制后面有用</p>
 <ul>
-<li><p>生成密钥：</p>
-<pre><code>      openssl req <span class="attribute">-x509</span> <span class="attribute">-nodes</span> <span class="attribute">-days</span> <span class="number">365</span> <span class="attribute">-newkey</span> rsa:<span class="number">1024</span> <span class="attribute">-keyout</span> mycert<span class="built_in">.</span>pem <span class="attribute">-out</span> mycert<span class="built_in">.</span>pem
-      mv mycert<span class="built_in">.</span>pem  <span class="built_in">.</span>ipython<span class="subst">/</span>
-</code></pre></li>
-<li><p>创建配置文件：<br><code>ipython profile create nbserver</code>  看输出信息，会创建几个文件<br>在<em>~/.ipython/profile_nbserver/ipython_config.py</em>添加以下</p>
-</li>
+<li>创建配置文件：<br><code>ipython profile create nbserver</code>  看输出信息，会创建几个文件<br>在<em>~/.ipython/profile_nbserver/ipython_config.py</em>添加以下</li>
 </ul>
 <pre><code>        <span class="comment"># Kernel config</span>
         c.IPKernelApp.pylab = <span class="string">'inline'</span>  <span class="comment"># if you want plotting support always</span>
@@ -192,7 +189,7 @@ passwd()
         c.NotebookApp.port = <span class="number">9999</span>
 </code></pre><ul>
 <li>启动 <code>ipython notebook --profile=nbserver</code>  </li>
-<li>远程测试<br>  <a href="https://192.168.242.129:9999" target="_blank">https://192.168.242.129:9999</a><blockquote>
+<li>远程测试<br>  <a href="https://192.168.242.129:9999" target="_blank" rel="external">https://192.168.242.129:9999</a><blockquote>
 <blockquote>
 <p>本文中的CentOS是在虚拟机中安装的，192.168.242.129是虚拟机IP，在Win8测试<br>会有证书不安全的提示，忽略之，要输入密码就是前面passwd()的时候输入的密码</p>
 </blockquote>
@@ -201,7 +198,7 @@ passwd()
 </ul>
 <h2 id="参考资料：">参考资料：</h2>
 <ul>
-<li><a href="http://ipython.org/ipython-doc/stable/notebook/public_server.html" target="_blank">Running a notebook server</a></li>
+<li><a href="http://ipython.org/ipython-doc/stable/notebook/public_server.html" target="_blank" rel="external">Running a notebook server</a></li>
 </ul>
   
 	</div>

@@ -170,7 +170,7 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
 </blockquote>
 <p>启动：<br>sbin/start-dfs.sh<br>sbin/start-yarn.sh </p>
 <p>可以用jps命令查看下，如果没东西，就需要看日志分析原因了</p>
-<p><a href="http://135.191.27.175:8088" target="_blank">http://135.191.27.175:8088</a><br><a href="http://135.191.27.175:50070" target="_blank">http://135.191.27.175:50070</a></p>
+<p><a href="http://135.191.27.175:8088" target="_blank" rel="external">http://135.191.27.175:8088</a><br><a href="http://135.191.27.175:50070" target="_blank" rel="external">http://135.191.27.175:50070</a></p>
 <h2 id="测试">测试</h2>
 <p>以下可以集群某一台机器上执行，也可以在客户端上执行</p>
 <p>创建目录：</p>
@@ -179,7 +179,7 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
 <p>put到HDFS中</p>
 <p>bin/hadoop fs -put /vgopbak/gprs_ticket_20140420.dat   /qhbi</p>
 <p>写代码，打包，<br>略</p>
-<p>求时长<br>bin/hadoop jar StudyHadoop-1.0.jar  me.migle.mr.SumGPRSDuration /qhbi/gprs_ticket_20140420.dat  /qhbi/output_sum/<br>在<a href="http://135.191.27.175:50070中查看结果，" target="_blank">http://135.191.27.175:50070中查看结果，</a><br>导到结果输出目录上查看结果</p>
+<p>求时长<br>bin/hadoop jar StudyHadoop-1.0.jar  me.migle.mr.SumGPRSDuration /qhbi/gprs_ticket_20140420.dat  /qhbi/output_sum/<br>在<a href="http://135.191.27.175:50070中查看结果，" target="_blank" rel="external">http://135.191.27.175:50070中查看结果，</a><br>导到结果输出目录上查看结果</p>
 <p>拆分<br>bin/hadoop jar StudyHadoop-1.0.jar me.migle.mr.SplitBillItem /qhbi/gprs_ticket_20140420.dat   /qhbi/output_gprs/spliit/<br>在文件系统中查看结果</p>
 <h2 id="其它">其它</h2>
 <p>为方便起见可以将HADOOP的bin/ sbin/目录加入PATH</p>

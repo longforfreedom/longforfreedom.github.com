@@ -150,56 +150,54 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
 36
 37
 38
-</pre></td><td class="code"><pre><span class="tag">&lt;<span class="title">configuration</span>&gt;</span>
-<span class="tag">&lt;<span class="title">property</span>&gt;</span>
-    	<span class="tag">&lt;<span class="title">name</span>&gt;</span>hbase.zookeeper.quorum<span class="tag">&lt;/<span class="title">name</span>&gt;</span>
-    	<span class="tag">&lt;<span class="title">value</span>&gt;</span>avgopt2,avgwebt1,avgweb2<span class="tag">&lt;/<span class="title">value</span>&gt;</span>
-    	<span class="tag">&lt;<span class="title">description</span>&gt;</span>The directory shared by RegionServers.
-    	<span class="tag">&lt;/<span class="title">description</span>&gt;</span>
-  		<span class="tag">&lt;/<span class="title">property</span>&gt;</span>
-  	<span class="tag">&lt;<span class="title">property</span>&gt;</span>
-    	<span class="tag">&lt;<span class="title">name</span>&gt;</span>hbase.zookeeper.property.dataDir<span class="tag">&lt;/<span class="title">name</span>&gt;</span>
-    	<span class="comment">&lt;!--注意这个值在169上要改成/vgopbak/hadoop2/zookeeper--&gt;</span>
-    	<span class="tag">&lt;<span class="title">value</span>&gt;</span>/vgopbak/hadoop/zookeeper<span class="tag">&lt;/<span class="title">value</span>&gt;</span>
-    	<span class="tag">&lt;<span class="title">description</span>&gt;</span>Property from ZooKeeper's config zoo.cfg.
-    	The directory where the snapshot is stored.
-    	<span class="tag">&lt;/<span class="title">description</span>&gt;</span>
-  	<span class="tag">&lt;/<span class="title">property</span>&gt;</span>
+</pre></td><td class="code"><pre>	<span class="tag">&lt;<span class="title">configuration</span>&gt;</span>
+	<span class="tag">&lt;<span class="title">property</span>&gt;</span>
+   	<span class="tag">&lt;<span class="title">name</span>&gt;</span>hbase.zookeeper.quorum<span class="tag">&lt;/<span class="title">name</span>&gt;</span>
+   	<span class="tag">&lt;<span class="title">value</span>&gt;</span>avgopt2,avgwebt1,avgweb2<span class="tag">&lt;/<span class="title">value</span>&gt;</span>
+   	<span class="tag">&lt;<span class="title">description</span>&gt;</span>The directory shared by RegionServers.
+   	<span class="tag">&lt;/<span class="title">description</span>&gt;</span>
+ 		<span class="tag">&lt;/<span class="title">property</span>&gt;</span>
+ 	<span class="tag">&lt;<span class="title">property</span>&gt;</span>
+   	<span class="tag">&lt;<span class="title">name</span>&gt;</span>hbase.zookeeper.property.dataDir<span class="tag">&lt;/<span class="title">name</span>&gt;</span>
+   	<span class="comment">&lt;!--注意这个值在169上要改成/vgopbak/hadoop2/zookeeper--&gt;</span>
+   	<span class="tag">&lt;<span class="title">value</span>&gt;</span>/vgopbak/hadoop/zookeeper<span class="tag">&lt;/<span class="title">value</span>&gt;</span>
+   	<span class="tag">&lt;<span class="title">description</span>&gt;</span>Property from ZooKeeper's config zoo.cfg.
+   	The directory where the snapshot is stored.
+   	<span class="tag">&lt;/<span class="title">description</span>&gt;</span>
+ 	<span class="tag">&lt;/<span class="title">property</span>&gt;</span>
 
-<span class="tag">&lt;<span class="title">property</span>&gt;</span>
-	<span class="tag">&lt;<span class="title">name</span>&gt;</span>hbase.rootdir<span class="tag">&lt;/<span class="title">name</span>&gt;</span>
-	<span class="tag">&lt;<span class="title">value</span>&gt;</span>hdfs://135.191.27.175:9999/hbase<span class="tag">&lt;/<span class="title">value</span>&gt;</span>
-	<span class="tag">&lt;<span class="title">description</span>&gt;</span>The directory shared by RegionServers.
-	<span class="tag">&lt;/<span class="title">description</span>&gt;</span>
-<span class="tag">&lt;/<span class="title">property</span>&gt;</span>
+	<span class="tag">&lt;<span class="title">property</span>&gt;</span>
+		<span class="tag">&lt;<span class="title">name</span>&gt;</span>hbase.rootdir<span class="tag">&lt;/<span class="title">name</span>&gt;</span>
+		<span class="tag">&lt;<span class="title">value</span>&gt;</span>hdfs://135.191.27.175:9999/hbase<span class="tag">&lt;/<span class="title">value</span>&gt;</span>
+		<span class="tag">&lt;<span class="title">description</span>&gt;</span>The directory shared by RegionServers.
+		<span class="tag">&lt;/<span class="title">description</span>&gt;</span>
+	<span class="tag">&lt;/<span class="title">property</span>&gt;</span>
 
-<span class="tag">&lt;<span class="title">property</span>&gt;</span>
-	<span class="tag">&lt;<span class="title">name</span>&gt;</span>hbase.cluster.distributed<span class="tag">&lt;/<span class="title">name</span>&gt;</span>
-	<span class="tag">&lt;<span class="title">value</span>&gt;</span>true<span class="tag">&lt;/<span class="title">value</span>&gt;</span>
-	<span class="tag">&lt;<span class="title">description</span>&gt;</span>The mode the cluster will be in. Possible values are
-        	false: standalone and pseudo-distributed setups with managed Zookeeper
-		true: fully-distributed with unmanaged Zookeeper Quorum (see hbase-env.sh)
-        <span class="tag">&lt;/<span class="title">description</span>&gt;</span>
-    <span class="tag">&lt;/<span class="title">property</span>&gt;</span>
+	<span class="tag">&lt;<span class="title">property</span>&gt;</span>
+		<span class="tag">&lt;<span class="title">name</span>&gt;</span>hbase.cluster.distributed<span class="tag">&lt;/<span class="title">name</span>&gt;</span>
+		<span class="tag">&lt;<span class="title">value</span>&gt;</span>true<span class="tag">&lt;/<span class="title">value</span>&gt;</span>
+		<span class="tag">&lt;<span class="title">description</span>&gt;</span>The mode the cluster will be in. Possible values are
+       	false: standalone and pseudo-distributed setups with managed Zookeeper
+			true: fully-distributed with unmanaged Zookeeper Quorum (see hbase-env.sh)
+       <span class="tag">&lt;/<span class="title">description</span>&gt;</span>
+   <span class="tag">&lt;/<span class="title">property</span>&gt;</span>
 
-<span class="comment">&lt;!--这个端口默认是60000，但已被占用--&gt;</span>
-<span class="tag">&lt;<span class="title">property</span>&gt;</span>
-	<span class="tag">&lt;<span class="title">name</span>&gt;</span>hbase.master.port<span class="tag">&lt;/<span class="title">name</span>&gt;</span>
-	<span class="tag">&lt;<span class="title">value</span>&gt;</span>40001<span class="tag">&lt;/<span class="title">value</span>&gt;</span>
-<span class="tag">&lt;/<span class="title">property</span>&gt;</span>
+	<span class="comment">&lt;!--这个端口默认是60000，但已被占用--&gt;</span>
+	<span class="tag">&lt;<span class="title">property</span>&gt;</span>
+		<span class="tag">&lt;<span class="title">name</span>&gt;</span>hbase.master.port<span class="tag">&lt;/<span class="title">name</span>&gt;</span>
+		<span class="tag">&lt;<span class="title">value</span>&gt;</span>40001<span class="tag">&lt;/<span class="title">value</span>&gt;</span>
+	<span class="tag">&lt;/<span class="title">property</span>&gt;</span>
 <span class="tag">&lt;/<span class="title">configuration</span>&gt;</span>
 </pre></td></tr></table></figure>
-
 
 <p>在<em>conf/regionservers</em>中添加:  </p>
 <figure class="highlight"><table><tr><td class="gutter"><pre>1
 2
 3
-</pre></td><td class="code"><pre>135.191.27.156 
-135.191.27.161  
-135.191.27.176
+</pre></td><td class="code"><pre>	135.191.27.156 
+	135.191.27.161  
+	135.191.27.176
 </pre></td></tr></table></figure>
-
 
 <blockquote>
 <blockquote>
@@ -212,7 +210,7 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
 <p>启动HBASE SHELL<br><code>./bin/hbase shell</code>  </p>
 <p><strong>文件打开限制修改</strong><br><strong>HDFS配置修改</strong></p>
 <p>jps<br>175上会有：HMaster进程<br>其它机器上会有HRegionServer和HQuorumPeer进程</p>
-<p>HMaster Web界面<br><a href="http://135.191.27.175:60010/" target="_blank">http://135.191.27.175:60010/</a></p>
+<p>HMaster Web界面<br><a href="http://135.191.27.175:60010/" target="_blank" rel="external">http://135.191.27.175:60010/</a></p>
 <h2 id="测试">测试</h2>
 <p>从VGOP的库上导一个用户基本信息表出来<br>db2 “export to XXX of del select * from xxxxx”</p>
 <p>-put 到HDFS<br>gdi_mbuser_baseinfo_20140424.dat</p>
@@ -235,42 +233,35 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
 <li>删除数据：<code>delete &#39;mtable&#39;,&#39;1&#39;,&#39;cf:name&#39;</code>  </li>
 <li>清空表： <code>truncate &#39;mtable&#39;</code>  </li>
 <li>查看表结构：<code>describe &#39;mtable&#39;</code>  </li>
-<li>修改表结构: <ol>
-<li>添加一个列族：</li>
+<li><p>修改表结构: </p>
+<ol>
+<li><p>添加一个列族：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+3
+</pre></td><td class="code"><pre>		disable <span class="string">'mtable'</span>  
+		alter <span class="string">'mtable'</span>, NAME =&gt; <span class="string">'cf2'</span>  
+		enable <span class="string">'mtable'</span>
+</pre></td></tr></table></figure> 
+</li>
+<li><p>删除列族： </p>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+3
+</pre></td><td class="code"><pre>		disable <span class="string">'mtable'</span>   
+		alter <span class="string">'mtable'</span>, <span class="string">'delete'</span> =&gt; <span class="string">'cf2'</span>  
+		enable <span class="string">'mtable'</span>
+</pre></td></tr></table></figure></li>
 </ol>
 </li>
-</ul>
-<figure class="highlight"><table><tr><td class="gutter"><pre>1
+<li>删除表：<br><figure class="highlight"><table><tr><td class="gutter"><pre>1
 2
-3
-</pre></td><td class="code"><pre>disable <span class="string">'mtable'</span>  
-alter <span class="string">'mtable'</span>, NAME =&gt; <span class="string">'cf2'</span>  
-enable <span class="string">'mtable'</span>
-</pre></td></tr></table></figure>
-
-
-<pre><code><span class="bullet">2. </span>删除列族： 
-</code></pre><figure class="highlight"><table><tr><td class="gutter"><pre>1
-2
-3
-</pre></td><td class="code"><pre>disable <span class="string">'mtable'</span>   
-alter <span class="string">'mtable'</span>, <span class="string">'delete'</span> =&gt; <span class="string">'cf2'</span>  
-enable <span class="string">'mtable'</span>
-</pre></td></tr></table></figure>
-
-
-<ul>
-<li>删除表：</li>
-</ul>
-<figure class="highlight"><table><tr><td class="gutter"><pre>1
-2
-</pre></td><td class="code"><pre>disable <span class="string">'mtable'</span>
-<span class="keyword">drop</span> <span class="string">'mtable'</span>
-</pre></td></tr></table></figure>
-
-
-<h2 id="程序开发">程序开发</h2>
+</pre></td><td class="code"><pre>		disable <span class="string">'mtable'</span>
+		<span class="keyword">drop</span> <span class="string">'mtable'</span>
+</pre></td></tr></table></figure><h2 id="程序开发">程序开发</h2>
 <h3 id="JAVA_API">JAVA API</h3>
+</li>
+</ul>
   
 	</div>
 		<footer class="article-footer clearfix">

@@ -2,6 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://www.migle.me/post/git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</loc>
+    <lastmod>2014-01-12T06:55:07.000Z</lastmod>
+  </url>
+  
+  <url>
     <loc>http://www.migle.me/post/cdh5%E4%BC%AA%E5%88%86%E5%B8%83%E5%BC%8F%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</loc>
     <lastmod>2014-04-30T05:59:23.000Z</lastmod>
   </url>
@@ -24,11 +29,6 @@
   <url>
     <loc>http://www.migle.me/post/db2%E7%AC%94%E8%AE%B0/</loc>
     <lastmod>2014-01-07T08:48:03.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://www.migle.me/post/git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</loc>
-    <lastmod>2014-01-12T06:55:07.000Z</lastmod>
   </url>
   
   <url>

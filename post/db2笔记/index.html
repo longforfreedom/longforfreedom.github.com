@@ -163,7 +163,7 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
 <blockquote>
 <p>简单来说，想要以本机为客户端连接到那些服务器上，需要先做下声明</p>
 <ol>
-<li>编目结点：<code>db2 catalog tcpip node db2node remote hostIP server service_port</code></br></li>
+<li>编目结点：<code>db2 catalog tcpip node db2node remote hostIP server service_port</code><br></li>
 <li>编目数据库:<code>db2 catalog database db_name as alias_name at node db2node</code></li>
 <li>eg:<br> 编目结点：<code>db2 catalog tcpip node TVGOPDB remote 135.191.27.175 server 50001</code><br> 编目数据库：<code>db2 catalog database vgopdb as tvgopdb at node tvgopdb</code><br> 测试:<code>db2 connect to tvgopdb</code> </li>
 </ol>
@@ -252,7 +252,7 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
  db2 <span class="string">"force application(handle id)"</span>   <span class="subst">--</span>Application <span class="keyword">handle</span>,对应SYSIBMADM<span class="built_in">.</span>SNAPLOCK表中的agent_id
 </code></pre></li>
 </ol>
-<p><a href="http://publib.boulder.ibm.com/infocenter/db2luw/v9/index.jsp?topic=%2Fcom.ibm.db2.udb.admin.doc%2Fdoc%2Fr0021992.htm" target="_blank">http://publib.boulder.ibm.com/infocenter/db2luw/v9/index.jsp?topic=%2Fcom.ibm.db2.udb.admin.doc%2Fdoc%2Fr0021992.htm</a></p>
+<p><a href="http://publib.boulder.ibm.com/infocenter/db2luw/v9/index.jsp?topic=%2Fcom.ibm.db2.udb.admin.doc%2Fdoc%2Fr0021992.htm" target="_blank" rel="external">http://publib.boulder.ibm.com/infocenter/db2luw/v9/index.jsp?topic=%2Fcom.ibm.db2.udb.admin.doc%2Fdoc%2Fr0021992.htm</a></p>
 <hr>
 <h2 id="DB2_SQL">DB2 SQL</h2>
 <h3 id="创建">创建</h3>
@@ -322,7 +322,7 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
 <li>ORDER BY</li>
 <li>FETCH FIRST</li>
 </ol>
-<p>   <code>db2 catalog tcpip node QHBIDB remote 135.191.27.50 server 50000</code> </br><br>        <code>db2 catalog database QHBIDB as QHBIDB at node QHBIDB</code>       </p>
+<p>   <code>db2 catalog tcpip node QHBIDB remote 135.191.27.50 server 50000</code> <br><br>        <code>db2 catalog database QHBIDB as QHBIDB at node QHBIDB</code>       </p>
 <pre><code>    <span class="escape">`d</span>b2 catalog tcpip node MVGOPDB remote <span class="number">135.191</span>.<span class="number">27.170</span> server <span class="number">50001</span><span class="escape">` </span>  
     <span class="escape">`d</span>b2 catalog database vgopdb as mvgopdb at node mvgopdb`
 </code></pre><h2 id="应用程序开发">应用程序开发</h2>
@@ -330,7 +330,7 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
 <p>没什么说的，注意jdbc驱动和Tomcat7有点冲突,后面的版本再没测过</p>
 <h3 id="Python">Python</h3>
 <hr>
-<p>用过的db2驱动有<a href="https://code.google.com/p/pyodbc/" target="_blank">pyodbc</a> 和 <a href="https://code.google.com/p/ibm-db/" target="_blank">ibm_db</a><br><strong>pyodbc</strong>的通用性要好一些,安装方便，实现了DB-API 2.0 specification 性能估计没有ibm_db好，Windows下各版都有编译好的包可以安装,详细内容可以参见:<a href="https://code.google.com/p/pyodbc/" target="_blank">https://code.google.com/p/pyodbc/</a><br><strong>ibm_db</strong>性能应该会好些,是DB2 API的Python包装，所以你可能还需要至少装上(IBM Data Server Driver Package)[<a href="https://www-304.ibm.com/support/docview.wss?uid=swg27016878" target="_blank">https://www-304.ibm.com/support/docview.wss?uid=swg27016878</a>] , 另外还有一个ibm_db_dbi 也是对DB-API 2.0 specification的实现，如果能连网的话可以直接用easy_install安装<code>easy_install ibm_db</code>，如果不能连网，就用签出源码自己编译吧，<em>下次安装的时候再补充</em><br>这两个包项目主页都有很详细的说明，自己看吧，这里就不复制粘贴了</p>
+<p>用过的db2驱动有<a href="https://code.google.com/p/pyodbc/" target="_blank" rel="external">pyodbc</a> 和 <a href="https://code.google.com/p/ibm-db/" target="_blank" rel="external">ibm_db</a><br><strong>pyodbc</strong>的通用性要好一些,安装方便，实现了DB-API 2.0 specification 性能估计没有ibm_db好，Windows下各版都有编译好的包可以安装,详细内容可以参见:<a href="https://code.google.com/p/pyodbc/" target="_blank" rel="external">https://code.google.com/p/pyodbc/</a><br><strong>ibm_db</strong>性能应该会好些,是DB2 API的Python包装，所以你可能还需要至少装上(IBM Data Server Driver Package)[<a href="https://www-304.ibm.com/support/docview.wss?uid=swg27016878" target="_blank" rel="external">https://www-304.ibm.com/support/docview.wss?uid=swg27016878</a>] , 另外还有一个ibm_db_dbi 也是对DB-API 2.0 specification的实现，如果能连网的话可以直接用easy_install安装<code>easy_install ibm_db</code>，如果不能连网，就用签出源码自己编译吧，<em>下次安装的时候再补充</em><br>这两个包项目主页都有很详细的说明，自己看吧，这里就不复制粘贴了</p>
 <h3 id="SHELL">SHELL</h3>
 <hr>
 <pre><code><span class="function"><span class="title">connDB2</span></span>()
@@ -377,7 +377,7 @@ db2 <span class="string">"export to tb_dpi_20131025_00_01.dat   of del select * 
 <p>返回值代码及说明如下：<br>0     DB2 command or SQL statement executed successfully<br>1     SELECT or FETCH statement returned no rows<br>2     DB2 command or SQL statement warning<br>4     DB2 command or SQL statement error<br>8     Command line processor system error  </p>
 </blockquote>
 </blockquote>
-<p><a href="http://publib.boulder.ibm.com/infocenter/db2luw/v8/topic/com.ibm.db2.udb.doc/core/r0010411.htm" target="_blank">返回值官方说明</a></p>
+<p><a href="http://publib.boulder.ibm.com/infocenter/db2luw/v8/topic/com.ibm.db2.udb.doc/core/r0010411.htm" target="_blank" rel="external">返回值官方说明</a></p>
 <h3 id="C/C++">C/C++</h3>
 <p>这个你来补吧，太煎熬了，我应该不会用到这，感兴趣可以看看DB2自带的例子程序SQLLIB\samples\ :(</p>
   
