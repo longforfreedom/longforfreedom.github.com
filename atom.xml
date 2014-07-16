@@ -4,7 +4,7 @@
   <subtitle><![CDATA[一路走来，一路唱]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://www.migle.me/"/>
-  <updated>2014-07-15T10:11:05.790Z</updated>
+  <updated>2014-07-16T09:05:05.985Z</updated>
   <id>http://www.migle.me/</id>
   
   <author>
@@ -780,7 +780,7 @@ chown <span class="attribute">-R</span> zookeeper /<span class="built_in">var</s
     <link href="http://www.migle.me/post/git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/"/>
     <id>http://www.migle.me/post/git常用命令/</id>
     <published>2014-01-12T06:55:07.000Z</published>
-    <updated>2014-07-15T10:09:45.000Z</updated>
+    <updated>2014-07-16T09:04:47.000Z</updated>
     <content type="html"><![CDATA[<h1 id="git常用命令">git常用命令</h1>
 <h2 id="配置">配置</h2>
 <p><code>git config -l</code>  #列举所有配置<br><code>git config --get user.name</code> #查看单个参数<br><code>git config --global user.name migle</code><br><code>git config --global user.email longforfreedom+github@gmail.com</code><br><code>git config --global core.editor vim</code><br><code>git config --global core.quotepath false</code> #要不中文文件名都是数据编码,ore.quotepath设为false的话，就不会对0×80以上的字符进行quote。中文显示正常 。   </p>
@@ -799,9 +799,21 @@ chown <span class="attribute">-R</span> zookeeper /<span class="built_in">var</s
 <p><code>git branch</code>   #列出当前本地所有分支<br><code>git branch -a</code> #列出当前本地及远程所有分支<br><code>git branch --no-merged</code> #查看没有合并的分支<br><code>git branch 分支名</code>  #创建本地分支，直接使用<code>git push</code>本地新创建的分支不会推送到远程<br><code>git checkout -b 分支名</code> #创建新分支并立即切换到新分支<br><code>git merge 分支名</code>  #合并到当前分支 ，如有冲突的话，会报错，需要手工处理完成后commit,再push远程<br><code>git push 远程仓库名 分支名</code>   #推送本地分支到远程仓库<br><code>git push --all</code>             #推送本地所有分支到远程仓库<br><code>git push origin --delete 分支名</code> #删除远程分支<br><code>git branch -d branhname</code>  #删除本地分支，如果是没有合并的分支，用-D删除<br>“.git/HEAD”这个文件里保存的是我们当前在哪个分支上工作的信息。  </p>
 <h2 id="tag">tag</h2>
 <h2 id="日志及恢复">日志及恢复</h2>
-<p><em>注意</em> untracked的文件git是恢复不了的！！<br><code>git log</code>     查看日志<br><code>git log --pretty=oneline</code> 美化一下输出日志<br><code>git reset --hard HEAD</code>  恢复工作目录到上次提交时的状态<br><code>git checkout -- filename</code> 恢复单个文件到上次提交时的状态<br><code>git checkout xxxxxx</code>  恢复工作目录到某一次提交时<br><code>git checkout xxxxxx filename</code>  恢复单个文件到某一次提交时</p>
+<p><em>注意</em> untracked的文件git是恢复不了的！！<br><code>git log</code>     查看日志<br><code>git log --pretty=oneline</code> 美化一下输出日志<br><code>git reset --hard HEAD</code>  恢复工作目录到上次提交时的状态<br><code>git checkout -- filename</code> 恢复单个文件到上次提交时的状态<br><code>git checkout SHA-1</code>  恢复工作目录到某一次提交时<br><code>git checkout SHA-1 filename</code>  恢复单个文件到某一次提交时</p>
 <p><code>git reset xxx</code><br><code>git reflog</code><br><code>git cat-file</code></p>
-<h2 id="diff_&amp;&amp;_合并">diff &amp;&amp; 合并</h2>
+<h2 id="diff_&amp;&amp;_patch">diff &amp;&amp; patch</h2>
+<ol>
+<li>标准patch<br>导出patch <code>git diff e52e3230fd00 &gt;patch</code> <code>git diff master &gt; patch</code>   </li>
+</ol>
+<p>导入patch <code>git apply patch</code>,导入前可以先检查一下有没有冲突<code>git apply  --check patch</code></p>
+<blockquote>
+<blockquote>
+<p>git apply 是一个事务性操作的命令，也就是说，要么所有补丁都打上去，要么全部放弃    </p>
+</blockquote>
+</blockquote>
+<ol>
+<li>git专用patch<br>导出patch <code>git format-patch -M e52e3230fd00</code><br>导入patch <code>git am path-file</code> </li>
+</ol>
 <h2 id="其它">其它</h2>
 <p>在Ubuntu13.10中bash可以自动补全git命令，但在CentOS6.4中发现不行，发现/etc/bash_completion.d/git 但是没有加载<br>试着执行一下 <code>source /etc/bash_completion.d/git</code> 然后发现可以自动补全Git命令，所以可以把这一加在自己的<em>.bashrc</em>文件中或直接在<em>/etc/bashrc</em>中添加以下  </p>
 <pre><code>    <span class="keyword">for</span> file <span class="keyword">in</span> /etc/bash_completion.d/* ; <span class="keyword">do</span>
