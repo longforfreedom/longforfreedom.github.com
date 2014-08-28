@@ -2,13 +2,18 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://www.migle.me/post/Spark%E5%AD%A6%E4%B9%A0-1/</loc>
+    <lastmod>2014-08-28T09:49:44.000Z</lastmod>
+  </url>
+  
+  <url>
     <loc>http://www.migle.me/post/git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</loc>
     <lastmod>2014-01-12T06:55:07.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://www.migle.me/post/hello-world/</loc>
-    <lastmod>2014-05-12T02:25:50.000Z</lastmod>
+    <loc>http://www.migle.me/post/centos65%E4%B8%8Bpython27%E5%8F%8Ascikit-learn%E5%AE%89%E8%A3%85/</loc>
+    <lastmod>2014-05-18T03:35:17.000Z</lastmod>
   </url>
   
   <url>
@@ -22,8 +27,8 @@
   </url>
   
   <url>
-    <loc>http://www.migle.me/post/cdh5%E4%BC%AA%E5%88%86%E5%B8%83%E5%BC%8F%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</loc>
-    <lastmod>2014-04-30T05:59:23.000Z</lastmod>
+    <loc>http://www.migle.me/about/index.html</loc>
+    <lastmod>2014-07-21T03:39:08.000Z</lastmod>
   </url>
   
   <url>
@@ -37,8 +42,8 @@
   </url>
   
   <url>
-    <loc>http://www.migle.me/post/centos65%E4%B8%8Bpython27%E5%8F%8Ascikit-learn%E5%AE%89%E8%A3%85/</loc>
-    <lastmod>2014-05-18T03:35:17.000Z</lastmod>
+    <loc>http://www.migle.me/post/cdh5%E4%BC%AA%E5%88%86%E5%B8%83%E5%BC%8F%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</loc>
+    <lastmod>2014-04-30T05:59:23.000Z</lastmod>
   </url>
   
   <url>
@@ -72,8 +77,8 @@
   </url>
   
   <url>
-    <loc>http://www.migle.me/about/index.html</loc>
-    <lastmod>2014-07-21T03:39:08.000Z</lastmod>
+    <loc>http://www.migle.me/post/hello-world/</loc>
+    <lastmod>2014-05-12T02:25:50.000Z</lastmod>
   </url>
   
 </urlset>

@@ -4,20 +4,22 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>git常用命令 | migle.me</title>
+    <title>Spark学习-1 | migle.me</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
     
     <meta name="author" content="migle">
     
-    <meta name="description" itemprop="description" content="git常用命令">
+    <meta name="description" content="环境
+下载： wget xxxxxxxxx
+单机：
+    $SPARK_HOME/sbin/stop-master.sh
+    $SPARK_HOME/bin/spark-class org.apache.spark.deploy.worker.Worker spark://192.168.24">
     
     
     
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:site" content="iammigle" />
-    <meta name="twitter:title" content="git常用命令 | migle.me" />
-      
-        <meta name="twitter:description" content="git常用命令" />
+    <meta name="twitter:title" content="Spark学习-1 | migle.me" />
       
     
     
@@ -82,15 +84,15 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/post/git常用命令/" title="git常用命令" itemprop="url">git常用命令</a>
+      <a href="/post/Spark学习-1/" title="Spark学习-1" itemprop="url">Spark学习-1</a>
   </h1>
   <p class="article-author">By
     
       <a href="https://plus.google.com/100499485361267920799?rel=author" title="migle" target="_blank" itemprop="author">migle</a>
     </p>
   <p class="article-time">
-    <time datetime="2014-01-12T06:55:07.000Z" itemprop="datePublished">1月 12 2014</time>
-    更新日期:<time datetime="2014-07-21T04:05:52.000Z" itemprop="dateModified">7月 21 2014</time>
+    <time datetime="2014-08-28T09:49:44.000Z" itemprop="datePublished">8月 28 2014</time>
+    更新日期:<time datetime="2014-08-28T09:51:13.000Z" itemprop="dateModified">8月 28 2014</time>
     
   </p>
 </header>
@@ -99,67 +101,90 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
 		
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
-		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#git常用命令"><span class="toc-number">1.</span> <span class="toc-text">git常用命令</span></a></li><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#配置"><span class="toc-number">1.1.</span> <span class="toc-text">配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#远程"><span class="toc-number">1.2.</span> <span class="toc-text">远程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#分支"><span class="toc-number">1.3.</span> <span class="toc-text">分支</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#tag"><span class="toc-number">1.4.</span> <span class="toc-text">tag</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#日志及恢复"><span class="toc-number">1.5.</span> <span class="toc-text">日志及恢复</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#diff_&amp;&amp;_patch"><span class="toc-number">1.6.</span> <span class="toc-text">diff &amp;&amp; patch</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#其它"><span class="toc-number">1.7.</span> <span class="toc-text">其它</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考资料"><span class="toc-number">1.8.</span> <span class="toc-text">参考资料</span></a></li></ol>
+		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#环境"><span class="toc-number">1.</span> <span class="toc-text">环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#spark_shell"><span class="toc-number">2.</span> <span class="toc-text">spark shell</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#独立程序"><span class="toc-number">3.</span> <span class="toc-text">独立程序</span></a></li><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#spark-submit"><span class="toc-number">3.1.</span> <span class="toc-text">spark-submit</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#sbt中运行"><span class="toc-number">3.2.</span> <span class="toc-text">sbt中运行</span></a></li></ol><li class="toc-item toc-level-2"><a class="toc-link" href="#在Web应用中"><span class="toc-number">4.</span> <span class="toc-text">在Web应用中</span></a></li></ol>
 		</div>
 		
-		<h1 id="git常用命令">git常用命令</h1>
-<h2 id="配置">配置</h2>
-<p><code>git config -l</code>  #列举所有配置<br><code>git config --get user.name</code> #查看单个参数<br><code>git config --global user.name migle</code><br><code>git config --global user.email longforfreedom+github@gmail.com</code><br><code>git config --global core.editor vim</code><br><code>git config --global core.quotepath false</code> #要不中文文件名都是数据编码,ore.quotepath设为false的话，就不会对0×80以上的字符进行quote。中文显示正常 。<br><code>git config color.ui true</code>  #彩色的 git 输出<br><code>git config format.pretty oneline</code> # 显示历史记录时，每个提交的信息只显示一行  <code>git log --pretty=oneline</code>     </p>
-<p><strong>别名</strong><br><code>git config --global alias.co checkout</code><br><code>git config --global alias.ci commit</code><br><code>git config --global alias.st status</code><br><code>git config --global alias.br branch</code>    </p>
-<h2 id="远程">远程</h2>
-<p><em>可以是本机的其它目录，或git、ssh、https等协议</em><br>检出仓库：<code>git clone git://github.com/jquery/jquery.git</code>  # <em>-b 分支名</em> 只检出其中一个分支<br>查看远程仓库：<code>git remote -v</code><br>查看远程服务器仓库状态:<code>git remote show origin</code><br>添加远程仓库：<code>git remote add [name] [url]</code><br>删除远程仓库：<code>git remote rm [name]</code><br>修改远程仓库地址：<code>git remote set-url --push[name][newUrl]</code><br>git remote set-url origin  <a href="https://longforfreedom@github.com/longforfreedom/m-note.git" target="_blank" rel="external">https://longforfreedom@github.com/longforfreedom/m-note.git</a><br>拉取远程仓库：<code>git pull [remoteName] [localBranchName]</code><br>推送远程仓库：<code>git push [remoteName] [localBranchName]</code>  </p>
-<blockquote>
-<blockquote>
-<p><code>git pull  url</code>   #它从远程分支(remote branch)抓取修改的内容，然后把它合并进当前的分支，不同的仓库也能合并，确实不错</p>
-</blockquote>
-</blockquote>
-<p><code>git remote add origin https://github.com/longforfreedom/m-note.git</code>         # 添加远程仓库地址，相当于一个别名<br>执行git fetch origin 的时候只抓取不合并，会有一个origin/master分支生成然后，再merge      </p>
-<p><code>git remote set-url origin https://github.com/miadaner/miadaner.git</code> # 设置远程仓库地址(用于修改远程仓库地址)      </p>
-<p><code>git push origin master</code>           #将本地主分支推到远程主分支<br><code>git push -u origin master</code>        #将本地主分支推到远程(如无远程主分支则创建，用于初始化远程仓库)<br><code>git reset --hard origin/master</code>   ##用远程仓库中最新版本覆盖所有本地修改  </p>
-<h2 id="分支">分支</h2>
-<p><code>git branch</code>   #列出当前本地所有分支<br><code>git branch -a</code> #列出当前本地及远程所有分支<br><code>git branch --no-merged</code> #查看没有合并的分支<br><code>git branch 分支名</code>  #创建本地分支，直接使用<code>git push</code>本地新创建的分支不会推送到远程<br><code>git checkout -b 分支名</code> #创建新分支并立即切换到新分支<br><code>git merge 分支名</code>  #合并到当前分支 ，如有冲突的话，会报错，需要手工处理完成后commit,再push远程<br><code>git push 远程仓库名 分支名</code>   #推送本地分支到远程仓库<br><code>git push --all</code>             #推送本地所有分支到远程仓库<br><code>git push origin --delete 分支名</code> #删除远程分支<br><code>git branch -d branhname</code>  #删除本地分支，如果是没有合并的分支，用-D删除<br>“.git/HEAD”这个文件里保存的是我们当前在哪个分支上工作的信息。  </p>
-<h2 id="tag">tag</h2>
-<h2 id="日志及恢复">日志及恢复</h2>
-<p><em>注意</em> untracked的文件git是恢复不了的！！<br><code>git log</code>     查看日志<br><code>git log --pretty=oneline</code> 美化一下输出日志<br><code>git reset --hard HEAD</code>  恢复工作目录到上次提交时的状态<br><code>git checkout -- filename</code> 恢复单个文件到上次提交时的状态<br><code>git checkout SHA-1</code>  恢复工作目录到某一次提交时<br><code>git checkout SHA-1 filename</code>  恢复单个文件到某一次提交时</p>
-<p><code>git reset xxx</code><br><code>git reflog</code><br><code>git cat-file</code></p>
-<h2 id="diff_&amp;&amp;_patch">diff &amp;&amp; patch</h2>
+		<h2 id="环境">环境</h2>
+<p>下载： wget xxxxxxxxx</p>
+<p>单机：</p>
+<pre><code>    $SPARK_HOME/sbin/stop-master<span class="preprocessor">.sh</span>
+    $SPARK_HOME/bin/spark-class org<span class="preprocessor">.apache</span><span class="preprocessor">.spark</span><span class="preprocessor">.deploy</span><span class="preprocessor">.worker</span><span class="preprocessor">.Worker</span> spark://<span class="number">192.168</span><span class="number">.242</span><span class="number">.130</span>:<span class="number">7077</span>
+</code></pre><p>集群：</p>
 <ol>
-<li>标准patch<br>导出patch <code>git diff e52e3230fd00 &gt;patch</code> <code>git diff master &gt; patch</code>   </li>
+<li>集群各机器SSH免密已配置  <a href="http://www.migle.me/post/hadoop%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E7%AC%94%E8%AE%B0/" target="_blank" rel="external">参考</a></li>
+<li>修改 $SPARK_HOME/conf/slaves 添加所有slave，每行一条</li>
+<li>修改 $SPARK_HOME/conf/spark-env.sh 添加：<code>SPARK_MASTER_IP=MASTER的IP</code></li>
+<li>scp到其它机器</li>
+<li>在Master上启动集群 <code>$SPARK_HOME/sbin/start-all.sh</code>  </li>
 </ol>
-<p>导入patch <code>git apply patch</code>,导入前可以先检查一下有没有冲突<code>git apply  --check patch</code></p>
 <blockquote>
 <blockquote>
-<p>git apply 是一个事务性操作的命令，也就是说，要么所有补丁都打上去，要么全部放弃    </p>
+<p>浏览器中查看：<a href="http://192.168.242.130:8080/" target="_blank" rel="external">http://192.168.242.130:8080/</a><br>默认端口7077可以在$SPARK_HOME/spark-env.sh通过设置SPARK_MASTER_PORT修改</p>
 </blockquote>
 </blockquote>
+<p>sbt安装：</p>
 <ol>
-<li>git专用patch<br>导出patch <code>git format-patch -M e52e3230fd00</code><br>导入patch <code>git am path-file</code> </li>
+<li><p>下载：</p>
+<pre><code> cd /usr/bin  
+ wget http://repo<span class="preprocessor">.typesafe</span><span class="preprocessor">.com</span>/typesafe/ivy-releases/org<span class="preprocessor">.scala</span>-sbt/sbt-launch/<span class="number">0.13</span><span class="number">.2</span>/sbt-launch<span class="preprocessor">.jar</span>  
+</code></pre></li>
+<li><p>vim /usr/bin/sbt 写入以下内容</p>
+<pre><code> SBT_OPTS<span class="subst">=</span><span class="string">"-Xms512M -Xmx1536M -Xss1M -XX:+CMSClassUnloadingEnabled -XX:MaxPermSize=256M"</span>
+ java <span class="variable">$SBT_OPTS</span> <span class="attribute">-jar</span> <span class="string">`dirname $0`</span>/sbt<span class="attribute">-launch</span><span class="built_in">.</span>jar <span class="string">"$@"</span>
+</code></pre></li>
+<li><p><code>chmod +x /usr/bin/sbt</code></p>
+</li>
 </ol>
-<h2 id="其它">其它</h2>
-<p>在Ubuntu13.10中bash可以自动补全git命令，但在CentOS6.4中发现不行，发现/etc/bash_completion.d/git 但是没有加载<br>试着执行一下 <code>source /etc/bash_completion.d/git</code> 然后发现可以自动补全Git命令，所以可以把这一加在自己的<em>.bashrc</em>文件中或直接在<em>/etc/bashrc</em>中添加以下  </p>
-<pre><code>    <span class="keyword">for</span> file <span class="keyword">in</span> /etc/bash_completion.d/* ; <span class="keyword">do</span>
-            <span class="built_in">source</span> <span class="string">"<span class="variable">$file</span>"</span> 
-    <span class="keyword">done</span>
-</code></pre><h2 id="参考资料">参考资料</h2>
-<ul>
-<li><a href="http://rogerdudler.github.io/git-guide/index.zh.html" target="_blank" rel="external">git简明指南</a></li>
-<li><a href="http://gitbook.liuhui998.com/" target="_blank" rel="external">Git Community Book 中文版</a></li>
-<li><a href="http://git-scm.com/book/zh" target="_blank" rel="external">Pro Git</a></li>
-<li><a href="https://www.atlassian.com/git/tutorial/git-basics" target="_blank" rel="external">Git Tutorials</a></li>
-</ul>
+<h2 id="spark_shell">spark shell</h2>
+<p>$SPARK_HOME/bin/spark-shell<br>可以不用先启动Master或集群环境，也可以连接到集群</p>
+<h2 id="独立程序">独立程序</h2>
+<h3 id="spark-submit">spark-submit</h3>
+<p>可以不用先启动Master或集群环境<br>关键代码 <em>可以不用设置Master URL</em></p>
+<pre><code>    <span class="keyword">val</span> conf = <span class="keyword">new</span> SparkConf().setAppName(<span class="string">"Simple Application"</span>)
+    <span class="keyword">val</span> sc = <span class="keyword">new</span> SparkContext(conf)
+    <span class="keyword">val</span> rdd = sc.textFile(args(<span class="number">0</span>)) <span class="comment">//.cache()</span>
+<span class="keyword">val</span> lines  = rdd.count();
+println(<span class="string">"总共："</span> + lines)
+</code></pre><p>运行：<br>        打包：<code>sbt package</code><br>        提交运行<br>        /opt/spark-1.0.2-bin-hadoop2/bin/spark-submit —class “com.qhbi.etl.ETL”   ./target/scala-2.10/spark-learn_2.10-1.0.jar  ./README.md<br>        jar包位置 <em>./target/scala-2.10/spark-learn_2.10-1.0.jar</em> 必须提供<br>        运行参数：<em>./README.md</em> 根据实际情况  </p>
+<pre><code>    提交到远程集群中运行：
+
+            ./bin/spark-submit
+                   -<span class="ruby">-master <span class="symbol">spark:</span>/<span class="regexp">/135.191.27.175:7077
+</span></span>                             -<span class="ruby">-<span class="class"><span class="keyword">class</span> "<span class="title">com</span>.<span class="title">qhbi</span>.<span class="title">etl</span>.<span class="title">ETL</span>"  </span>
+</span>                             ./spark-learn_2.10-1.0.jar
+                        hdfs://135.191.27.175:9999/qhbi/gdi_mbuser_baseinfo_20140424.dat  
+</code></pre><h3 id="sbt中运行">sbt中运行</h3>
+<p><em>首先需要启动Master和Worker</em></p>
+<p>关键代码：<em>必须要设置Master URL</em></p>
+<pre><code>    <span class="keyword">val</span> conf = <span class="keyword">new</span> SparkConf()
+                            .setAppName(<span class="string">"Simple Application"</span>)  
+                            .setMaster(<span class="string">"spark://192.168.242.130:7077"</span>)  
+    <span class="keyword">val</span> sc = <span class="keyword">new</span> SparkContext(conf)  
+</code></pre><p>运行：<code>sbt run</code></p>
+<p><em>注意：</em> 可能需要设置一下 $SPARK_HOME/spark-env.sh<br>在其中添加以下</p>
+<p>SPARK_WORKER_MEMORY=1000m     ## 根据实际情况<br>SPARK_MASTER_IP=192.168.242.130  ## 最好直接设置成Master的IP，否则会取成<code>hostname</code></p>
+<p>否则会出现以下错误：</p>
+<p>14/08/28 14:05:42 WARN TaskSchedulerImpl: Initial job has not accepted any resources; check your cluster UI to ensure that workers are registered and have sufficient memory<br>14/08/28 14:05:55 ERROR SparkDeploySchedulerBackend: Application has been killed. Reason: All masters are unresponsive! Giving up.<br>14/08/28 14:05:55 INFO TaskSchedulerImpl: Removed TaskSet 0.0, whose tasks have all completed, from pool<br>14/08/28 14:05:55 INFO TaskSchedulerImpl: Cancelling stage 0<br>14/08/28 14:05:55 INFO DAGScheduler: Failed to run count at ETL.scala:22<br>[error] (run-main-0) org.apache.spark.SparkException: Job aborted due to stage failure: All masters are unresponsive! Giving up.  </p>
+<h2 id="在Web应用中">在Web应用中</h2>
+<blockquote>
+<blockquote>
+<p>@TODO</p>
+<p>文件最好放在HDFS上</p>
+</blockquote>
+</blockquote>
   
 	</div>
 		<footer class="article-footer clearfix">
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/git/">git</a>
+  <span></span> <a href="/tags/spark/">spark</a><a href="/tags/入门/">入门</a>
   </div>
 
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/工具/">工具</a>
+  <a class="article-category-link" href="/categories/spark/">spark</a>
 </div>
 
 
@@ -194,19 +219,11 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/post/hadoop环境搭建笔记/" title="hadoop环境搭建笔记">
-  <strong>PREVIOUS:</strong><br/>
-  <span>
-  hadoop环境搭建笔记</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/post/db2笔记/"  title="DB2笔记">
+<a href="/post/centos65下python27及scikit-learn安装/"  title="CentOS6.5下python2.7及scikit-learn安装">
  <strong>NEXT:</strong><br/> 
- <span>DB2笔记
+ <span>CentOS6.5下python2.7及scikit-learn安装
 </span>
 </a>
 </div>
@@ -223,7 +240,7 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
 
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
-  <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#git常用命令"><span class="toc-number">1.</span> <span class="toc-text">git常用命令</span></a></li><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#配置"><span class="toc-number">1.1.</span> <span class="toc-text">配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#远程"><span class="toc-number">1.2.</span> <span class="toc-text">远程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#分支"><span class="toc-number">1.3.</span> <span class="toc-text">分支</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#tag"><span class="toc-number">1.4.</span> <span class="toc-text">tag</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#日志及恢复"><span class="toc-number">1.5.</span> <span class="toc-text">日志及恢复</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#diff_&amp;&amp;_patch"><span class="toc-number">1.6.</span> <span class="toc-text">diff &amp;&amp; patch</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#其它"><span class="toc-number">1.7.</span> <span class="toc-text">其它</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考资料"><span class="toc-number">1.8.</span> <span class="toc-text">参考资料</span></a></li></ol>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#环境"><span class="toc-number">1.</span> <span class="toc-text">环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#spark_shell"><span class="toc-number">2.</span> <span class="toc-text">spark shell</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#独立程序"><span class="toc-number">3.</span> <span class="toc-text">独立程序</span></a></li><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#spark-submit"><span class="toc-number">3.1.</span> <span class="toc-text">spark-submit</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#sbt中运行"><span class="toc-number">3.2.</span> <span class="toc-text">sbt中运行</span></a></li></ol><li class="toc-item toc-level-2"><a class="toc-link" href="#在Web应用中"><span class="toc-number">4.</span> <span class="toc-text">在Web应用中</span></a></li></ol>
   </div>
 
 <div id="asidepart">
