@@ -4,7 +4,7 @@
   <subtitle><![CDATA[一路走来，一路唱]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://www.migle.me/"/>
-  <updated>2014-08-28T09:53:30.707Z</updated>
+  <updated>2014-09-09T08:55:29.643Z</updated>
   <id>http://www.migle.me/</id>
   
   <author>
@@ -251,7 +251,7 @@ yum install freetype<span class="attribute">-devel</span> libpng<span class="att
     <link href="http://www.migle.me/post/cdh5%E4%BC%AA%E5%88%86%E5%B8%83%E5%BC%8F%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/"/>
     <id>http://www.migle.me/post/cdh5伪分布式环境搭建/</id>
     <published>2014-04-30T05:59:23.000Z</published>
-    <updated>2014-07-21T03:39:08.000Z</updated>
+    <updated>2014-09-09T08:55:25.000Z</updated>
     <content type="html"><![CDATA[<h2 id="说明：">说明：</h2>
 <ol>
 <li><p>本文描述的是基于Windows+虚拟机+CentOS的Hadoop+HBase的开发环境搭建过程，使用的Hadoop版本是CDH5(Cloudera Distribution including Apache Hadoop，CDH)，旨在说明HADOOP的伪分布式环境搭建关键步骤。CDH5与Hadoop的关系，Hadoop、Hbase、Zookeeper之间的关系，及文中涉及的一些工具、命令的使用等与本文有关系不是特别密切的东西都没有详细说明,想了解更多请：<a href="http://www.google.com" target="_blank" rel="external">http://www.google.com</a></p>
@@ -261,9 +261,9 @@ yum install freetype<span class="attribute">-devel</span> libpng<span class="att
 </ol>
 <h2 id="基础环境">基础环境</h2>
 <h3 id="操作系统">操作系统</h3>
-<p>CDH5的环境要求可以参见：<a href="http://www.cloudera.com/content/cloudera-content/cloudera-docs/CDH5/latest/CDH5-Requirements-and-Supported-Versions/CDH5-Requirements-and-Supported-Versions.html" target="_blank" rel="external">CDH 5 Requirements and Supported Versions</a> 虚拟机可以用VMWare或VirtualBox，详细安装过程请自行Google ，本文所用的环境为Win8+VMWare+CentOS6.4 +CDH5：<br>虚拟机安装CentOS6.4方便起见推荐使用安装minimal版，小巧玲珑<a href="http://pan.baidu.com/s/1i3zG0L3" target="_blank" rel="external">百度网盘下载</a>   </p>
+<p>CDH5的环境要求可以参见：<a href="http://www.cloudera.com/content/cloudera-content/cloudera-docs/CDH5/latest/CDH5-Requirements-and-Supported-Versions/CDH5-Requirements-and-Supported-Versions.html" target="_blank" rel="external">CDH 5 Requirements and Supported Versions</a> 虚拟机可以用VMWare或VirtualBox，详细安装过程请自行Google ，本文所用的环境为Win8+VMWare+CentOS6.4 +CDH5：<br>虚拟机安装CentOS6.4方便起见推荐使用安装minimal版，小巧玲珑<a href="http://pan.baidu.com/s/1nt4wf3b" target="_blank" rel="external">百度网盘下载</a>   </p>
 <ol>
-<li>minimal版的CentOS网络默认没有打开<br> 用以下命令打开：<br>  <code>ifconfig eth0 up</code><br>  <code>dhclient eth0</code>    <blockquote>
+<li>minimal版的CentOS网络默认没有打开<br> 用以下命令打开：<br>  <code>ifconfig eth0 up</code><br>  <code>dhclient eth0</code><blockquote>
 <blockquote>
 <p>可以修改<em>/etc/sysconfig/network-scripts/ifcfg-eth0</em>将<em>ONBOOT=no</em> 改成<em>ONBOOT=yes</em>开机打开网络，如果要设置静态IP可以参考以下内容进行做修改</p>
 <pre><code> DEVICE=eth0
@@ -285,7 +285,7 @@ yum install freetype<span class="attribute">-devel</span> libpng<span class="att
 </li>
 </ol>
 <ol>
-<li><p>为方便之后的操作，可能还需要以下操作，这一步不是必须的   </p>
+<li><p>为方便之后的操作，可能还需要以下操作，这一步不是必须的</p>
 <p><code>yum update</code> 先更新一下会自动选最快的源<br>常用软件安装<br><code>yum install vim wget</code><br>下面这些你可能会能也会用到<br><code>yum install lsof make ntp tcpdump time  zip unzip git</code><br><code>yum groupinstall &quot;Development Tools&quot;</code>  </p>
 </li>
 <li><p>为方便与宿主机共享文件，可以安装VMwareTools，这一步也不是必须的</p>
@@ -297,10 +297,10 @@ yum install freetype<span class="attribute">-devel</span> libpng<span class="att
  cd /tmp/vmware-tools-distrib
 
  ./vmware-install<span class="preprocessor">.pl</span>   <span class="preprocessor">#安装</span>
- 一路回车选默认值直接到**Would you like to enable VMware automatic kernel modules? [no]**这个地可能需要yes    
+ 一路回车选默认值直接到**Would you like to enable VMware automatic kernel modules? [no]**这个地可能需要yes
 </code></pre><p> 安装完成后重启，在/mnt/hgfs/就是可以看到共享的宿主机的目录</p>
 <p> 不行的话可以尝试手工挂载</p>
-<pre><code> mount -t vmhgfs .host:<span class="regexp">/ /m</span>nt/hgfs/ 
+<pre><code> mount -t vmhgfs .host:<span class="regexp">/ /m</span>nt/hgfs/
  编辑 /etc/fstab，添加下面一行
  .host:<span class="regexp">/                  /m</span>nt/hgfs               vmhgfs  defaults  <span class="number">0</span> <span class="number">0</span>
 </code></pre></li>
@@ -314,8 +314,8 @@ yum install freetype<span class="attribute">-devel</span> libpng<span class="att
 </pre></td></tr></table></figure><br>&gt;&gt;以上需要按实际情况做修改<strong>192.168.242.129</strong>是文中虚拟机地址， <strong>centos.migle</strong>是文中虚拟机HOSTNAME，下文中不再特别说明，如有出现请按自已实际对应做修改<br><br>&gt;&gt;<em>估计不用虚拟机IP和HOSTNAME做映射也是可以，用一个新名字映射虚拟机IP也是可以的!！</em><br><br><br><em> CentOS默认iptables是开的，可以这样查看状态<code>service iptables status</code> 而本文描述的是在虚拟机中安装的Hadoop，会在宿主机中通过WEB UI或客户端的形式访问虚拟机中的Hadoop所以为方便起见把Iptables给关了：<code>service stop iptables</code> 可以直接设成开机不启动<code>chkconfig iptables off</code>免得麻烦<br><br><br>### 软件环境<br>1. JDK安装<br>先检查是否已经安装<code>java  -version</code>环境变量是否已经设置<code>echo $JAVA_HOME</code> 如果没安装继续看下面，如果都没问题进入<br><a href="#ssh_install">下一步</a><br>    1. 下载    ：<a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk7-downloads-1880260.html" target="_blank" rel="external">http://www.oracle.com/technetwork/java/javase/downloads/jdk7-downloads-1880260.html</a><br>    2. 安装：rpm -i jdk-7u55-linux-x64.rpm<br><br>    4. 环境变量设置：<strong>/etc/profile</strong>  添加以下内容:<br><br>    <figure class="highlight"><table><tr><td class="gutter"><pre>1
 2
 3
-</pre></td><td class="code"><pre>		<span class="keyword">export</span> JAVA_HOME=/usr/java/jdk1.<span class="number">7.0</span>_55    
-		<span class="keyword">export</span> CLASSPATH=.:<span class="variable">$JAVA_HOME</span>/lib/dt.jar:<span class="variable">$JAVA_HOME</span>/lib/tools.jar      
+</pre></td><td class="code"><pre>		<span class="keyword">export</span> JAVA_HOME=/usr/java/jdk1.<span class="number">7.0</span>_55
+		<span class="keyword">export</span> CLASSPATH=.:<span class="variable">$JAVA_HOME</span>/lib/dt.jar:<span class="variable">$JAVA_HOME</span>/lib/tools.jar
 		<span class="keyword">export</span> PATH=<span class="variable">$PATH</span>:<span class="variable">$JAVA_HOME</span>/bin
 </pre></td></tr></table></figure><br>    &gt;&gt; </em>重新登录或  <code>source /etc/profile</code> 生效<em><br><br>2.  <a name="ssh_install">ssh  server</a><br><br>伪分布式运行应该是不需要SSH Server的，安装主要是为方便在宿主机中用XShell连接虚拟机，不过好处是CentOS自带,不用额外安装<br><br>## Hadoop<br>### 安装<br><br>1. 设置软件源<br>    <figure class="highlight"><table><tr><td class="gutter"><pre>1
 2
@@ -352,7 +352,7 @@ yum install freetype<span class="attribute">-devel</span> libpng<span class="att
 </blockquote>
 </blockquote>
 </li>
-<li><p>宿主机浏览器里打开：<a href="http://centos.migle:50070/" target="_blank" rel="external">http://centos.migle:50070/</a> 如果看到类似以下界面，说明问题成功了一小步！.. </p>
+<li><p>宿主机浏览器里打开：<a href="http://centos.migle:50070/" target="_blank" rel="external">http://centos.migle:50070/</a> 如果看到类似以下界面，说明问题成功了一小步！..</p>
 <blockquote>
 <blockquote>
 <p>如果使用虚拟机的HOSTNAME则需要在宿主机的hosts文件中加入相应映射，否则请直接用IP地址<br><img src="/images/cdh5-50070.jpg" alt="psudo-50070"></p>
@@ -368,15 +368,15 @@ yum install freetype<span class="attribute">-devel</span> libpng<span class="att
 4
 5
 </pre></td><td class="code"><pre>sudo <span class="attribute">-u</span> hdfs hadoop fs <span class="attribute">-mkdir</span> <span class="attribute">-p</span> /tmp/hadoop<span class="attribute">-yarn</span>/staging/history/done_intermediate
-sudo <span class="attribute">-u</span> hdfs hadoop fs <span class="attribute">-chown</span> <span class="attribute">-R</span> mapred:mapred /tmp/hadoop<span class="attribute">-yarn</span>/staging 
-sudo <span class="attribute">-u</span> hdfs hadoop fs <span class="attribute">-chmod</span> <span class="attribute">-R</span> <span class="number">1777</span> /tmp 
+sudo <span class="attribute">-u</span> hdfs hadoop fs <span class="attribute">-chown</span> <span class="attribute">-R</span> mapred:mapred /tmp/hadoop<span class="attribute">-yarn</span>/staging
+sudo <span class="attribute">-u</span> hdfs hadoop fs <span class="attribute">-chmod</span> <span class="attribute">-R</span> <span class="number">1777</span> /tmp
 sudo <span class="attribute">-u</span> hdfs hadoop fs <span class="attribute">-mkdir</span> <span class="attribute">-p</span> /<span class="built_in">var</span>/<span class="keyword">log</span>/hadoop<span class="attribute">-yarn</span>
 sudo <span class="attribute">-u</span> hdfs hadoop fs <span class="attribute">-chown</span> yarn:mapred /<span class="built_in">var</span>/<span class="keyword">log</span>/hadoop<span class="attribute">-yarn</span>
 </pre></td></tr></table></figure><br>查看结果： <code>hadoop fs -ls -R /</code>   也可以在WEB界面中查看<br>&gt;&gt;安装的时候会自动创建hadoop,hdfs,yarn,mapred等用户<br><br><em><code>hadoop fs</code> 会改给出HDFS的命令的帮助，和相应的Linux名字和相应功能都很像，参数也比较简单</em><br><br>* 启动YARN服务<br><br><figure class="highlight"><table><tr><td class="gutter"><pre>1
 2
 3
-</pre></td><td class="code"><pre>sudo service hadoop<span class="attribute">-yarn</span><span class="attribute">-resourcemanager</span> start   
-sudo service hadoop<span class="attribute">-yarn</span><span class="attribute">-nodemanager</span> start   
+</pre></td><td class="code"><pre>sudo service hadoop<span class="attribute">-yarn</span><span class="attribute">-resourcemanager</span> start
+sudo service hadoop<span class="attribute">-yarn</span><span class="attribute">-nodemanager</span> start
 sudo service hadoop<span class="attribute">-mapreduce</span><span class="attribute">-historyserver</span> start
 </pre></td></tr></table></figure><br>&gt;&gt; 下次开机会自动启动<br><br><code>jps</code>后会有类似如下的输出:<br><br><figure class="highlight"><table><tr><td class="gutter"><pre>1
 2
@@ -412,7 +412,7 @@ sudo <span class="attribute">-u</span> hdfs hadoop fs <span class="attribute">-c
 </pre></td></tr></table></figure>
 
 <p>上传到hdfs中:<code>hadoop fs -put -f test.txt /user/root/</code><br>查看文件：<code>hadoop fs -ls -R  /user/root/</code><br>查看文件内容   <code>hadoop fs -cat  /user/root/test.txt</code><br>如下图：<br><img src="/images/cdh5-put-lsr-cat.jpg" alt="cdh5-put-lsr-cat"></p>
-<p>运行一个自带MR例子，<br> hadoop jar /usr/lib/hadoop-mapreduce/hadoop-mapreduce-examples.jar wordcount test.txt  output </p>
+<p>运行一个自带MR例子，<br> hadoop jar /usr/lib/hadoop-mapreduce/hadoop-mapreduce-examples.jar wordcount test.txt  output</p>
 <blockquote>
 <blockquote>
 <p>hadoop-mapreduce-examples.jar源码在Hadoop的源码包里有</p>
@@ -458,16 +458,16 @@ chown <span class="attribute">-R</span> zookeeper /<span class="built_in">var</s
 		<span class="tag">&lt;<span class="title">name</span>&gt;</span>hbase.cluster.distributed<span class="tag">&lt;/<span class="title">name</span>&gt;</span>
 		<span class="tag">&lt;<span class="title">value</span>&gt;</span>true<span class="tag">&lt;/<span class="title">value</span>&gt;</span>
 		<span class="tag">&lt;/<span class="title">property</span>&gt;</span>
-		
+
 		<span class="tag">&lt;<span class="title">property</span>&gt;</span>
 		<span class="tag">&lt;<span class="title">name</span>&gt;</span>hbase.rootdir<span class="tag">&lt;/<span class="title">name</span>&gt;</span>
 		<span class="comment">&lt;!--按实际情况修改--&gt;</span>
 		<span class="tag">&lt;<span class="title">value</span>&gt;</span>hdfs://centos.migle:8020/hbase<span class="tag">&lt;/<span class="title">value</span>&gt;</span>
 		<span class="tag">&lt;/<span class="title">property</span>&gt;</span>
-		
-		<span class="tag">&lt;<span class="title">property</span>&gt;</span> 
-		<span class="tag">&lt;<span class="title">name</span>&gt;</span>hbase.zookeeper.quorum<span class="tag">&lt;/<span class="title">name</span>&gt;</span>      
-		<span class="tag">&lt;<span class="title">value</span>&gt;</span>centos.migle<span class="tag">&lt;/<span class="title">value</span>&gt;</span>    
+
+		<span class="tag">&lt;<span class="title">property</span>&gt;</span>
+		<span class="tag">&lt;<span class="title">name</span>&gt;</span>hbase.zookeeper.quorum<span class="tag">&lt;/<span class="title">name</span>&gt;</span>
+		<span class="tag">&lt;<span class="title">value</span>&gt;</span>centos.migle<span class="tag">&lt;/<span class="title">value</span>&gt;</span>
 		<span class="tag">&lt;/<span class="title">property</span>&gt;</span>
 </pre></td></tr></table></figure>
 
@@ -492,19 +492,19 @@ chown <span class="attribute">-R</span> zookeeper /<span class="built_in">var</s
 </blockquote>
 <h3 id="开发测试">开发测试</h3>
 <h4 id="HBASE_SHELL_基本操作">HBASE SHELL 基本操作</h4>
-<p><code>hbase shell</code> 进入HBASE SHELL,提示符会变成类似:<strong>hbase(main):002:0&gt;</strong>以下命令都在HBASE SHELL执行. </p>
+<p><code>hbase shell</code> 进入HBASE SHELL,提示符会变成类似:<strong>hbase(main):002:0&gt;</strong>以下命令都在HBASE SHELL执行.</p>
 <ul>
 <li>查看状态 :<code>status</code>  </li>
 <li>查看版本:<code>version</code>  </li>
 <li>创建表：<code>create &#39;mtable&#39;,&#39;cf&#39;</code>  指定表名和列族,多个列族用“,”分隔如：<code>create &#39;mtable&#39;,&#39;cf&#39;,&#39;cf2&#39;</code>  </li>
 <li>插入数据: <code>put &#39;表名&#39;,&#39;rowKey&#39;,&#39;列名&#39;,&#39;列值&#39;</code><br>  <code>put &#39;mtable&#39;,&#39;rowKey1&#39;,&#39;cf:acc_nbr&#39;,&#39;18797384480&#39;</code><br>   <code>put &#39;mtable&#39;,&#39;rowKey1&#39;,&#39;cf:name&#39;,&#39;migle&#39;</code><br>列可以动态创建:  列格式是:<em>列族:列名</em>  </li>
-<li>查看数据:<br>  <strong>单行:</strong><br>   <code>get &#39;mtable&#39; , &#39;rowKey1&#39;</code><br>   <code>get &#39;mtable&#39;,&#39;rowKey1&#39;,&#39;cf:acc_nbr&#39;</code><br>   <code>get &#39;mtable&#39;,&#39;rowKey1&#39;,&#39;cf&#39;</code><br>  <strong>所有:</strong> <code>scan &#39;mtable&#39;</code>    </li>
+<li>查看数据:<br>  <strong>单行:</strong><br>   <code>get &#39;mtable&#39; , &#39;rowKey1&#39;</code><br>   <code>get &#39;mtable&#39;,&#39;rowKey1&#39;,&#39;cf:acc_nbr&#39;</code><br>   <code>get &#39;mtable&#39;,&#39;rowKey1&#39;,&#39;cf&#39;</code><br>  <strong>所有:</strong> <code>scan &#39;mtable&#39;</code></li>
 <li>行数：<code>count &#39;mtable&#39;</code>  </li>
 <li>更新数据：<code>put &#39;mtable&#39;,&#39;1&#39;,&#39;cf:acc_nbr&#39;,&#39;18797384481&#39;</code></li>
 <li>删除数据：<code>delete &#39;mtable&#39;,&#39;1&#39;,&#39;cf:name&#39;</code>  </li>
 <li>清空表： <code>truncate &#39;mtable&#39;</code>  </li>
 <li>查看表结构：<code>describe &#39;mtable&#39;</code>  </li>
-<li><p>修改表结构: </p>
+<li><p>修改表结构:</p>
 <ol>
 <li><p>添加一个列族：</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre>1
@@ -515,11 +515,11 @@ chown <span class="attribute">-R</span> zookeeper /<span class="built_in">var</s
 	   enable <span class="string">'mtable'</span>
 </pre></td></tr></table></figure>
 </li>
-<li><p>删除列族： </p>
+<li><p>删除列族：</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre>1
 2
 3
-</pre></td><td class="code"><pre>		disable <span class="string">'mtable'</span>   
+</pre></td><td class="code"><pre>		disable <span class="string">'mtable'</span>
 		alter <span class="string">'mtable'</span>, <span class="string">'delete'</span> =&gt; <span class="string">'cf2'</span>  
 		enable <span class="string">'mtable'</span>
 </pre></td></tr></table></figure>
