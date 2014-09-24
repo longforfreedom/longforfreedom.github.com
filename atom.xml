@@ -4,7 +4,7 @@
   <subtitle><![CDATA[一路走来，一路唱]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://www.migle.me/"/>
-  <updated>2014-09-09T08:55:29.643Z</updated>
+  <updated>2014-09-24T03:01:44.676Z</updated>
   <id>http://www.migle.me/</id>
   
   <author>
@@ -251,7 +251,7 @@ yum install freetype<span class="attribute">-devel</span> libpng<span class="att
     <link href="http://www.migle.me/post/cdh5%E4%BC%AA%E5%88%86%E5%B8%83%E5%BC%8F%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/"/>
     <id>http://www.migle.me/post/cdh5伪分布式环境搭建/</id>
     <published>2014-04-30T05:59:23.000Z</published>
-    <updated>2014-09-09T08:55:25.000Z</updated>
+    <updated>2014-09-24T02:41:41.000Z</updated>
     <content type="html"><![CDATA[<h2 id="说明：">说明：</h2>
 <ol>
 <li><p>本文描述的是基于Windows+虚拟机+CentOS的Hadoop+HBase的开发环境搭建过程，使用的Hadoop版本是CDH5(Cloudera Distribution including Apache Hadoop，CDH)，旨在说明HADOOP的伪分布式环境搭建关键步骤。CDH5与Hadoop的关系，Hadoop、Hbase、Zookeeper之间的关系，及文中涉及的一些工具、命令的使用等与本文有关系不是特别密切的东西都没有详细说明,想了解更多请：<a href="http://www.google.com" target="_blank" rel="external">http://www.google.com</a></p>
@@ -311,7 +311,7 @@ yum install freetype<span class="attribute">-devel</span> libpng<span class="att
 </ul>
 <figure class="highlight"><table><tr><td class="gutter"><pre>1
 </pre></td><td class="code"><pre><span class="number">192.168</span><span class="number">.242</span><span class="number">.129</span>   centos<span class="preprocessor">.migle</span>
-</pre></td></tr></table></figure><br>&gt;&gt;以上需要按实际情况做修改<strong>192.168.242.129</strong>是文中虚拟机地址， <strong>centos.migle</strong>是文中虚拟机HOSTNAME，下文中不再特别说明，如有出现请按自已实际对应做修改<br><br>&gt;&gt;<em>估计不用虚拟机IP和HOSTNAME做映射也是可以，用一个新名字映射虚拟机IP也是可以的!！</em><br><br><br><em> CentOS默认iptables是开的，可以这样查看状态<code>service iptables status</code> 而本文描述的是在虚拟机中安装的Hadoop，会在宿主机中通过WEB UI或客户端的形式访问虚拟机中的Hadoop所以为方便起见把Iptables给关了：<code>service stop iptables</code> 可以直接设成开机不启动<code>chkconfig iptables off</code>免得麻烦<br><br><br>### 软件环境<br>1. JDK安装<br>先检查是否已经安装<code>java  -version</code>环境变量是否已经设置<code>echo $JAVA_HOME</code> 如果没安装继续看下面，如果都没问题进入<br><a href="#ssh_install">下一步</a><br>    1. 下载    ：<a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk7-downloads-1880260.html" target="_blank" rel="external">http://www.oracle.com/technetwork/java/javase/downloads/jdk7-downloads-1880260.html</a><br>    2. 安装：rpm -i jdk-7u55-linux-x64.rpm<br><br>    4. 环境变量设置：<strong>/etc/profile</strong>  添加以下内容:<br><br>    <figure class="highlight"><table><tr><td class="gutter"><pre>1
+</pre></td></tr></table></figure><br>&gt;&gt;以上需要按实际情况做修改<strong>192.168.242.129</strong>是文中虚拟机地址， <strong>centos.migle</strong>是文中虚拟机HOSTNAME，下文中不再特别说明，如有出现请按自已实际对应做修改<br><br>&gt;&gt;<em>估计不用虚拟机IP和HOSTNAME做映射也是可以，用一个新名字映射虚拟机IP也是可以的!！</em><br><br><br><em> CentOS默认iptables是开的，可以这样查看状态<code>service iptables status</code> 而本文描述的是在虚拟机中安装的Hadoop，会在宿主机中通过WEB UI或客户端的形式访问虚拟机中的Hadoop所以为方便起见把Iptables给关了：<code>service  iptables stop</code> 可以直接设成开机不启动<code>chkconfig iptables off</code>免得麻烦<br><br><br>### 软件环境<br>1. JDK安装<br>先检查是否已经安装<code>java  -version</code>环境变量是否已经设置<code>echo $JAVA_HOME</code> 如果没安装继续看下面，如果都没问题进入<br><a href="#ssh_install">下一步</a><br>    1. 下载    ：<a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk7-downloads-1880260.html" target="_blank" rel="external">http://www.oracle.com/technetwork/java/javase/downloads/jdk7-downloads-1880260.html</a><br>    2. 安装：rpm -i jdk-7u55-linux-x64.rpm<br><br>    4. 环境变量设置：<strong>/etc/profile</strong>  添加以下内容:<br><br>    <figure class="highlight"><table><tr><td class="gutter"><pre>1
 2
 3
 </pre></td><td class="code"><pre>		<span class="keyword">export</span> JAVA_HOME=/usr/java/jdk1.<span class="number">7.0</span>_55
