@@ -90,7 +90,7 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
     </p>
   <p class="article-time">
     <time datetime="2014-01-12T06:55:07.000Z" itemprop="datePublished">1月 12 2014</time>
-    更新日期:<time datetime="2014-07-21T04:05:52.000Z" itemprop="dateModified">7月 21 2014</time>
+    更新日期:<time datetime="2014-10-27T02:52:05.000Z" itemprop="dateModified">10月 27 2014</time>
     
   </p>
 </header>
@@ -120,7 +120,7 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
 <p><code>git branch</code>   #列出当前本地所有分支<br><code>git branch -a</code> #列出当前本地及远程所有分支<br><code>git branch --no-merged</code> #查看没有合并的分支<br><code>git branch 分支名</code>  #创建本地分支，直接使用<code>git push</code>本地新创建的分支不会推送到远程<br><code>git checkout -b 分支名</code> #创建新分支并立即切换到新分支<br><code>git merge 分支名</code>  #合并到当前分支 ，如有冲突的话，会报错，需要手工处理完成后commit,再push远程<br><code>git push 远程仓库名 分支名</code>   #推送本地分支到远程仓库<br><code>git push --all</code>             #推送本地所有分支到远程仓库<br><code>git push origin --delete 分支名</code> #删除远程分支<br><code>git branch -d branhname</code>  #删除本地分支，如果是没有合并的分支，用-D删除<br>“.git/HEAD”这个文件里保存的是我们当前在哪个分支上工作的信息。  </p>
 <h2 id="tag">tag</h2>
 <h2 id="日志及恢复">日志及恢复</h2>
-<p><em>注意</em> untracked的文件git是恢复不了的！！<br><code>git log</code>     查看日志<br><code>git log --pretty=oneline</code> 美化一下输出日志<br><code>git reset --hard HEAD</code>  恢复工作目录到上次提交时的状态<br><code>git checkout -- filename</code> 恢复单个文件到上次提交时的状态<br><code>git checkout SHA-1</code>  恢复工作目录到某一次提交时<br><code>git checkout SHA-1 filename</code>  恢复单个文件到某一次提交时</p>
+<p><em>注意</em> untracked的文件git是恢复不了的！！<br><code>git log</code>     查看日志<br><code>git log --pretty=oneline</code> 美化一下输出日志<br><code>git reset --hard HEAD^</code>  恢复工作目录到上次提交时的状态<br><code>git reset  –hard HEAD~10</code> 恢复工作目录到前10次提交时的状态<br><code>git checkout -- filename</code> 恢复单个文件到上次提交时的状态<br><code>git checkout SHA-1</code>  恢复工作目录到某一次提交时<br><code>git checkout SHA-1 filename</code>  恢复单个文件到某一次提交时</p>
 <p><code>git reset xxx</code><br><code>git reflog</code><br><code>git cat-file</code></p>
 <h2 id="diff_&amp;&amp;_patch">diff &amp;&amp; patch</h2>
 <ol>
