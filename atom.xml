@@ -4,7 +4,7 @@
   <subtitle><![CDATA[一路走来，一路唱]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://www.migle.me/"/>
-  <updated>2014-10-30T07:12:19.702Z</updated>
+  <updated>2014-10-30T07:50:54.181Z</updated>
   <id>http://www.migle.me/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://www.migle.me/post/Spark%E5%AD%A6%E4%B9%A0-1/"/>
     <id>http://www.migle.me/post/Spark学习-1/</id>
     <published>2014-08-28T09:49:44.000Z</published>
-    <updated>2014-10-30T07:12:07.000Z</updated>
+    <updated>2014-10-30T07:50:45.000Z</updated>
     <content type="html"><![CDATA[<h2 id="环境">环境</h2>
 <p>下载： wget xxxxxxxxx</p>
 <p>单机：</p>
@@ -121,7 +121,7 @@ private[spark] val executorMemory = conf<span class="preprocessor">.getOption</s
 </code></pre><p>或一直循环打印类似下面信息</p>
 <pre><code><span class="number">14</span>/<span class="number">10</span>/<span class="number">30</span> <span class="number">12</span>:<span class="number">02</span>:<span class="number">25</span> WARN scheduler.TaskSchedulerImpl: Initial job <span class="keyword">has</span> <span class="keyword">not</span> accepted any resources; check your cluster UI <span class="keyword">to</span> <span class="keyword">ensure</span> that workers are registered <span class="keyword">and</span> have sufficient memory
 </code></pre><h2 id="日志">日志</h2>
-<p> ClassPath中增加log4j.properties，算定义日志输出</p>
+<p> src/main/resouces/ 目录下增加 <em>log4j.properties</em> 自定义日志输出</p>
 <h2 id="在Web应用中">在Web应用中</h2>
 <blockquote>
 <blockquote>
