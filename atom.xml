@@ -4,7 +4,7 @@
   <subtitle><![CDATA[一路走来，一路唱]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://www.migle.me/"/>
-  <updated>2014-10-30T06:32:13.194Z</updated>
+  <updated>2014-10-30T06:58:54.288Z</updated>
   <id>http://www.migle.me/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://www.migle.me/post/Spark%E5%AD%A6%E4%B9%A0-1/"/>
     <id>http://www.migle.me/post/Spark学习-1/</id>
     <published>2014-08-28T09:49:44.000Z</published>
-    <updated>2014-10-30T06:31:56.000Z</updated>
+    <updated>2014-10-30T06:58:42.000Z</updated>
     <content type="html"><![CDATA[<h2 id="环境">环境</h2>
 <p>下载： wget xxxxxxxxx</p>
 <p>单机：</p>
@@ -100,8 +100,11 @@ println(<span class="string">"总共："</span> + lines)
 <p><em>注意：</em></p>
 <ol>
 <li>可能需要设置一下 $SPARK_HOME/spark-env.sh 在其中添加以下<br> SPARK_WORKER_MEMORY=1000m     ## 根据实际情况<br> SPARK_MASTER_IP=192.168.242.130  ## 最好直接设置成Master的IP，否则会取成<code>hostname</code></li>
-<li>SPARK_WORKER_MEMORY的值不能小于SparkConf中<em>spark.executor.memory</em>中设置的值，否则会出现后面的错误，spark.executor.memory默认如何取值后面再分析</li>
-<li>Driver如果和Master没在同一机器上时可能需要修改一下hosts文件，因为Driver程序取的主机名格式为 <em>xxxx.mshome.net</em> 而不是IP，所以需要在Master的hosts文件添加Driver和主机名和IP的映射，即使在设置了spark.driver.host也不启作用,原因后缀分析</li>
+<li><p>SPARK_WORKER_MEMORY的值不能小于SparkConf中<em>spark.executor.memory</em>中设置的值，否则会出现后面的错误，spark.executor.memory默认会取512MB，代码如下</p>
+<p> //SparkContext<br> private[spark] val executorMemory = conf.getOption(“spark.executor.memory”)<br> .orElse(Option(System.getenv(“SPARK_EXECUTOR_MEMORY”)))<br> .orElse(Option(System.getenv(“SPARK_MEM”)).map(warnSparkMem))<br> .map(Utils.memoryStringToMb)<br> .getOrElse(512)</p>
+</li>
+<li><p>Driver如果和Master没在同一机器上时可能需要修改一下hosts文件，因为Driver程序取的主机名格式为 <em>xxxx.mshome.net</em> 而不是IP，所以需要在Master的hosts文件添加Driver和主机名和IP的映射，即使在设置了spark.driver.host也不启作用,原因后缀分析</p>
+</li>
 </ol>
 <p>否则会出现以下错误：</p>
 <pre><code><span class="number">14</span>/<span class="number">08</span>/<span class="number">28</span> <span class="number">14</span>:<span class="number">05</span>:<span class="number">42</span> WARN TaskSchedulerImpl: Initial job has <span class="keyword">not</span> accepted any resources; check your cluster UI <span class="keyword">to</span> ensure <span class="keyword">that</span>     workers are registered <span class="keyword">and</span> have sufficient memory
