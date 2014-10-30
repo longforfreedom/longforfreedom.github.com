@@ -92,7 +92,7 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
     </p>
   <p class="article-time">
     <time datetime="2014-08-28T09:49:44.000Z" itemprop="datePublished">8月 28 2014</time>
-    更新日期:<time datetime="2014-10-30T04:10:00.000Z" itemprop="dateModified">10月 30 2014</time>
+    更新日期:<time datetime="2014-10-30T04:17:26.000Z" itemprop="dateModified">10月 30 2014</time>
     
   </p>
 </header>
@@ -183,14 +183,8 @@ println(<span class="string">"总共："</span> + lines)
 </code></pre><p>运行：<code>sbt run</code></p>
 <p><em>注意：</em></p>
 <ol>
-<li><p>可能需要设置一下 $SPARK_HOME/spark-env.sh 在其中添加以下</p>
-<p> SPARK_WORKER_MEMORY=1000m     ## 根据实际情况<br> SPARK_MASTER_IP=192.168.242.130  ## 最好直接设置成Master的IP，否则会取成<code>hostname</code></p>
-</li>
-</ol>
-<ol>
+<li>可能需要设置一下 $SPARK_HOME/spark-env.sh 在其中添加以下<br> SPARK_WORKER_MEMORY=1000m     ## 根据实际情况<br> SPARK_MASTER_IP=192.168.242.130  ## 最好直接设置成Master的IP，否则会取成<code>hostname</code></li>
 <li>SPARK_WORKER_MEMORY的值不能小于SparkConf中<em>spark.executor.memory</em>中设置的值，否则会出现后面的错误，spark.executor.memory默认如何取值后面再分析</li>
-</ol>
-<ol>
 <li>Driver如果和Master没在同一机器上时可能需要修改一下hosts文件，因为Driver程序取的主机名格式为 <em>xxxx.mshome.net</em> 而不是IP，所以通信会出问题，即使在设置了spark.driver.host也不启作用,原因后缀分析</li>
 </ol>
 <p>否则会出现以下错误：</p>
