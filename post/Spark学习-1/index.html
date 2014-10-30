@@ -92,7 +92,7 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
     </p>
   <p class="article-time">
     <time datetime="2014-08-28T09:49:44.000Z" itemprop="datePublished">8月 28 2014</time>
-    更新日期:<time datetime="2014-10-21T03:08:45.000Z" itemprop="dateModified">10月 21 2014</time>
+    更新日期:<time datetime="2014-10-30T04:10:00.000Z" itemprop="dateModified">10月 30 2014</time>
     
   </p>
 </header>
@@ -101,7 +101,7 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
 		
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
-		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#环境"><span class="toc-number">1.</span> <span class="toc-text">环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#spark_shell"><span class="toc-number">2.</span> <span class="toc-text">spark shell</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#独立程序"><span class="toc-number">3.</span> <span class="toc-text">独立程序</span></a></li><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#spark-submit"><span class="toc-number">3.1.</span> <span class="toc-text">spark-submit</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#sbt中运行"><span class="toc-number">3.2.</span> <span class="toc-text">sbt中运行</span></a></li></ol><li class="toc-item toc-level-2"><a class="toc-link" href="#在Web应用中"><span class="toc-number">4.</span> <span class="toc-text">在Web应用中</span></a></li></ol>
+		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#环境"><span class="toc-number">1.</span> <span class="toc-text">环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#spark_shell"><span class="toc-number">2.</span> <span class="toc-text">spark shell</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#独立程序"><span class="toc-number">3.</span> <span class="toc-text">独立程序</span></a></li><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#sbt管理项目"><span class="toc-number">3.1.</span> <span class="toc-text">sbt管理项目</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#spark-submit"><span class="toc-number">3.2.</span> <span class="toc-text">spark-submit</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#sbt中运行"><span class="toc-number">3.3.</span> <span class="toc-text">sbt中运行</span></a></li></ol><li class="toc-item toc-level-2"><a class="toc-link" href="#在Web应用中"><span class="toc-number">4.</span> <span class="toc-text">在Web应用中</span></a></li></ol>
 		</div>
 		
 		<h2 id="环境">环境</h2>
@@ -138,11 +138,29 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
 <h2 id="spark_shell">spark shell</h2>
 <p>$SPARK_HOME/bin/spark-shell<br>可以不用先启动Master或集群环境，也可以连接到集群</p>
 <h2 id="独立程序">独立程序</h2>
-<h3 id="spark-submit">spark-submit</h3>
+<h3 id="sbt管理项目">sbt管理项目</h3>
+<p><em>项目文件：spark-learn.sbt:</em></p>
+<pre><code>name := <span class="string">"spark-learn"</span>
+
+<span class="built_in">version</span> := <span class="string">"1.0"</span>
+
+scalaVersion := <span class="string">"2.10.4"</span>
+
+libraryDependencies += <span class="string">"org.apache.spark"</span> %% <span class="string">"spark-core"</span> % <span class="string">"1.1.0"</span>
+
+resolvers += <span class="string">"Akka Repository"</span> <span class="keyword">at</span> <span class="string">"http://repo.akka.io/releases/"</span>
+
+<span class="comment">
+//如果要从HDFS读写时需要</span>
+<span class="comment">
+//libraryDependencies += "org.apache.hadoop" % "hadoop-client" % "2.3.0"</span>
+
+resolvers += <span class="string">"Akka Repository"</span> <span class="keyword">at</span> <span class="string">"http://repo.akka.io/releases/"</span>
+</code></pre><h3 id="spark-submit">spark-submit</h3>
 <p>可以不用先启动Master或集群环境<br>关键代码 <em>可以不用设置Master URL</em></p>
-<pre><code>    <span class="keyword">val</span> conf = <span class="keyword">new</span> SparkConf().setAppName(<span class="string">"Simple Application"</span>)
-    <span class="keyword">val</span> sc = <span class="keyword">new</span> SparkContext(conf)
-    <span class="keyword">val</span> rdd = sc.textFile(args(<span class="number">0</span>)) <span class="comment">//.cache()</span>
+<pre><code><span class="keyword">val</span> conf = <span class="keyword">new</span> SparkConf().setAppName(<span class="string">"Simple Application"</span>)
+<span class="keyword">val</span> sc = <span class="keyword">new</span> SparkContext(conf)
+<span class="keyword">val</span> rdd = sc.textFile(args(<span class="number">0</span>)) <span class="comment">//.cache()</span>
 <span class="keyword">val</span> lines  = rdd.count();
 println(<span class="string">"总共："</span> + lines)
 </code></pre><p>运行：<br>        打包：<code>sbt package</code><br>        提交运行<br>        /opt/spark-1.0.2-bin-hadoop2/bin/spark-submit —class “com.qhbi.etl.ETL”   ./target/scala-2.10/spark-learn_2.10-1.0.jar  ./README.md<br>        jar包位置 <em>./target/scala-2.10/spark-learn_2.10-1.0.jar</em> 必须提供<br>        运行参数：<em>./README.md</em> 根据实际情况  </p>
@@ -156,16 +174,35 @@ println(<span class="string">"总共："</span> + lines)
 </code></pre><h3 id="sbt中运行">sbt中运行</h3>
 <p><em>首先需要启动Master和Worker</em></p>
 <p>关键代码：<em>必须要设置Master URL</em></p>
-<pre><code>    <span class="keyword">val</span> conf = <span class="keyword">new</span> SparkConf()
-                            .setAppName(<span class="string">"Simple Application"</span>)  
-                            .setMaster(<span class="string">"spark://192.168.242.130:7077"</span>)  
-    <span class="keyword">val</span> sc = <span class="keyword">new</span> SparkContext(conf)  
+<pre><code>    val conf = new SparkConf()
+                            <span class="preprocessor">.setAppName</span>(<span class="string">"Simple Application"</span>)  
+                            <span class="preprocessor">.setMaster</span>(<span class="string">"spark://192.168.242.130:7077"</span>) 
+                            <span class="preprocessor">.set</span>(<span class="string">"spark.executor.memory"</span>,<span class="string">"100m"</span>) //<span class="string">"spark.executor.memory"</span>值不能大于SPARK_WORKER_MEMORY中的值,根据实际情况设置
+                            //<span class="keyword">set</span>(<span class="string">"spark.driver.host"</span>, <span class="string">"192.168.242.1"</span>)
+    val sc = new SparkContext(conf)  
 </code></pre><p>运行：<code>sbt run</code></p>
-<p><em>注意：</em> 可能需要设置一下 $SPARK_HOME/spark-env.sh<br>在其中添加以下</p>
-<p>SPARK_WORKER_MEMORY=1000m     ## 根据实际情况<br>SPARK_MASTER_IP=192.168.242.130  ## 最好直接设置成Master的IP，否则会取成<code>hostname</code></p>
+<p><em>注意：</em></p>
+<ol>
+<li><p>可能需要设置一下 $SPARK_HOME/spark-env.sh 在其中添加以下</p>
+<p> SPARK_WORKER_MEMORY=1000m     ## 根据实际情况<br> SPARK_MASTER_IP=192.168.242.130  ## 最好直接设置成Master的IP，否则会取成<code>hostname</code></p>
+</li>
+</ol>
+<ol>
+<li>SPARK_WORKER_MEMORY的值不能小于SparkConf中<em>spark.executor.memory</em>中设置的值，否则会出现后面的错误，spark.executor.memory默认如何取值后面再分析</li>
+</ol>
+<ol>
+<li>Driver如果和Master没在同一机器上时可能需要修改一下hosts文件，因为Driver程序取的主机名格式为 <em>xxxx.mshome.net</em> 而不是IP，所以通信会出问题，即使在设置了spark.driver.host也不启作用,原因后缀分析</li>
+</ol>
 <p>否则会出现以下错误：</p>
-<p>14/08/28 14:05:42 WARN TaskSchedulerImpl: Initial job has not accepted any resources; check your cluster UI to ensure that workers are registered and have sufficient memory<br>14/08/28 14:05:55 ERROR SparkDeploySchedulerBackend: Application has been killed. Reason: All masters are unresponsive! Giving up.<br>14/08/28 14:05:55 INFO TaskSchedulerImpl: Removed TaskSet 0.0, whose tasks have all completed, from pool<br>14/08/28 14:05:55 INFO TaskSchedulerImpl: Cancelling stage 0<br>14/08/28 14:05:55 INFO DAGScheduler: Failed to run count at ETL.scala:22<br>[error] (run-main-0) org.apache.spark.SparkException: Job aborted due to stage failure: All masters are unresponsive! Giving up.  </p>
-<h2 id="在Web应用中">在Web应用中</h2>
+<pre><code><span class="number">14</span>/<span class="number">08</span>/<span class="number">28</span> <span class="number">14</span>:<span class="number">05</span>:<span class="number">42</span> WARN TaskSchedulerImpl: Initial job has <span class="keyword">not</span> accepted any resources; check your cluster UI <span class="keyword">to</span> ensure <span class="keyword">that</span>     workers are registered <span class="keyword">and</span> have sufficient memory
+<span class="number">14</span>/<span class="number">08</span>/<span class="number">28</span> <span class="number">14</span>:<span class="number">05</span>:<span class="number">55</span> ERROR SparkDeploySchedulerBackend: Application has been killed. Reason: All masters are unresponsive! Giving     up.  
+<span class="number">14</span>/<span class="number">08</span>/<span class="number">28</span> <span class="number">14</span>:<span class="number">05</span>:<span class="number">55</span> INFO TaskSchedulerImpl: Removed TaskSet <span class="number">0.0</span>, <span class="keyword">whose</span> tasks have all completed, <span class="keyword">from</span> pool  
+<span class="number">14</span>/<span class="number">08</span>/<span class="number">28</span> <span class="number">14</span>:<span class="number">05</span>:<span class="number">55</span> INFO TaskSchedulerImpl: Cancelling stage <span class="number">0</span>  
+<span class="number">14</span>/<span class="number">08</span>/<span class="number">28</span> <span class="number">14</span>:<span class="number">05</span>:<span class="number">55</span> INFO DAGScheduler: Failed <span class="keyword">to</span> <span class="command">run</span> <span class="command">count</span> <span class="keyword">at</span> ETL.scala:<span class="number">22</span>
+[<span class="keyword">error</span>] (<span class="command">run</span>-main-<span class="number">0</span>) org.apache.spark.SparkException: Job aborted due <span class="keyword">to</span> stage failure: All masters are unresponsive! Giving up.  
+</code></pre><p>或一直循环打印类似下面信息</p>
+<pre><code><span class="number">14</span>/<span class="number">10</span>/<span class="number">30</span> <span class="number">12</span>:<span class="number">02</span>:<span class="number">25</span> WARN scheduler.TaskSchedulerImpl: Initial job <span class="keyword">has</span> <span class="keyword">not</span> accepted any resources; check your cluster UI <span class="keyword">to</span> <span class="keyword">ensure</span> that workers are registered <span class="keyword">and</span> have sufficient memory
+</code></pre><h2 id="在Web应用中">在Web应用中</h2>
 <blockquote>
 <blockquote>
 <p>@TODO</p>
@@ -240,7 +277,7 @@ println(<span class="string">"总共："</span> + lines)
 
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
-  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#环境"><span class="toc-number">1.</span> <span class="toc-text">环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#spark_shell"><span class="toc-number">2.</span> <span class="toc-text">spark shell</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#独立程序"><span class="toc-number">3.</span> <span class="toc-text">独立程序</span></a></li><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#spark-submit"><span class="toc-number">3.1.</span> <span class="toc-text">spark-submit</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#sbt中运行"><span class="toc-number">3.2.</span> <span class="toc-text">sbt中运行</span></a></li></ol><li class="toc-item toc-level-2"><a class="toc-link" href="#在Web应用中"><span class="toc-number">4.</span> <span class="toc-text">在Web应用中</span></a></li></ol>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#环境"><span class="toc-number">1.</span> <span class="toc-text">环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#spark_shell"><span class="toc-number">2.</span> <span class="toc-text">spark shell</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#独立程序"><span class="toc-number">3.</span> <span class="toc-text">独立程序</span></a></li><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#sbt管理项目"><span class="toc-number">3.1.</span> <span class="toc-text">sbt管理项目</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#spark-submit"><span class="toc-number">3.2.</span> <span class="toc-text">spark-submit</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#sbt中运行"><span class="toc-number">3.3.</span> <span class="toc-text">sbt中运行</span></a></li></ol><li class="toc-item toc-level-2"><a class="toc-link" href="#在Web应用中"><span class="toc-number">4.</span> <span class="toc-text">在Web应用中</span></a></li></ol>
   </div>
 
 <div id="asidepart">
