@@ -92,7 +92,7 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
     </p>
   <p class="article-time">
     <time datetime="2014-08-28T09:49:44.000Z" itemprop="datePublished">8月 28 2014</time>
-    更新日期:<time datetime="2014-10-30T04:19:32.000Z" itemprop="dateModified">10月 30 2014</time>
+    更新日期:<time datetime="2014-10-30T06:31:56.000Z" itemprop="dateModified">10月 30 2014</time>
     
   </p>
 </header>
@@ -101,7 +101,7 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
 		
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
-		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#环境"><span class="toc-number">1.</span> <span class="toc-text">环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#spark_shell"><span class="toc-number">2.</span> <span class="toc-text">spark shell</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#独立程序"><span class="toc-number">3.</span> <span class="toc-text">独立程序</span></a></li><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#sbt管理项目"><span class="toc-number">3.1.</span> <span class="toc-text">sbt管理项目</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#spark-submit"><span class="toc-number">3.2.</span> <span class="toc-text">spark-submit</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#sbt中运行"><span class="toc-number">3.3.</span> <span class="toc-text">sbt中运行</span></a></li></ol><li class="toc-item toc-level-2"><a class="toc-link" href="#在Web应用中"><span class="toc-number">4.</span> <span class="toc-text">在Web应用中</span></a></li></ol>
+		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#环境"><span class="toc-number">1.</span> <span class="toc-text">环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#spark_shell"><span class="toc-number">2.</span> <span class="toc-text">spark shell</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#独立程序"><span class="toc-number">3.</span> <span class="toc-text">独立程序</span></a></li><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#sbt管理项目"><span class="toc-number">3.1.</span> <span class="toc-text">sbt管理项目</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#spark-submit"><span class="toc-number">3.2.</span> <span class="toc-text">spark-submit</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#sbt中运行"><span class="toc-number">3.3.</span> <span class="toc-text">sbt中运行</span></a></li></ol><li class="toc-item toc-level-2"><a class="toc-link" href="#日志"><span class="toc-number">4.</span> <span class="toc-text">日志</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#在Web应用中"><span class="toc-number">5.</span> <span class="toc-text">在Web应用中</span></a></li></ol>
 		</div>
 		
 		<h2 id="环境">环境</h2>
@@ -196,7 +196,9 @@ println(<span class="string">"总共："</span> + lines)
 [<span class="keyword">error</span>] (<span class="command">run</span>-main-<span class="number">0</span>) org.apache.spark.SparkException: Job aborted due <span class="keyword">to</span> stage failure: All masters are unresponsive! Giving up.  
 </code></pre><p>或一直循环打印类似下面信息</p>
 <pre><code><span class="number">14</span>/<span class="number">10</span>/<span class="number">30</span> <span class="number">12</span>:<span class="number">02</span>:<span class="number">25</span> WARN scheduler.TaskSchedulerImpl: Initial job <span class="keyword">has</span> <span class="keyword">not</span> accepted any resources; check your cluster UI <span class="keyword">to</span> <span class="keyword">ensure</span> that workers are registered <span class="keyword">and</span> have sufficient memory
-</code></pre><h2 id="在Web应用中">在Web应用中</h2>
+</code></pre><h2 id="日志">日志</h2>
+<p> ClassPath中增加log4j.properties，算定义日志输出</p>
+<h2 id="在Web应用中">在Web应用中</h2>
 <blockquote>
 <blockquote>
 <p>@TODO</p>
@@ -271,7 +273,7 @@ println(<span class="string">"总共："</span> + lines)
 
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
-  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#环境"><span class="toc-number">1.</span> <span class="toc-text">环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#spark_shell"><span class="toc-number">2.</span> <span class="toc-text">spark shell</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#独立程序"><span class="toc-number">3.</span> <span class="toc-text">独立程序</span></a></li><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#sbt管理项目"><span class="toc-number">3.1.</span> <span class="toc-text">sbt管理项目</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#spark-submit"><span class="toc-number">3.2.</span> <span class="toc-text">spark-submit</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#sbt中运行"><span class="toc-number">3.3.</span> <span class="toc-text">sbt中运行</span></a></li></ol><li class="toc-item toc-level-2"><a class="toc-link" href="#在Web应用中"><span class="toc-number">4.</span> <span class="toc-text">在Web应用中</span></a></li></ol>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#环境"><span class="toc-number">1.</span> <span class="toc-text">环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#spark_shell"><span class="toc-number">2.</span> <span class="toc-text">spark shell</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#独立程序"><span class="toc-number">3.</span> <span class="toc-text">独立程序</span></a></li><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#sbt管理项目"><span class="toc-number">3.1.</span> <span class="toc-text">sbt管理项目</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#spark-submit"><span class="toc-number">3.2.</span> <span class="toc-text">spark-submit</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#sbt中运行"><span class="toc-number">3.3.</span> <span class="toc-text">sbt中运行</span></a></li></ol><li class="toc-item toc-level-2"><a class="toc-link" href="#日志"><span class="toc-number">4.</span> <span class="toc-text">日志</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#在Web应用中"><span class="toc-number">5.</span> <span class="toc-text">在Web应用中</span></a></li></ol>
   </div>
 
 <div id="asidepart">
