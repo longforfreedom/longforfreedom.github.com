@@ -4,7 +4,7 @@
   <subtitle><![CDATA[一路走来，一路唱]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://www.migle.me/"/>
-  <updated>2014-10-30T08:04:08.643Z</updated>
+  <updated>2014-11-07T09:58:53.506Z</updated>
   <id>http://www.migle.me/</id>
   
   <author>
@@ -13,6 +13,132 @@
   </author>
   
   <generator uri="http://zespia.tw/hexo/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[Spark学习-Windows下环境搭建]]></title>
+    <link href="http://www.migle.me/post/Spark%E5%AD%A6%E4%B9%A0-Windows%E4%B8%8B%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/"/>
+    <id>http://www.migle.me/post/Spark学习-Windows下环境搭建/</id>
+    <published>2014-11-05T09:49:44.000Z</published>
+    <updated>2014-11-07T09:58:12.000Z</updated>
+    <content type="html"><![CDATA[<p>本说描述了spark在Win 8下通过IntelliJ IDEA从github下载代码、构建、运行、测试的详细过程,此过程涉及的相关软件的安装及配置不再详细描述</p>
+<h2 id="环境">环境</h2>
+<ol>
+<li>操作系统：Win8 64</li>
+<li>JDK：1.8</li>
+<li>maven:3.0.2<blockquote>
+<blockquote>
+<p>配置好M2_HOME后，IDEA会自动检测到maven </p>
+</blockquote>
+</blockquote>
+</li>
+<li>git:1.9.0</li>
+<li>IntelliJ IDEA 13.1.5   </li>
+</ol>
+<h2 id="构建Spark">构建Spark</h2>
+<h3 id="导入源码">导入源码</h3>
+<blockquote>
+<blockquote>
+<p>注意:这里需要安装好git，也可以直接下载Spark源码包，导入到IDEA中  </p>
+</blockquote>
+</blockquote>
+<ul>
+<li><p>在IDEA中”VCS”-&gt;”checkout from version control” -&gt; “github” 输入Spark在github上的仓库地址 <a href="https://github.com/apache/spark.git如下图：" target="_blank" rel="external">https://github.com/apache/spark.git如下图：</a><br><img src="/images/spark-build/spark-source-env-clone.gif" alt="clone from github">    </p>
+</li>
+<li><p>等待Spark源码下载完成会提示是否要打开”pom.xml” 点”yes” 然后等待Spark工程导入完毕，打开“project”（快捷键：alt+1）如下图所示:<br><img src="/images/spark-build/spark-source-env-clone-3.gif" alt="clone from github"></p>
+</li>
+</ul>
+<h3 id="构建">构建</h3>
+<ol>
+<li><p>命令行中构建<br> <code>mvn  -Phadoop-2.4 -Dhadoop.version=2.4.0 -Phive -DskipTests clean package</code></p>
+</li>
+<li><p>IDEA中构建</p>
+<ul>
+<li><em>maven设置</em> 打开”file” -&gt; “setting” -&gt; “maven” -&gt; “runner” 选中”skip tests”  </li>
+<li><em>选择Profiles</em> 打开”view” -&gt; “tool windows” -&gt;”maven projects” 根据需要选择Profiles：<br><img src="/images/spark-build/spark-source-env-build.gif" alt="clone from github"></li>
+<li><em>构建</em> 在”maven projects”打开”spark project parent POM” -&gt;”lifecycle” 选择“run maven build” 等待执行结果<br><img src="/images/spark-build/spark-source-env-build-2.gif" alt="clone from github"></li>
+<li><em>构建结果</em><br><img src="/images/spark-build/spark-source-env-build-3.gif" alt="clone from github"></li>
+</ul>
+</li>
+</ol>
+<p>构建成功时会在目录assembly/target/scala-2.10下生成Jar包</p>
+<blockquote>
+<blockquote>
+<p>可以切到某一个稳定的分支上比如1.1上<br><em>IDEA中</em>: 点击右下角状态栏上的”git:master” 选择特定分支后选择”checkout as new local branch”<br><em>命令行中</em>： <code>git checkout -b branch-1.2  remotes/origin/branch-1.2</code>     </p>
+<p>Spark包括多个模块，完整编译一次时间较长，可以修改pom.xml将其<code>&lt;modules&gt;</code>元素中不观注的模块注释掉，然后构建<br>IDEA中方法不变，命令行中可以用<code>mvn   -Dhadoop.version=2.4.0  -DskipTests clean package</code> 可以裁剪到只保留core和其依赖即可</p>
+</blockquote>
+</blockquote>
+<h2 id="运行">运行</h2>
+<ul>
+<li>运行Master<br>在IDEA中运行org.apache.spark.deploy.master.Master 正确运行会有以类似以下信息输出：</li>
+</ul>
+<pre><code>    <span class="number">14</span>/<span class="number">11</span>/<span class="number">07</span> <span class="number">16</span>:<span class="number">27</span>:<span class="number">33</span> INFO Remoting: Starting remoting
+    <span class="number">14</span>/<span class="number">11</span>/<span class="number">07</span> <span class="number">16</span>:<span class="number">27</span>:<span class="number">34</span> INFO Remoting: Remoting started; listening <span class="command"><span class="keyword">on</span> <span class="title">addresses</span> :[<span class="title">akka</span>.<span class="title">tcp</span>://<span class="title">sparkMaster</span>@<span class="title">migle-ailk</span>:<span class="title">7077</span>]</span>
+    <span class="number">14</span>/<span class="number">11</span>/<span class="number">07</span> <span class="number">16</span>:<span class="number">27</span>:<span class="number">34</span> INFO Utils: Successfully started service <span class="string">'sparkMaster'</span> <span class="command"><span class="keyword">on</span> <span class="title">port</span> <span class="title">7077</span>.</span>
+    <span class="number">14</span>/<span class="number">11</span>/<span class="number">07</span> <span class="number">16</span>:<span class="number">27</span>:<span class="number">34</span> INFO Master: Starting Spark master <span class="keyword">at</span> spark://migle-ailk:<span class="number">7077</span>
+    <span class="number">14</span>/<span class="number">11</span>/<span class="number">07</span> <span class="number">16</span>:<span class="number">27</span>:<span class="number">34</span> INFO Utils: Successfully started service <span class="string">'MasterUI'</span> <span class="command"><span class="keyword">on</span> <span class="title">port</span> <span class="title">8080</span>.</span>
+    <span class="number">14</span>/<span class="number">11</span>/<span class="number">07</span> <span class="number">16</span>:<span class="number">27</span>:<span class="number">34</span> INFO MasterWebUI: Started MasterWebUI <span class="keyword">at</span> <span class="keyword">http</span>://migle-ailk:<span class="number">8080</span>
+    <span class="number">14</span>/<span class="number">11</span>/<span class="number">07</span> <span class="number">16</span>:<span class="number">27</span>:<span class="number">34</span> INFO Master: I have been elected leader! New state: ALIVE
+</code></pre><blockquote>
+<blockquote>
+<p>启动功后可以在浏览器中打开 <em>MasterWebUI</em>:<a href="http://migle-ailk:8080" target="_blank" rel="external">http://migle-ailk:8080</a></p>
+</blockquote>
+</blockquote>
+<ul>
+<li>运行Worker<br>在”Run”-&gt;”edit configurations..” org.apache.spark.deploy.worker.Worker加上参数spark://migle-ailk:7077(注意Master启动时的输出信息),配置信息如下图<br><img src="/images/spark-build/spark-source-debug-1.gif" alt="config for running"></li>
+</ul>
+<p>然后运行Worker如果启动成功会以类似以下信息输出</p>
+<pre><code>Using Spark<span class="attribute">'s</span> <span class="keyword">default</span> log4j profile: org/apache/spark/log4j-defaults.properties
+<span class="number">14</span>/<span class="number">11</span>/<span class="number">07</span> <span class="number">16</span>:<span class="number">35</span>:<span class="number">22</span> INFO SecurityManager: Changing view acls <span class="keyword">to</span>: migle
+<span class="number">14</span>/<span class="number">11</span>/<span class="number">07</span> <span class="number">16</span>:<span class="number">35</span>:<span class="number">22</span> INFO SecurityManager: Changing modify acls <span class="keyword">to</span>: migle
+<span class="number">14</span>/<span class="number">11</span>/<span class="number">07</span> <span class="number">16</span>:<span class="number">35</span>:<span class="number">22</span> INFO SecurityManager: SecurityManager: authentication disabled; ui acls disabled; users <span class="keyword">with</span> view permissions: Set(migle); users <span class="keyword">with</span> modify permissions: Set(migle)
+<span class="number">14</span>/<span class="number">11</span>/<span class="number">07</span> <span class="number">16</span>:<span class="number">35</span>:<span class="number">22</span> INFO Slf4jLogger: Slf4jLogger started
+<span class="number">14</span>/<span class="number">11</span>/<span class="number">07</span> <span class="number">16</span>:<span class="number">35</span>:<span class="number">22</span> INFO Remoting: Starting remoting
+<span class="number">14</span>/<span class="number">11</span>/<span class="number">07</span> <span class="number">16</span>:<span class="number">35</span>:<span class="number">23</span> INFO Remoting: Remoting started; listening <span class="keyword">on</span> addresses :[akka.tcp://sparkWorker@migle-ailk:<span class="number">53852</span>]
+<span class="number">14</span>/<span class="number">11</span>/<span class="number">07</span> <span class="number">16</span>:<span class="number">35</span>:<span class="number">23</span> INFO Utils: Successfully started service <span class="attribute">'sparkWorker</span>' <span class="keyword">on</span> <span class="keyword">port</span> <span class="number">53852.</span>
+<span class="number">14</span>/<span class="number">11</span>/<span class="number">07</span> <span class="number">16</span>:<span class="number">35</span>:<span class="number">23</span> INFO Worker: Starting Spark worker migle-ailk:<span class="number">53852</span> <span class="keyword">with</span> <span class="number">2</span> cores, <span class="number">6.9</span> GB RAM
+<span class="number">14</span>/<span class="number">11</span>/<span class="number">07</span> <span class="number">16</span>:<span class="number">35</span>:<span class="number">23</span> INFO Worker: Spark home: .
+<span class="number">14</span>/<span class="number">11</span>/<span class="number">07</span> <span class="number">16</span>:<span class="number">35</span>:<span class="number">23</span> INFO Utils: Successfully started service <span class="attribute">'WorkerUI</span>' <span class="keyword">on</span> <span class="keyword">port</span> <span class="number">8081.</span>
+<span class="number">14</span>/<span class="number">11</span>/<span class="number">07</span> <span class="number">16</span>:<span class="number">35</span>:<span class="number">23</span> INFO WorkerWebUI: Started WorkerWebUI at http://migle-ailk:<span class="number">8081</span>
+<span class="number">14</span>/<span class="number">11</span>/<span class="number">07</span> <span class="number">16</span>:<span class="number">35</span>:<span class="number">23</span> INFO Worker: Connecting <span class="keyword">to</span> master spark://migle-ailk:<span class="number">7077.</span>..
+<span class="number">14</span>/<span class="number">11</span>/<span class="number">07</span> <span class="number">16</span>:<span class="number">35</span>:<span class="number">24</span> INFO Worker: Successfully registered <span class="keyword">with</span> master spark://migle-ailk:<span class="number">7077</span>
+</code></pre><blockquote>
+<blockquote>
+<p>启动成功后可以在MasterWebUI的Workers中看到</p>
+</blockquote>
+</blockquote>
+<ul>
+<li>测试程序</li>
+</ul>
+<p>写一个简单的测试程序,在Spark-core模块中创建FirstSpark,代码如下:</p>
+<pre><code><span class="keyword">import</span> org.apache.spark.{SparkContext, SparkConf}
+
+<span class="javadoc">/**
+ * Created by migle on 2014/11/7.
+ */</span>
+<span class="class"><span class="keyword">object</span> <span class="title">FirstSpark</span> {</span>
+  <span class="keyword">def</span> main(args: Array[String]) {
+    <span class="keyword">val</span> conf = <span class="keyword">new</span> SparkConf().setMaster(<span class="string">"spark://migle-ailk:7077"</span>).setAppName(<span class="string">"FirstApp"</span>);
+    <span class="keyword">val</span> sc = <span class="keyword">new</span> SparkContext(conf)
+    <span class="keyword">val</span> rdd  = sc.textFile(<span class="string">"e:/spark/spark/README.md"</span>).cache()
+    <span class="keyword">val</span> lines = rdd.count()
+    println(<span class="string">"lines:%s"</span>.format(lines));
+  }
+</code></pre><p>运行后如下图所示:<br><img src="/images/spark-build/spark-source-debug-3.gif" alt="config for running"></p>
+<blockquote>
+<blockquote>
+<p>如果构建的时候没有裁掉 <em>repl</em>模块的话也以在命令中启动<code>spark-shell.cmd</code>  </p>
+</blockquote>
+</blockquote>
+]]></content>
+    
+    
+      <category term="spark" scheme="http://www.migle.me/tags/spark/"/>
+    
+      <category term="windows" scheme="http://www.migle.me/tags/windows/"/>
+    
+      <category term="spark" scheme="http://www.migle.me/categories/spark/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[Spark学习-1]]></title>
