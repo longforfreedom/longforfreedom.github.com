@@ -4,7 +4,7 @@
   <subtitle><![CDATA[一路走来，一路唱]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://www.migle.me/"/>
-  <updated>2014-11-07T09:58:53.506Z</updated>
+  <updated>2014-11-10T03:27:46.047Z</updated>
   <id>http://www.migle.me/</id>
   
   <author>
@@ -16,8 +16,8 @@
   
   <entry>
     <title><![CDATA[Spark学习-Windows下环境搭建]]></title>
-    <link href="http://www.migle.me/post/Spark%E5%AD%A6%E4%B9%A0-Windows%E4%B8%8B%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/"/>
-    <id>http://www.migle.me/post/Spark学习-Windows下环境搭建/</id>
+    <link href="http://www.migle.me/post/Spark%E5%AD%A6%E4%B9%A0-Windows%E4%B8%8B%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83/"/>
+    <id>http://www.migle.me/post/Spark学习-Windows下学习环境/</id>
     <published>2014-11-05T09:49:44.000Z</published>
     <updated>2014-11-07T09:58:12.000Z</updated>
     <content type="html"><![CDATA[<p>本说描述了spark在Win 8下通过IntelliJ IDEA从github下载代码、构建、运行、测试的详细过程,此过程涉及的相关软件的安装及配置不再详细描述</p>
@@ -141,11 +141,11 @@
   </entry>
   
   <entry>
-    <title><![CDATA[Spark学习-1]]></title>
-    <link href="http://www.migle.me/post/Spark%E5%AD%A6%E4%B9%A0-1/"/>
-    <id>http://www.migle.me/post/Spark学习-1/</id>
+    <title><![CDATA[Spark学习-Hello Spark]]></title>
+    <link href="http://www.migle.me/post/Spark%E5%AD%A6%E4%B9%A0-hello%20spark/"/>
+    <id>http://www.migle.me/post/Spark学习-hello spark/</id>
     <published>2014-08-28T09:49:44.000Z</published>
-    <updated>2014-10-30T08:04:00.000Z</updated>
+    <updated>2014-11-10T03:27:14.000Z</updated>
     <content type="html"><![CDATA[<h2 id="环境">环境</h2>
 <p>下载： wget xxxxxxxxx</p>
 <p>单机：</p>
